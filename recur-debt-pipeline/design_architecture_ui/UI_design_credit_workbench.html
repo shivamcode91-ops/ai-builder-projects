@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AICA · Credit workbench</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16283A; --muted:#5D6B7A; --faint:#8A97A5;
+  --paper:#F5F7F9; --card:#FFFFFF; --line:#E2E8F0; --line-strong:#CBD5E1;
+  --green:#0B6B4F; --red:#B3261E; --amber:#9A5B00; --blue:#1B4E89; --blue-bg:#EAF1F9;
+  --axis:#97144D; --axis-dark:#7C0F3F;
+  --sans:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --serif:'IBM Plex Serif',Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+button{font-family:var(--sans);cursor:pointer}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:4px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+.topbar{position:sticky;top:0;z-index:40;background:var(--card);border-bottom:1px solid var(--line);
+  border-top:3px solid var(--axis);
+  display:flex;align-items:center;gap:16px;padding:0 20px;height:56px}
+.bankmark{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.banklogo{width:27px;height:27px;border-radius:6px;background:var(--axis);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:600;font-size:15px}
+.bankmark .bw{line-height:1.2}
+.bankmark .bw b{display:block;font-size:13.5px;font-weight:600;letter-spacing:.01em}
+.bankmark .bw span{font-size:10px;color:var(--faint);letter-spacing:.07em;text-transform:uppercase}
+.sourcetag{font-size:10.5px;color:var(--muted);border:1px solid var(--line);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.sourcetag b{color:var(--ink);font-weight:500}
+.tabs{display:flex;height:100%}
+.tab{border:none;background:none;padding:0 13px;font-size:13px;color:var(--muted);height:100%;
+  border-bottom:2px solid transparent;display:flex;align-items:center;gap:7px}
+.tab:hover{color:var(--ink)}
+.tab.active{color:var(--ink);border-bottom-color:var(--ink);font-weight:500}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block;flex-shrink:0}
+.dot.g{background:var(--green)} .dot.a{background:#C98A00} .dot.r{background:var(--red)}
+.topbar .right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.tele{display:flex;gap:11px;font-size:11px;color:var(--muted)}
+.tele b{font-weight:500;color:var(--ink);font-family:var(--mono)}
+.btn{border:1px solid var(--line-strong);background:var(--card);border-radius:6px;
+  padding:6px 13px;font-size:12.5px;color:var(--ink);font-weight:500}
+.btn:hover{background:var(--paper)}
+.btn.primary{background:var(--axis);border-color:var(--axis);color:#fff}
+.btn.primary:hover{background:var(--axis-dark)}
+.btn.quiet{border-color:transparent;color:var(--muted)}
+.btn.quiet:hover{color:var(--ink);background:var(--paper)}
+.btn.on{background:var(--blue-bg);border-color:var(--blue);color:var(--blue)}
+.userchip{display:flex;align-items:center;gap:9px;padding:5px 10px 5px 6px;border:1px solid var(--line);
+  border-radius:8px;background:var(--card)}
+.avatar{width:28px;height:28px;border-radius:50%;background:var(--axis);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;letter-spacing:.03em}
+
+.overlay{position:fixed;inset:0;background:rgba(22,40,58,.45);z-index:70;display:none;
+  align-items:center;justify-content:center;padding:20px}
+.overlay.show{display:flex}
+.modal{background:var(--card);border-radius:12px;width:460px;max-width:94vw;padding:20px 22px;
+  box-shadow:0 18px 50px rgba(22,40,58,.25)}
+.modal h3{font-family:var(--serif);font-size:17px;font-weight:600;margin-bottom:4px}
+.modal .msub{font-size:12px;color:var(--muted);margin-bottom:14px}
+.fold{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:1px solid var(--line);
+  background:var(--card);border-radius:8px;padding:10px 13px;font-size:12.5px;margin-bottom:7px;font-family:var(--mono)}
+.fold:hover{border-color:var(--line-strong);background:var(--paper)}
+.fold .fico{color:var(--faint)}
+.fold b{font-weight:500}
+.fold span.cnt{margin-left:auto;font-size:11px;color:var(--faint)}
+.mrow{display:flex;gap:10px;justify-content:flex-end;margin-top:12px;align-items:center}
+.mrow .hint{margin-right:auto;font-size:11px;color:var(--faint)}
+.plog{font-family:var(--mono);font-size:11.5px;margin-top:6px}
+.pline{display:flex;gap:9px;padding:4px 0;color:var(--faint);align-items:baseline}
+.pline .pmark{width:14px;flex-shrink:0;text-align:center}
+.pline.run{color:var(--ink)}
+.pline.done{color:var(--muted)}
+.pline.done .pmark{color:var(--green)}
+.pline .pcost{margin-left:auto;color:var(--faint);font-size:10.5px}
+.pbar{height:4px;background:var(--paper);border-radius:2px;margin:12px 0 4px;overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--axis);border-radius:2px;width:0%;transition:width .4s}
+
+.scan{position:relative;height:56px;border:1px solid var(--line);border-radius:10px;
+  margin:6px 0 12px;overflow:hidden;background:var(--paper)}
+.scan .docs{position:absolute;top:0;bottom:0;display:flex;align-items:center;gap:10px;
+  padding:0 14px;width:max-content;animation:drift 14s linear infinite}
+.sdoc{font-family:var(--mono);font-size:10px;border:1px solid var(--line-strong);
+  background:var(--card);border-radius:5px;padding:4px 9px;color:var(--muted);white-space:nowrap}
+.scan .beam{position:absolute;top:0;bottom:0;width:110px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(151,20,77,.16),rgba(151,20,77,.05),transparent);
+  border-left:1px solid rgba(151,20,77,.35);animation:beam 1.9s linear infinite}
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes beam{from{left:-110px}to{left:100%}}
+.cellsanim{display:flex;gap:3px;flex-wrap:wrap;margin:0 0 12px}
+.cellsanim i{width:10px;height:14px;border-radius:2px;background:var(--paper);
+  border:1px solid var(--line);transition:background .35s,border-color .35s}
+.cellsanim i.on{background:#BFE0D0;border-color:#8FC7AC}
+.cellsanim i.hot{background:var(--axis);border-color:var(--axis)}
+.pline.run .pmark{animation:pulse 1s ease-in-out infinite;color:var(--axis)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.donestamp{display:inline-block;margin-top:12px;border:1.5px solid var(--green);color:var(--green);
+  border-radius:4px;padding:6px 14px;font-size:12px;font-weight:600;letter-spacing:.11em;
+  text-transform:uppercase;outline:1px solid #BBDCCE;outline-offset:3px;
+  opacity:0;transform:scale(.92);transition:opacity .3s,transform .3s}
+.donestamp.show{opacity:1;transform:scale(1)}
+@media(prefers-reduced-motion:reduce){.scan .docs,.scan .beam,.pline.run .pmark{animation:none}}
+.userchip .who{line-height:1.25;text-align:left}
+.userchip .who b{display:block;font-size:12px;font-weight:500}
+.userchip .who span{font-size:10.5px;color:var(--faint)}
+.userchip .caret{color:var(--faint);font-size:10px}
+
+.layout{display:flex;align-items:flex-start}
+.main{flex:1;min-width:0;max-width:1080px;margin:0 auto;padding:24px 24px 0}
+
+.memo{display:flex;justify-content:space-between;gap:32px;align-items:flex-start;
+  padding:4px 2px 20px;border-bottom:2px solid var(--ink);margin-bottom:16px}
+.eyebrow{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+.memo h1{font-family:var(--serif);font-weight:600;font-size:29px;line-height:1.15}
+.idrow{display:flex;flex-wrap:wrap;gap:6px 20px;margin-top:9px;font-size:12px;color:var(--muted)}
+.idrow span b{font-weight:500;color:var(--ink);font-family:var(--mono);font-size:11.5px}
+.makerline{margin-top:9px;font-size:11px;color:var(--faint)}
+.makerline b{color:var(--muted);font-weight:500}
+.memo .right-col{text-align:right;flex-shrink:0}
+.stamp{display:inline-block;border:1.5px solid;border-radius:4px;padding:7px 16px 6px;background:var(--card);
+  font-size:13px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  outline:1px solid;outline-offset:3px}
+.stamp.approve{color:var(--green);border-color:var(--green);outline-color:#BBDCCE}
+.stamp.cond{color:var(--amber);border-color:var(--amber);outline-color:#E8D6AC}
+.stamp.decline{color:var(--red);border-color:var(--red);outline-color:#EBC7C4}
+.proposed{margin-top:12px;font-size:13px;color:var(--muted)}
+.proposed b{color:var(--ink);font-weight:600}
+.riskline{margin-top:13px;display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.risklabel{font-size:11px;color:var(--faint)}
+.risklabel b{font-family:var(--mono);color:var(--ink);font-weight:500}
+.riskcells{display:flex;gap:3px}
+.riskcells i{width:14px;height:9px;border-radius:2px;background:var(--card);border:1px solid var(--line-strong)}
+.riskcells i.on{background:var(--ink);border-color:var(--ink)}
+
+.stripbox{background:var(--card);border:1px solid var(--line);border-radius:10px;
+  padding:12px 18px;display:flex;align-items:center;gap:16px;margin-bottom:10px;flex-wrap:wrap}
+.striplabel{font-size:12.5px;color:var(--muted)}
+.striplabel b{color:var(--ink);font-weight:600}
+.strip{display:flex;gap:3px;flex-wrap:wrap}
+.cell{width:11px;height:16px;border-radius:2.5px;background:#EAF2EE;border:1px solid #C9DFD3}
+.cell.flag{background:var(--red);border-color:var(--red)}
+.cell.fixed{background:var(--card);border:1.5px dashed var(--amber)}
+.striplegend{margin-left:auto;display:flex;gap:14px;font-size:11px;color:var(--muted)}
+.striplegend i{display:inline-block;width:9px;height:12px;border-radius:2px;margin-right:5px;vertical-align:-2px}
+
+.tray{background:var(--card);border:1px solid var(--line);border-radius:10px;
+  padding:11px 18px;display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.traylabel{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);
+  font-weight:600;margin-right:6px}
+.file{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-family:var(--mono);
+  border:1px solid var(--line);border-radius:6px;padding:4px 10px;color:var(--muted);background:var(--card)}
+.file b{color:var(--ink);font-weight:400}
+.file .st{width:7px;height:7px;border-radius:50%;background:var(--green)}
+.file.flagged{border-color:var(--line-strong)}
+.file.flagged .st{background:var(--red)}
+.traynote{margin-left:auto;font-size:11px;color:var(--faint)}
+
+.exq{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:16px;overflow:hidden}
+.exq .exhead{padding:12px 20px;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--faint);font-weight:600;display:flex;justify-content:space-between}
+.exrow{display:grid;grid-template-columns:96px 1fr;gap:16px;padding:15px 20px;border-bottom:1px solid var(--line);font-size:12.5px}
+.exrow:last-child{border-bottom:none}
+.sev{align-self:start;justify-self:start;font-size:9.5px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;
+  border:1px solid;border-radius:4px;padding:3px 8px;background:var(--card)}
+.sev.red{color:var(--red);border-color:var(--red)}
+.sev.amber{color:var(--amber);border-color:var(--amber)}
+.exrow .body b{font-weight:600}
+.exrow .figs{font-family:var(--mono);font-size:11.5px;margin-top:3px;color:var(--muted)}
+.exrow .figs em{font-style:normal;color:var(--red);font-weight:500}
+.exrow .res{color:var(--muted);margin-top:5px}
+.exrow .res b{color:var(--ink);font-weight:500}
+.srcchips{margin-top:7px;display:flex;gap:6px;flex-wrap:wrap}
+.srcchip{font-family:var(--mono);font-size:10.5px;padding:2px 8px;border-radius:4px;
+  background:var(--paper);border:1px solid var(--line);color:var(--muted)}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+@media(max-width:940px){.grid{grid-template-columns:1fr}.memo{flex-direction:column}
+  .memo .right-col{text-align:left}.riskline{align-items:flex-start}}
+.cardp{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:17px 20px 13px;
+  transition:box-shadow .3s,border-color .3s}
+.cardp.flash{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-bg)}
+.cardp h2{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);
+  font-weight:600;margin-bottom:13px;display:flex;align-items:baseline;gap:10px}
+.statust{font-size:11px;letter-spacing:.02em;text-transform:none;font-weight:500;color:var(--muted);
+  display:inline-flex;align-items:center;gap:6px;margin-left:auto}
+.askmini{border:none;background:none;color:var(--blue);font-size:11px;font-weight:500;
+  text-transform:none;letter-spacing:.02em;padding:0}
+.askmini:hover{text-decoration:underline}
+.bignum{font-family:var(--mono);font-size:26px;font-weight:500}
+.bignum small{font-size:13px;color:var(--muted);font-weight:400;margin-left:4px;font-family:var(--sans)}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:7px 0;font-size:12.5px;border-top:1px solid var(--line)}
+.kv:first-of-type{border-top:none}
+.kv .k{color:var(--muted)} .kv .v{font-family:var(--mono);font-size:12px;text-align:right}
+.v.good{color:var(--green)} .v.bad{color:var(--red)} .v.warn{color:var(--amber)}
+.cardfoot{margin-top:12px;padding-top:8px;border-top:1px solid var(--line);
+  font-size:10.5px;color:var(--faint);font-family:var(--mono)}
+.rail{position:relative;height:7px;background:#EDF1F5;border-radius:4px;margin:25px 0 22px}
+.rail .fill{position:absolute;height:100%;border-radius:4px}
+.rail .tick{position:absolute;top:-5px;width:2px;height:17px;background:var(--ink)}
+.rail .ticklabel{position:absolute;top:-21px;transform:translateX(-50%);font-size:10.5px;color:var(--muted);font-family:var(--mono);white-space:nowrap}
+.rail .marker{position:absolute;top:-6px;width:13px;height:19px;border-radius:3px;transform:translateX(-50%);background:var(--ink)}
+.rail .marklabel{position:absolute;top:16px;transform:translateX(-50%);font-size:11px;font-weight:600;font-family:var(--mono);white-space:nowrap}
+.bars{display:flex;align-items:flex-end;gap:4px;height:72px;margin:6px 0 4px}
+.bars .b{flex:1;background:#C9D8E6;border-radius:2px 2px 0 0;min-height:3px;position:relative}
+.bars .b:hover{background:var(--blue)}
+.bars .b .tip{display:none;position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);
+  background:var(--ink);color:#fff;font-size:10px;font-family:var(--mono);padding:2px 7px;border-radius:4px;white-space:nowrap;z-index:5}
+.bars .b:hover .tip{display:block}
+.axis{display:flex;justify-content:space-between;font-size:10px;color:var(--faint);font-family:var(--mono)}
+.stack{display:flex;height:20px;border-radius:5px;overflow:hidden;margin:8px 0 9px}
+.stack div{min-width:2px}
+.legend{display:flex;gap:13px;flex-wrap:wrap;font-size:11px;color:var(--muted)}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px}
+table.data{width:100%;border-collapse:collapse;font-size:12px}
+table.data th{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);
+  font-weight:600;text-align:left;padding:0 8px 7px 0;border-bottom:1px solid var(--line-strong)}
+table.data th.r,table.data td.r{text-align:right}
+table.data td{padding:7px 8px 7px 0;border-bottom:1px solid var(--line)}
+table.data td.r{font-family:var(--mono);font-size:11.5px}
+table.data tr:last-child td{border-bottom:none}
+.spark{display:inline-flex;align-items:flex-end;gap:2px;height:18px;margin-left:8px;vertical-align:middle}
+.spark i{width:6px;background:#C9D8E6;border-radius:1px}
+.spark i:last-child{background:var(--blue)}
+.shold{display:flex;height:13px;border-radius:4px;overflow:hidden;margin:6px 0 8px}
+
+.structure{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:16px}
+.structure .head{padding:15px 22px;border-bottom:1px solid var(--line)}
+.structure .head h2{font-family:var(--serif);font-size:17.5px;font-weight:600;margin-bottom:5px}
+.structure .head .why{font-size:12px;color:var(--muted);max-width:780px;display:block}
+.structure .body{padding:6px 22px 16px}
+.trow{display:grid;grid-template-columns:150px 1fr auto;gap:14px;padding:10px 0;
+  border-bottom:1px solid var(--line);font-size:13px;align-items:baseline}
+.trow:last-child{border-bottom:none}
+.trow .tk{color:var(--muted);font-size:12px}
+.trow .tv{font-weight:500}
+.evd{font-size:11px;font-family:var(--mono);color:var(--blue);background:var(--blue-bg);
+  border:none;border-radius:4px;padding:3px 9px;white-space:nowrap}
+.evd:hover{text-decoration:underline}
+.covrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.cov{font-size:11.5px;font-family:var(--mono);padding:4px 11px;border-radius:5px;
+  background:var(--paper);border:1px solid var(--line-strong)}
+.cplist{margin-top:11px;font-size:12px;color:var(--muted)}
+.cplist li{margin-left:18px;padding:2px 0}
+
+.decisionbar{position:sticky;bottom:0;z-index:30;background:var(--card);border:1px solid var(--line-strong);
+  border-bottom:none;border-radius:12px 12px 0 0;padding:14px 22px;box-shadow:0 -6px 18px rgba(22,40,58,.07)}
+.decisionbar .dtitle{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);
+  font-weight:600;margin-bottom:9px}
+.decisionbar .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.decisionbar .micro{font-size:11.5px;color:var(--muted);margin-top:8px}
+.btn.danger{color:var(--red);border-color:var(--line-strong)}
+.btn.danger:hover{border-color:var(--red);background:#FDF7F6}
+
+.footer{font-size:11px;color:var(--faint);text-align:center;padding:14px 0 18px;font-family:var(--mono)}
+
+.qsummary{display:flex;gap:10px;margin:14px 0 16px;flex-wrap:wrap}
+.qchip{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);
+  border-radius:8px;padding:8px 14px;font-size:12.5px;color:var(--muted)}
+.qchip b{font-family:var(--mono);color:var(--ink);font-weight:500}
+.qtable{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.qhead,.qrow{display:grid;grid-template-columns:120px minmax(180px,1fr) 88px 72px minmax(170px,1.1fr) 88px 84px 26px;
+  gap:14px;align-items:center;padding:11px 20px}
+.qhead{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:600;
+  border-bottom:1px solid var(--line-strong)}
+.qrow{border-bottom:1px solid var(--line);cursor:pointer;background:var(--card);width:100%;text-align:left;border-left:none;border-right:none;border-top:none;font-family:var(--sans);font-size:12.5px}
+.qrow:last-child{border-bottom:none}
+.qrow:hover{background:#FAFBFC}
+.qstamp{font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+  border:1px solid;border-radius:4px;padding:3px 8px;justify-self:start;background:var(--card)}
+.qstamp.approve{color:var(--green);border-color:var(--green)}
+.qstamp.cond{color:var(--amber);border-color:var(--amber)}
+.qstamp.decline{color:var(--red);border-color:var(--red)}
+.qco b{display:block;font-weight:600;font-size:13px;color:var(--ink)}
+.qco span{font-size:11px;color:var(--faint)}
+.qnum{font-family:var(--mono);font-size:12px}
+.qprop{font-size:12px;color:var(--muted)}
+.qex{font-family:var(--mono);font-size:11.5px}
+.qex.has{color:var(--red)}
+.qsla{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.qsla.tight{color:var(--amber)}
+.qarrow{color:var(--faint)}
+.qrow:hover .qarrow{color:var(--ink)}
+@media(max-width:940px){.qhead{display:none}.qrow{grid-template-columns:1fr 1fr;row-gap:6px}}
+.crumb{border:none;background:none;font-size:12.5px;color:var(--muted);padding:0 4px}
+.crumb:hover{color:var(--ink);text-decoration:underline}
+
+.copilot{width:340px;flex-shrink:0;position:sticky;top:54px;height:calc(100vh - 54px);
+  background:var(--card);border-left:1px solid var(--line);display:flex;flex-direction:column}
+.copilot.float{position:fixed;right:22px;bottom:22px;top:auto;height:500px;max-height:calc(100vh - 90px);
+  width:350px;border:1px solid var(--line-strong);border-radius:14px;overflow:hidden;z-index:55;
+  box-shadow:0 12px 40px rgba(22,40,58,.18)}
+.copilot.closed{display:none}
+.modebtn{border:none;background:none;color:var(--faint);font-size:12px;padding:2px 4px}
+.modebtn:hover{color:var(--ink)}
+.copilot .dhead{padding:13px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px}
+.copilot .dhead b{font-family:var(--serif);font-size:15px}
+.copilot .dhead .scope{font-size:11px;color:var(--faint)}
+.copilot .dhead .close{margin-left:auto;border:none;background:none;font-size:15px;color:var(--muted)}
+.dmsgs{flex:1;overflow-y:auto;padding:15px;display:flex;flex-direction:column;gap:9px}
+.msg{max-width:92%;padding:9px 13px;border-radius:10px;font-size:12.5px;line-height:1.55}
+.msg.user{align-self:flex-end;background:var(--ink);color:#fff;border-bottom-right-radius:3px}
+.msg.ai{align-self:flex-start;background:var(--paper);border:1px solid var(--line);border-bottom-left-radius:3px}
+.msg.ai .cite{display:block;margin-top:6px;font-size:10.5px;color:var(--blue);font-family:var(--mono)}
+.dchips{padding:0 15px 10px;display:flex;gap:6px;flex-wrap:wrap}
+.dchip{font-size:11.5px;border:1px solid var(--line-strong);background:var(--card);border-radius:14px;padding:5px 12px}
+.dchip:hover{background:var(--paper)}
+.dinput{display:flex;gap:8px;padding:12px 15px;border-top:1px solid var(--line)}
+.dinput input{flex:1;border:1px solid var(--line-strong);border-radius:7px;padding:8px 12px;font-size:13px;font-family:var(--sans)}
+.dinput button{border:none;background:var(--ink);color:#fff;border-radius:7px;padding:0 15px;font-weight:500}
+
+.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%) translateY(8px);z-index:60;
+  background:var(--ink);color:#fff;font-size:12.5px;padding:10px 18px;border-radius:8px;
+  opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
+.toast.show{opacity:1;transform:translateX(-50%)}
+
+@media(max-width:1180px){
+  .copilot{position:fixed;right:0;top:54px;bottom:0;height:auto;z-index:50;box-shadow:-8px 0 24px rgba(22,40,58,.12)}
+}
+@media(prefers-reduced-motion:reduce){.toast,.cardp,.copilot{transition:none}}
+@media print{
+  .topbar,.copilot,.decisionbar,.askmini{display:none!important}
+  body{background:#fff}.main{max-width:none;padding:0}
+  .cardp,.structure,.stripbox,.exq,.tray{break-inside:avoid;border-color:#999}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="bankmark"><span class="banklogo" title="Placeholder — swap with the official Axis Bank asset">A</span>
+    <span class="bw"><b>Axis Bank</b><span>Commercial credit</span></span></div>
+  <span class="sourcetag">Leads via <b>AICA · Recur Club</b></span>
+  <button class="crumb" id="crumb" onclick="renderQueue()" style="display:none">← Queue</button>
+  <nav class="tabs" id="tabs" aria-label="Leads in your queue"></nav>
+  <div class="right">
+    <div class="tele" id="tele"></div>
+    <button class="btn quiet" id="copBtn" onclick="toggleCopilot()">Copilot</button>
+    <button class="btn" onclick="openRerun()">Re-run analysis</button>
+    <button class="btn" onclick="window.print()">Export CAM</button>
+    <button class="userchip" aria-label="Account menu">
+      <span class="avatar">PN</span>
+      <span class="who"><b>Priya Nair</b><span>SPOC · Credit, Axis Bank</span></span>
+      <span class="caret">▾</span>
+    </button>
+  </div>
+</header>
+
+<div class="layout">
+  <main class="main" id="app" aria-live="polite"></main>
+
+  <aside class="copilot" id="copilot" aria-label="AICA copilot">
+    <div class="dhead"><b>AICA copilot</b><span class="scope" id="dcomp"></span>
+      <button class="modebtn" id="modeBtn" onclick="toggleFloat()" title="Switch between docked and floating">⇱ Float</button>
+      <button class="close" onclick="toggleCopilot()" aria-label="Close copilot">✕</button></div>
+    <div class="dmsgs" id="dmsgs"></div>
+    <div class="dchips" id="dchips"></div>
+    <div class="dinput">
+      <input id="dtext" placeholder="Ask about this borrower" aria-label="Ask about this borrower">
+      <button id="dsend">Send</button>
+    </div>
+  </aside>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<div class="overlay" id="rerunOverlay" role="dialog" aria-label="Re-run analysis">
+  <div class="modal" id="rerunModal"></div>
+</div>
+<input type="file" id="dirpick" webkitdirectory directory multiple style="display:none">
+
+<script>
+const C = {
+solara:{
+  name:"Solara Foods Private Limited", tabName:"Solara Foods", dotClass:"g",
+  meta:{CIN:"U81043MA2016PTC822307",GSTIN:"27NVHPR5483W1ZC",Sector:"Packaged foods · FMCG",Base:"Pune, MH",Since:"2016"},
+  risk:{score:3.4,label:"Low"},
+  stamp:{cls:"approve",text:"Approve"},
+  proposed:"Working capital demand loan · <b>₹8.0 Cr</b> · 12 mo revolving",
+  tele:{cost:"$0.09",time:"74 s",tok:"45k"},
+  files:[["AICA_Report.pdf",0],["Financial_Statements.pdf",1],["GST_Returns.pdf",0],["Bank_Statement.xlsx",0],["Debtor_Ageing.xlsx",0],["Debt_Schedule.xlsx",0],["Financial_Model.xlsx",0],["Sanction_Letter.png",1],["Shareholding.pdf",0]],
+  checks:{total:24,cells:"ppppppppfppppppppppfpppp",flagged:2},
+  flags:[
+    {sev:"Critical",cls:"red",
+     body:"<b>Cash on books doesn't match the bank.</b> Monthly cashflow build agrees with the bank statement, not the filings.",
+     figs:"Balance sheet <em>₹3.75 Cr</em> · bank on 28-Mar <em>₹9.89 Cr</em> · gap ₹6.14 Cr",
+     res:"<b>Bank figure adopted.</b> Liquidity is better than filings suggest; auditor reconciliation made a condition precedent.",
+     src:["Financial_Statements.pdf","Bank_Statement.xlsx","Financial_Model.xlsx"]},
+    {sev:"Material",cls:"amber",
+     body:"<b>Sanction letter discloses 1 of 3 facilities.</b> Term loan ₹0.60 Cr and vehicle loan ₹0.35 Cr appear only in the debt schedule.",
+     figs:"Letter shows <em>₹6.00 Cr</em> · schedule totals <em>₹6.95 Cr</em>",
+     res:"<b>Debt schedule adopted</b> as source of truth for leverage and headroom.",
+     src:["Sanction_Letter.png","Debt_Schedule.xlsx"]}
+  ],
+  serviceability:{dscr:"3.84",dscrPos:.77,tag:{d:"g",text:"Comfortable"},
+    rows:[["Annual debt service (P+I)","₹1.96 Cr",""],["Interest coverage","11.28×","good"],["Current ratio","1.82","good"],["Pro-forma DSCR after ₹8 Cr draw","2.70 ✓ ≥ 1.25","good"]],
+    src:"Debt_Schedule.xlsx · Financial_Statements.pdf"},
+  leverage:{val:"0.92×",used:.31,tag:{d:"g",text:"Headroom ₹15.6 Cr"},
+    facilities:[["HDFC Bank","Cash credit","₹6.00 Cr","9.4%","68% drawn"],["HDFC Bank","Term loan","₹0.60 Cr","10.1%","EMI ₹1.9 L"],["Kotak Prime","Vehicle loan","₹0.35 Cr","9.8%","EMI ₹0.8 L"]],
+    footNote:"Post-draw leverage (₹6.95 + ₹8.0) / EBITDA = 1.98× — inside 3.0× ceiling.",
+    src:"Debt_Schedule.xlsx · Sanction_Letter.png"},
+  cashflow:{avg:"₹4.72 Cr",tag:{d:"g",text:"Stable, 12/12 months"},
+    months:[4.9,5.2,4.1,4.8,3.9,5.0,4.4,4.2,4.1,5.1,4.6,5.4],
+    rows:[["GST turnover ↔ bank credits","matched ✓","good"],["Cheque returns (12 m, deduped)","0","good"],["CC utilisation (avg)","68%",""]],
+    src:"Bank_Statement.xlsx · GST_Returns.pdf"},
+  receivables:{total:"₹5.59 Cr",dso:"42 days",tag:{d:"g",text:"71% current"},
+    buckets:[71,17,8,4],topCust:"19% (diversified)",
+    eligible:[["Eligible base — 0–30 d bucket","₹3.97 Cr"],["Advance rate applied","80%"],["Drawable against book","₹3.18 Cr"]],
+    src:"Debtor_Ageing.xlsx"},
+  pnl:{tag:{d:"g",text:"+26% YoY"},
+    rows:[["Revenue","30.13","38.57","48.60"],["EBITDA","4.67","5.98","7.53"],["PAT","2.31","3.28","4.45"]],
+    margins:[["EBITDA margin","15.5%","good"],["Net worth","₹10.98 Cr","good"]],
+    src:"Financial_Statements.pdf · AICA_Report.pdf"},
+  conduct:{tag:{d:"g",text:"Clean"},
+    share:[["Rohan Deshpande · promoter",46,"#1B4E89"],["Anita Deshpande · promoter",34,"#5A87B8"],["Kunal Mehta · promoter",12,"#9FBBD6"],["Saanvi Capital LLP",8,"#D3E0EC"]],
+    rows:[["Promoter holding","92%","good"],["Cheque bounces (raw rows → events)","0 → 0",""],["Closing cash (bank, adopted)","₹9.89 Cr","good"]],
+    src:"Shareholding.pdf · Bank_Statement.xlsx"},
+  structure:{title:"Working capital demand loan — ₹8.0 Cr",
+    why:"Growth-driven working-capital gap; repayment source is receivable collections. Serviceability is deep (pro-forma DSCR 2.70), leverage stays under 2× post-draw, conduct is clean. Priced fine, covenants light.",
+    terms:[
+      ["Facility","Working capital demand loan, revolving","product fit → WC cycle","cf"],
+      ["Amount","₹8.0 Cr (≈ 1.7× avg monthly inflows)","avg inflows ₹4.72 Cr","cf"],
+      ["Tenor","12 months, annual review","revenue +26% YoY","pnl"],
+      ["Pricing","Repo + 265 bps · PF 0.50%","risk score 3.4/10","sv"],
+      ["Sub-limit","Invoice discounting ₹3.0 Cr within limit","drawable ₹3.18 Cr","rec"],
+      ["Security","Hypothecation of stock and book debts; PG of promoters","promoters hold 92%","conduct"]
+    ],
+    covs:["DSCR ≥ 1.25","Debt/EBITDA ≤ 3.0×","No additional debt w/o consent","Monthly MIS + ageing"],
+    cps:["Books-vs-bank cash reconciliation letter from statutory auditor","Updated debtor ageing at draw","Charge perfection on receivables"]},
+  decision:{primary:"Approve — send to committee",micro:"Sending attaches this memo with your sign-off. The sanction committee sees it in today's queue; the two exceptions above travel with it.",
+    toast:"Memo sent to sanction committee · SF-2026-0714"},
+  chat:{
+    chips:["Why this tenor?","Amount at 1.5×?","Why trust the bank cash figure?"],
+    answers:{
+     "Why this tenor?":{a:"12 months matches the working-capital cycle — DSO is 42 days and the line is revolving, so the facility self-refreshes ~8× a year. Longer tenor would fund a short gap with long money; the KB heuristic is tenor-to-cash-cycle matching. Annual review keeps repricing optionality on a +26% grower.",cite:"snapshot.receivables.dso · kb §3 tenor"},
+     "Amount at 1.5×?":{a:"At ₹12 Cr: pro-forma debt service rises to ≈ ₹3.2 Cr → DSCR 2.35, still ≥ 1.25 ✓; post-draw leverage (6.95+12)/7.53 = 2.52×, inside 3.0× ✓. Serviceable — but 2.5× monthly inflows is aggressive for the current cycle; recommend stepping up at first review against H1 actuals instead.",cite:"validators: dscr_check, leverage_check"},
+     "Why trust the bank cash figure?":{a:"Three sources triangulate: the monthly cashflow build (opening + inflows − outflows) computes ₹9.89 Cr for March, and the bank statement closes at ₹9.89 Cr on 28-Mar. The balance sheet's ₹3.75 Cr is the odd one out. Two independent documents agreeing beat one — and we've made the auditor reconciliation a condition precedent.",cite:"reconcile.cash_crosscheck · trap 1"},
+     "Explain the serviceability read":{a:"DSCR 3.84 means Solara earns ₹3.84 of EBITDA for every ₹1 of debt obligation — nearly 3× the 1.25 covenant floor. Even after drawing the full ₹8 Cr, pro-forma DSCR stays at 2.70. Interest coverage of 11.28× confirms the P&L absorbs financing costs easily.",cite:"snapshot.ratios · compute/metrics.py"},
+     "Walk me through the eligibility math":{a:"Book of ₹5.59 Cr, of which 71% (₹3.97 Cr) sits in the 0–30 day bucket — that's the eligible base. At the KB-standard 80% advance rate for current receivables, drawable is ₹3.18 Cr, which caps the invoice-discounting sub-limit at ₹3.0 Cr.",cite:"receivables.eligible · kb §4"}
+    }}
+},
+nimbus:{
+  name:"Nimbus Textiles Private Limited", tabName:"Nimbus Textiles", dotClass:"a",
+  meta:{CIN:"U17120GJ2015PTC084412",GSTIN:"24AACCN1183F1Z6",Sector:"Apparel · Textiles",Base:"Surat, GJ",Since:"2015"},
+  risk:{score:6.1,label:"Elevated"},
+  stamp:{cls:"cond",text:"Approve · conditions"},
+  proposed:"Invoice discounting · <b>₹2.2 Cr</b> · self-liquidating, 60–90 d cycles",
+  tele:{cost:"$0.11",time:"92 s",tok:"58k"},
+  files:[["AICA_Report.pdf",0],["Financial_Statements.pdf",1],["GST_Returns.pdf",0],["Bank_Statement.xlsx",1],["Debtor_Ageing.xlsx",1],["MIS_FY26.xlsx",1],["Debt_Schedule.xlsx",0],["Sanction_Letter.png",0],["Shareholding.pdf",0]],
+  checks:{total:26,cells:"ppppfppppxppppppfppppfpppp",flagged:3},
+  flags:[
+    {sev:"Critical",cls:"red",
+     body:"<b>Two debtor books disagree.</b> The MIS and the dataroom ageing report different totals and a different bucket mix.",
+     figs:"MIS <em>₹8.76 Cr</em> (32.6% current) · dataroom <em>₹7.56 Cr</em> (42% current)",
+     res:"<b>Conservative book adopted</b> (₹7.56 Cr) for eligibility; MIS↔register reconciliation made a condition precedent.",
+     src:["MIS_FY26.xlsx","Debtor_Ageing.xlsx"]},
+    {sev:"Critical",cls:"red",
+     body:"<b>Cash on books doesn't match the bank</b> — and even the bank figure covers barely 6 weeks of outflows.",
+     figs:"Balance sheet <em>₹0.26 Cr</em> · bank <em>₹4.06 Cr</em> · runway ~6 weeks",
+     res:"<b>Bank figure adopted.</b> Liquidity still thin — this drives the self-liquidating structure over any EMI product.",
+     src:["Financial_Statements.pdf","Bank_Statement.xlsx"]},
+    {sev:"Material",cls:"amber",
+     body:"<b>Bounce rows double-counted on a naive read.</b> 8 return-related rows in the statement; 4 are paired charge entries.",
+     figs:"Raw rows <em>8</em> → true events <em>4</em> in 12 m — still a conduct concern",
+     res:"Deduped count used; priced into the spread and monitoring cadence.",
+     src:["Bank_Statement.xlsx"]}
+  ],
+  serviceability:{dscr:"1.33",dscrPos:.27,tag:{d:"a",text:"Thin margin"},
+    rows:[["Annual debt service (P+I)","₹2.22 Cr",""],["Interest coverage","2.1×","warn"],["Clearance over 1.25 floor","+0.08 only","warn"],["ID is self-liquidating — adds no EMI","serviced by collections",""]],
+    src:"Debt_Schedule.xlsx · Financial_Statements.pdf"},
+  leverage:{val:"3.81×",used:1.0,tag:{d:"a",text:"Above 3.0× norm"},
+    facilities:[["SBI","Cash credit","₹4.00 Cr","11.2%","96.4% drawn"],["SBI","Term loan","₹5.20 Cr","11.8%","EMI ₹11.4 L"],["Bajaj Finance","WCDL","₹2.00 Cr","13.5%","bullet, Sep-26"]],
+    footNote:"No headroom for EMI debt — only a self-liquidating receivables product fits.",
+    src:"Debt_Schedule.xlsx · Sanction_Letter.png"},
+  cashflow:{avg:"₹2.86 Cr",tag:{d:"a",text:"Volatile · CC at ceiling"},
+    months:[3.1,2.7,2.4,3.0,2.6,3.2,2.8,2.5,2.3,3.4,2.9,3.3],
+    rows:[["Cheque returns (12 m, deduped)","4","bad"],["CC utilisation (avg)","96.4%","bad"],["Cash runway at bank figure","~6 weeks","warn"]],
+    src:"Bank_Statement.xlsx · GST_Returns.pdf"},
+  receivables:{total:"₹7.56 Cr",dso:"71 days",tag:{d:"a",text:"20% past 90 d"},
+    buckets:[42,24,14,20],topCust:"41% — Vastra Global (concentrated)",
+    eligible:[["Book (conservative source)","₹7.56 Cr"],["Less 90+ d bucket","− ₹1.51 Cr"],["Less Vastra excess over 25% cap","− ₹2.95 Cr"],["Eligible base","₹3.10 Cr"],["Advance rate 70% → limit","₹2.17 Cr"]],
+    src:"Debtor_Ageing.xlsx · MIS_FY26.xlsx"},
+  pnl:{tag:{d:"a",text:"+8% YoY, 9.2% margin"},
+    rows:[["Revenue","27.50","29.72","32.10"],["EBITDA","2.31","2.62","2.95"],["PAT","0.40","0.55","0.71"]],
+    margins:[["EBITDA margin","9.2%","warn"],["Net worth","₹5.62 Cr",""]],
+    src:"Financial_Statements.pdf · AICA_Report.pdf"},
+  conduct:{tag:{d:"a",text:"4 bounces · CC maxed"},
+    share:[["Mehul Shah · promoter",58,"#1B4E89"],["Family holdings",26,"#5A87B8"],["Employees & others",16,"#9FBBD6"]],
+    rows:[["Promoter holding","84%",""],["Cheque bounces (raw rows → events)","8 → 4","bad"],["Closing cash (bank, adopted)","₹4.06 Cr","warn"]],
+    src:"Shareholding.pdf · Bank_Statement.xlsx"},
+  structure:{title:"Invoice discounting — ₹2.2 Cr, self-liquidating",
+    why:"DSCR of 1.33 barely clears the floor and the CC is at ceiling — no capacity for EMI debt. Repayment must come from the invoices themselves: low advance rate, 90+ bucket excluded, Vastra concentration capped, collections escrowed, tight covenants, spread priced for conduct.",
+    terms:[
+      ["Facility","Invoice discounting, with recourse","self-liquidating fit","sv"],
+      ["Limit","₹2.2 Cr","eligible base ₹3.10 Cr × 70%","rec"],
+      ["Advance rate","70% of eligible invoices ≤ 60 d","20% book past 90 d","rec"],
+      ["Concentration","Vastra Global capped at 25% of drawn","top customer 41%","rec"],
+      ["Pricing","Repo + 425 bps · PF 1.0%","4 bounces · CC 96%","cf"],
+      ["Collections","Escrow account, assignment of receivables","cash ~6 weeks","cf"]
+    ],
+    covs:["DSCR ≥ 1.25 tested quarterly","No new debt","Vastra share ≤ 45% of revenue","Weekly collections report","MIS↔register reconciliation monthly"],
+    cps:["MIS vs dataroom ageing reconciliation","Escrow operational before first draw","NOC from SBI for second charge"]},
+  decision:{primary:"Approve with conditions — send to committee",micro:"Committee sees the memo with all three exceptions and the conditions precedent. First draw stays blocked until the escrow and reconciliation conditions clear.",
+    toast:"Memo sent to sanction committee · NT-2026-0715"},
+  chat:{
+    chips:["Why exclude the 90+ bucket?","Which ageing did you trust?","Why not a term loan?"],
+    answers:{
+     "Why exclude the 90+ bucket?":{a:"₹1.51 Cr (20%) of the book is past 90 days — at that age, collection probability drops sharply and the invoices stop being self-liquidating collateral. Advancing against them would convert receivables risk into unsecured credit risk on a DSCR-1.33 borrower.",cite:"snapshot.receivables.bucket_mix · kb §4 advance rate"},
+     "Which ageing did you trust?":{a:"The dataroom register (₹7.56 Cr) over the MIS (₹8.76 Cr) — when two internal books disagree, size against the conservative one and make the reconciliation a condition precedent. Trusting the higher figure would inflate the eligible base by ₹1.2 Cr on unverified data.",cite:"reconcile.ageing_conflict · trap 2"},
+     "Why not a term loan?":{a:"A term loan adds EMI. Debt service is already ₹2.22 Cr against ₹2.95 Cr EBITDA — any new EMI pushes DSCR below the 1.25 floor immediately. Invoice discounting is the one product whose repayment doesn't touch the P&L: the invoice pays, not the borrower.",cite:"validators: dscr_check · kb §2 product table"},
+     "Explain the serviceability read":{a:"DSCR 1.33 clears the 1.25 floor by only 0.08 — one soft quarter erases it. That's why no EMI product fits and the facility is self-liquidating: repayment comes from invoice collections, not from this thin P&L.",cite:"snapshot.ratios.dscr"},
+     "Walk me through the eligibility math":{a:"Conservative book ₹7.56 Cr, minus the 90+ bucket (₹1.51 Cr), minus Vastra's excess over a 25% concentration cap (₹2.95 Cr) leaves ₹3.10 Cr eligible. At a 70% advance rate that supports ₹2.17 Cr — rounded to the ₹2.2 Cr limit.",cite:"receivables.eligible · kb §4"}
+    }}
+},
+orbit:{
+  name:"Orbit Auto Components Private Limited", tabName:"Orbit Auto", dotClass:"r",
+  meta:{CIN:"U29301HR2012PTC046221",GSTIN:"06AABCO4412P1ZH",Sector:"Auto components",Base:"Gurugram, HR",Since:"2012"},
+  risk:{score:7.8,label:"High"},
+  stamp:{cls:"decline",text:"Decline"},
+  proposed:"No serviceable structure at requested scale · narrow alternative noted below",
+  tele:{cost:"$0.10",time:"81 s",tok:"52k"},
+  files:[["AICA_Report.pdf",0],["Financial_Statements.pdf",1],["GST_Returns.pdf",0],["Bank_Statement.xlsx",0],["Debtor_Ageing.xlsx",0],["Debt_Schedule.xlsx",1],["Financial_Model.xlsx",0],["Sanction_Letter.png",1],["Shareholding.pdf",0]],
+  checks:{total:25,cells:"pppfpppppxpppppppfppppppp",flagged:2},
+  flags:[
+    {sev:"Critical",cls:"red",
+     body:"<b>Equity is fully eroded — third consecutive loss year.</b> The balance sheet cannot absorb further leverage.",
+     figs:"Net worth <em>−₹1.16 Cr</em> · PAT FY26 <em>−₹0.48 Cr</em>",
+     res:"An equity infusion or restructure precedes any debt conversation.",
+     src:["Financial_Statements.pdf","AICA_Report.pdf"]},
+    {sev:"Critical",cls:"red",
+     body:"<b>Sanction letter discloses 1 of 4 facilities.</b> Three term/equipment loans appear only in the debt schedule.",
+     figs:"Letter shows <em>₹12.0 Cr</em> · schedule totals <em>₹31.4 Cr</em>",
+     res:"<b>Debt schedule adopted.</b> True annual debt service is ₹8.88 Cr against ₹5.06 Cr EBITDA.",
+     src:["Sanction_Letter.png","Debt_Schedule.xlsx"]}
+  ],
+  serviceability:{dscr:"0.57",dscrPos:.11,tag:{d:"r",text:"Cannot service"},
+    rows:[["Annual debt service (P+I)","₹8.88 Cr",""],["EBITDA available","₹5.06 Cr","bad"],["Shortfall per year","₹3.82 Cr","bad"],["Any new EMI worsens the gap","structural","bad"]],
+    src:"Debt_Schedule.xlsx · Financial_Statements.pdf"},
+  leverage:{val:"6.21×",used:1.0,tag:{d:"r",text:"2× past ceiling"},
+    facilities:[["PNB","Cash credit","₹12.00 Cr","11.9%","95% drawn"],["PNB","Term loan","₹9.50 Cr","12.2%","EMI ₹21 L"],["Tata Capital","Term loan","₹6.40 Cr","13.4%","EMI ₹15 L"],["Kotak","Vehicle/equip","₹3.50 Cr","10.9%","EMI ₹7 L"]],
+    footNote:"Sanction letter disclosed 1 of 4 facilities — schedule adopted.",
+    src:"Debt_Schedule.xlsx · Sanction_Letter.png"},
+  cashflow:{avg:"₹5.27 Cr",tag:{d:"r",text:"Fully absorbed by debt"},
+    months:[5.6,5.1,4.9,5.5,5.2,5.8,5.0,4.8,5.3,5.6,5.1,5.7],
+    rows:[["Cheque returns (12 m, deduped)","2","warn"],["CC utilisation (avg)","95%","bad"],["Debt service ÷ avg monthly inflow","14% of every rupee in","bad"]],
+    src:"Bank_Statement.xlsx · GST_Returns.pdf"},
+  receivables:{total:"₹12.21 Cr",dso:"74 days",tag:{d:"a",text:"OEM book is the one asset"},
+    buckets:[48,26,14,12],topCust:"33% — single OEM",
+    eligible:[["OEM receivables, 0–30 d","₹2.05 Cr"],["Advance rate 75%","₹1.54 Cr"],["Alternative-path ceiling","₹1.5 Cr"]],
+    src:"Debtor_Ageing.xlsx"},
+  pnl:{tag:{d:"r",text:"3rd straight loss"},
+    rows:[["Revenue","56.10","58.40","60.20"],["EBITDA","4.50","4.80","5.06"],["PAT","−0.90","−0.70","−0.48"]],
+    margins:[["EBITDA margin","8.4%","warn"],["Net worth","−₹1.16 Cr","bad"]],
+    src:"Financial_Statements.pdf · AICA_Report.pdf"},
+  conduct:{tag:{d:"a",text:"Stressed but not erratic"},
+    share:[["Promoter group",61,"#1B4E89"],["Ascent PE Fund II",30,"#5A87B8"],["ESOP & others",9,"#9FBBD6"]],
+    rows:[["Promoter holding","61%",""],["Cheque bounces (raw rows → events)","4 → 2","warn"],["Closing cash (bank, adopted)","₹5.20 Cr","warn"]],
+    src:"Shareholding.pdf · Bank_Statement.xlsx"},
+  structure:{title:"Decline — with a narrow alternative path",
+    why:"DSCR 0.57 means the business generates 57 paise for every rupee of existing obligations — no product, tenor, or pricing fixes arithmetic. Leverage at 6.21× is double the norm and net worth is negative. The defensible answers are decline or restructure. One narrow exception: a small self-liquidating line against OEM receivables that adds zero EMI burden.",
+    terms:[
+      ["Primary decision","Decline term/WC exposure","DSCR 0.57 < 1.0","sv"],
+      ["Precondition","Equity infusion or debt restructure first","net worth −₹1.16 Cr","pnl"],
+      ["Alternative path","OEM invoice discounting ≤ ₹1.5 Cr, escrowed","OEM 0–30 d book ₹2.05 Cr","rec"],
+      ["Advance rate","75% of OEM invoices ≤ 30 d only","self-liquidating only","rec"],
+      ["Pricing (if pursued)","Repo + 500 bps · PF 1.25%","risk 7.8/10","sv"],
+      ["Review trigger","Re-assess post equity event or 2 profitable quarters","3rd loss year","pnl"]
+    ],
+    covs:["Escrow of OEM collections","No cash release until invoice settles","Fortnightly ageing on OEM book"],
+    cps:["Board resolution acknowledging restructure track","OEM payment-history verification","Escrow operational"]},
+  decision:{primary:"Record decline — notify the RM",micro:"The RM gets the decline note with the reasons and the review trigger, so the lead can return after an equity event or restructure. The alternative OEM line stays on file.",
+    toast:"Decline recorded · RM notified · OA-2026-0716"},
+  chat:{
+    chips:["Why decline outright?","What would change your mind?","Is the OEM line safe?"],
+    answers:{
+     "Why decline outright?":{a:"DSCR 0.57 is arithmetic, not judgment: EBITDA ₹5.06 Cr vs obligations ₹8.88 Cr leaves a ₹3.82 Cr annual hole. Any EMI product deepens it. Pricing can compensate for risk of loss, not for certainty of shortfall — this fails serviceability before it reaches risk.",cite:"snapshot.ratios.dscr · kb §5 sanity check"},
+     "What would change your mind?":{a:"Two credible paths: an equity infusion that restores positive net worth and rebases leverage under ~4×, or a completed restructure of the ₹31.4 Cr stack that cuts annual service below ~₹4 Cr (DSCR ≥ 1.25). Two consecutive profitable quarters would strengthen either. Until then, only the self-liquidating OEM line is defensible.",cite:"structure.review_trigger"},
+     "Is the OEM line safe?":{a:"It's the one exposure repaid by someone other than Orbit: the OEM pays the invoice into escrow, we net our advance, remainder releases. Capped at ₹1.5 Cr against a verified ₹2.05 Cr 0–30 d OEM book, 75% advance, no cash touches the borrower until settlement. Risk shifts from Orbit's P&L to the OEM's payment discipline.",cite:"reconcile + receivables.eligible"},
+     "Explain the serviceability read":{a:"For every ₹1 of existing debt obligation, Orbit generates ₹0.57 of EBITDA — a ₹3.82 Cr annual shortfall being bridged by working-capital drawdowns and stretched payables. That's why the CC sits at 95%. New EMI debt widens the hole; it cannot close it.",cite:"snapshot.ratios.dscr"},
+     "Walk me through the eligibility math":{a:"Only the OEM's own receivables qualify: ₹2.05 Cr in the 0–30 day bucket. At 75% advance that supports ₹1.54 Cr; capped at ₹1.5 Cr and escrowed so repayment never depends on Orbit's P&L.",cite:"receivables.eligible"}
+    }}
+}
+};
+
+const order=["solara","nimbus","orbit"];
+let current="solara";
+const qmeta={
+  solara:{prop:"WCDL ₹8.0 Cr · 12 mo revolving",sla:"2 d left",tight:false,dscr:"3.84"},
+  nimbus:{prop:"Invoice discounting ₹2.2 Cr · escrowed",sla:"1 d left",tight:true,dscr:"1.33"},
+  orbit:{prop:"Decline · OEM alt path on file",sla:"3 d left",tight:false,dscr:"0.57"}
+};
+
+function renderQueue(){
+  document.getElementById("crumb").style.display="none";
+  document.getElementById("tabs").innerHTML="";
+  document.getElementById("tele").innerHTML="";
+  const rows=order.map(k=>{const c=C[k];const q=qmeta[k];
+    return `<button class="qrow" onclick="render('${k}')" aria-label="Open ${c.tabName}">
+      <span class="qstamp ${c.stamp.cls}">${c.stamp.text}</span>
+      <span class="qco"><b>${c.tabName}</b><span>${c.meta.Sector} · ${c.meta.Base}</span></span>
+      <span class="qnum">${c.risk.score} / 10</span>
+      <span class="qnum">${q.dscr}</span>
+      <span class="qprop">${q.prop}</span>
+      <span class="qex ${c.flags.length?"has":""}">${c.flags.length} open</span>
+      <span class="qsla ${q.tight?"tight":""}">${q.sla}</span>
+      <span class="qarrow">→</span>
+    </button>`;}).join("");
+  document.getElementById("app").innerHTML=`
+  <section class="memo" style="border-bottom-width:2px">
+    <div>
+      <div class="eyebrow">Axis Bank credit queue · Monday, 6 Jul 2026</div>
+      <h1>Leads from AICA</h1>
+      <div class="makerline">Assessments received overnight from <b>AICA · Recur Club</b> · reviewer: <b>Priya Nair, Axis Bank</b></div>
+    </div>
+  </section>
+  <div class="qsummary">
+    <span class="qchip"><span class="dot g"></span><b>1</b> ready to approve</span>
+    <span class="qchip"><span class="dot a"></span><b>1</b> approve with conditions</span>
+    <span class="qchip"><span class="dot r"></span><b>1</b> recommended decline</span>
+    <span class="qchip"><b>7</b> exceptions across queue</span>
+  </div>
+  <div class="qtable">
+    <div class="qhead"><span>Recommendation</span><span>Company</span><span>Risk</span><span>DSCR</span><span>Proposed structure</span><span>Exceptions</span><span>SLA</span><span></span></div>
+    ${rows}
+  </div>
+  <div class="footer">3 datarooms processed overnight · 75 cross-document checks · total pipeline cost $0.30</div>`;
+}
+const cardMeta={sv:["Serviceability","Explain the serviceability read"],lev:["Leverage & existing debt","Explain the serviceability read"],
+  cf:["Banking conduct & cashflow","Why trust the bank cash figure?"],rec:["Receivables & eligibility","Walk me through the eligibility math"],
+  pnl:["P&L trajectory","Explain the serviceability read"],conduct:["Governance & conduct","Explain the serviceability read"]};
+
+function statusT(tag){return `<span class="statust"><span class="dot ${tag.d}"></span>${tag.text}</span>`}
+function askBtn(id){const q=(cardMeta[id]||[])[1]||"Explain this section";
+  return `<button class="askmini" onclick="ask('${q.replace(/'/g,"\\'")}')">Ask ↗</button>`}
+function railDscr(s){
+  const pos=Math.min(Math.max(s.dscrPos,0.03),0.97)*100;const covPos=25;
+  return `<div class="rail" role="img" aria-label="DSCR ${s.dscr} against covenant floor 1.25">
+    <div class="fill" style="left:0;width:${covPos}%;background:#E9DBD9"></div>
+    <div class="fill" style="left:${covPos}%;right:0;background:#DCE9E2"></div>
+    <div class="tick" style="left:${covPos}%"></div>
+    <div class="ticklabel" style="left:${covPos}%">covenant 1.25</div>
+    <div class="marker" style="left:${pos}%"></div>
+    <div class="marklabel" style="left:${pos}%">${s.dscr}</div></div>`;}
+function railLev(l){
+  const pct=Math.min(l.used,1)*100;
+  const col=l.used>=1?"var(--red)":(l.used>.66?"#C98A00":"var(--green)");
+  return `<div class="rail" role="img" aria-label="Leverage ${l.val} against 3.0x ceiling">
+    <div class="fill" style="left:0;width:${pct}%;background:${col}"></div>
+    <div class="tick" style="left:100%"></div>
+    <div class="ticklabel" style="left:100%">ceiling 3.0×</div>
+    <div class="marklabel" style="left:${Math.min(pct,94)}%">${l.val}</div></div>`;}
+function bars(arr){
+  const max=Math.max(...arr);
+  const mons=["A","M","J","J","A","S","O","N","D","J","F","M"];
+  return `<div class="bars">`+arr.map(v=>
+    `<div class="b" style="height:${Math.round(v/max*100)}%"><span class="tip">₹${v.toFixed(1)} Cr</span></div>`).join("")+
+    `</div><div class="axis">${mons.map(m=>`<span>${m}</span>`).join("")}</div>`;}
+function stack(buckets){
+  const cols=["#2E7D5B","#8FBFA7","#E3C67B","#C4766C"];
+  const labels=["0–30 d","31–60 d","61–90 d","90+ d"];
+  return `<div class="stack">`+buckets.map((b,i)=>`<div style="width:${b}%;background:${cols[i]}" title="${labels[i]} · ${b}%"></div>`).join("")+`</div>
+  <div class="legend">`+buckets.map((b,i)=>`<span><i style="background:${cols[i]}"></i>${labels[i]} · <span class="num">${b}%</span></span>`).join("")+`</div>`;}
+function kvs(rows){return rows.map(r=>`<div class="kv"><span class="k">${r[0]}</span><span class="v num ${r[2]||""}">${r[1]}</span></div>`).join("")}
+
+function render(key){
+  current=key;const c=C[key];
+  document.getElementById("crumb").style.display="";
+  document.getElementById("tele").innerHTML=
+    `<span>cost <b>${c.tele.cost}</b></span><span>latency <b>${c.tele.time}</b></span><span>tokens <b>${c.tele.tok}</b></span>`;
+  document.getElementById("dcomp").textContent="on "+c.tabName;
+
+  const cells=[...c.checks.cells].map((ch,i)=>{
+    const cls=ch==="f"?"cell flag":(ch==="x"?"cell fixed":"cell");
+    const t=ch==="f"?"Discrepancy — see exceptions":(ch==="x"?"Auto-corrected (dedupe)":"Reconciled");
+    return `<span class="${cls}" title="Check ${i+1}: ${t}"></span>`;}).join("");
+
+  const files=c.files.map(f=>
+    `<span class="file ${f[1]?"flagged":""}" title="${f[1]?"Involved in an exception below":"Parsed clean"}"><span class="st"></span><b>${f[0]}</b></span>`).join("");
+  const nflag=c.files.filter(f=>f[1]).length;
+
+  const flags=c.flags.map(f=>`
+    <div class="exrow">
+      <span class="sev ${f.cls}">${f.sev}</span>
+      <div class="body">${f.body}
+        <div class="figs">${f.figs}</div>
+        <div class="res">${f.res}</div>
+        <div class="srcchips">${f.src.map(s=>`<span class="srcchip">${s}</span>`).join("")}</div>
+      </div>
+    </div>`).join("");
+
+  const facRows=c.leverage.facilities.map(f=>
+    `<tr><td>${f[0]}</td><td>${f[1]}</td><td class="r">${f[2]}</td><td class="r">${f[3]}</td><td class="r">${f[4]}</td></tr>`).join("");
+
+  const pnlRows=c.pnl.rows.map(r=>{
+    const vals=[+r[1],+r[2],+r[3]];const mx=Math.max(...vals.map(Math.abs));
+    const spark=`<span class="spark">`+vals.map(v=>`<i style="height:${Math.max(Math.abs(v)/mx*18,2)}px;${v<0?"background:#C4766C":""}"></i>`).join("")+`</span>`;
+    return `<tr><td>${r[0]}${spark}</td><td class="r">${r[1]}</td><td class="r">${r[2]}</td><td class="r"><b>${r[3]}</b></td></tr>`;}).join("");
+
+  const shold=`<div class="shold">`+c.conduct.share.map(s=>`<div style="width:${s[1]}%;background:${s[2]}" title="${s[0]} · ${s[1]}%"></div>`).join("")+`</div>
+    <div class="legend">`+c.conduct.share.map(s=>`<span><i style="background:${s[2]}"></i>${s[0]} · <span class="num">${s[1]}%</span></span>`).join("")+`</div>`;
+
+  const terms=c.structure.terms.map(t=>`
+    <div class="trow"><div class="tk">${t[0]}</div><div class="tv">${t[1]}</div>
+      <button class="evd" onclick="jump('${t[3]}')" title="Jump to the figure behind this term">⇢ ${t[2]}</button></div>`).join("");
+
+  document.getElementById("app").innerHTML=`
+  <section class="memo">
+    <div>
+      <div class="eyebrow">Credit assessment memo · generated 30 Jun 2026</div>
+      <h1>${c.name}</h1>
+      <div class="idrow">
+        <span>CIN <b>${c.meta.CIN}</b></span><span>GSTIN <b>${c.meta.GSTIN}</b></span>
+        <span>${c.meta.Sector}</span><span>${c.meta.Base}</span><span>Since ${c.meta.Since}</span>
+      </div>
+      <div class="makerline">Prepared by <b>AICA pipeline v0.3 · Recur Club</b> · Review: <b>Priya Nair, Axis Bank</b> (you) · SLA: 2 days remaining</div>
+    </div>
+    <div class="right-col">
+      <span class="stamp ${c.stamp.cls}">${c.stamp.text}</span>
+      <div class="proposed">${c.proposed}</div>
+      <div class="riskline">
+        <span class="risklabel">AICA risk score <b>${c.risk.score} / 10 · ${c.risk.label}</b></span>
+        <div class="riskcells" role="img" aria-label="Risk ${c.risk.score} of 10">
+          ${Array.from({length:10},(_,i)=>`<i class="${i<Math.round(c.risk.score)?"on":""}"></i>`).join("")}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stripbox">
+    <span class="striplabel"><b>${c.checks.total} cross-document checks</b> run automatically</span>
+    <div class="strip" role="img" aria-label="${c.checks.total} checks, ${c.checks.flagged} flagged">${cells}</div>
+    <div class="striplegend">
+      <span><i style="background:#EAF2EE;border:1px solid #C9DFD3"></i>reconciled</span>
+      <span><i style="background:var(--card);border:1.5px dashed var(--amber)"></i>auto-corrected</span>
+      <span><i style="background:var(--red)"></i>flagged · ${c.checks.flagged}</span>
+    </div>
+  </div>
+
+  <div class="tray">
+    <span class="traylabel">Dataroom</span>${files}
+    <span class="traynote">${c.files.length} files · all parsed · ${nflag} involved in exceptions</span>
+  </div>
+
+  <div class="exq">
+    <div class="exhead"><span>Exceptions requiring your judgment</span><span>${c.flags.length} open</span></div>
+    ${flags}
+  </div>
+
+  <div class="grid">
+    <div class="cardp" id="sv">
+      <h2>Serviceability ${statusT(c.serviceability.tag)} ${askBtn("sv")}</h2>
+      <div class="bignum">${c.serviceability.dscr}<small>DSCR</small></div>
+      ${railDscr(c.serviceability)}
+      ${kvs(c.serviceability.rows)}
+      <div class="cardfoot">source · ${c.serviceability.src}</div>
+    </div>
+    <div class="cardp" id="lev">
+      <h2>Leverage &amp; existing debt ${statusT(c.leverage.tag)} ${askBtn("lev")}</h2>
+      <div class="bignum">${c.leverage.val}<small>debt / EBITDA</small></div>
+      ${railLev(c.leverage)}
+      <table class="data">
+        <tr><th>Lender</th><th>Facility</th><th class="r">Limit</th><th class="r">Rate</th><th class="r">Status</th></tr>
+        ${facRows}
+      </table>
+      <div class="kv" style="margin-top:6px"><span class="k">${c.leverage.footNote}</span></div>
+      <div class="cardfoot">source · ${c.leverage.src}</div>
+    </div>
+    <div class="cardp" id="cf">
+      <h2>Banking conduct &amp; cashflow ${statusT(c.cashflow.tag)} ${askBtn("cf")}</h2>
+      <div class="bignum">${c.cashflow.avg}<small>avg monthly inflows</small></div>
+      ${bars(c.cashflow.months)}
+      ${kvs(c.cashflow.rows)}
+      <div class="cardfoot">source · ${c.cashflow.src}</div>
+    </div>
+    <div class="cardp" id="rec">
+      <h2>Receivables &amp; eligibility ${statusT(c.receivables.tag)} ${askBtn("rec")}</h2>
+      <div class="bignum">${c.receivables.total}<small>book · DSO ${c.receivables.dso}</small></div>
+      ${stack(c.receivables.buckets)}
+      <div class="kv"><span class="k">Top customer</span><span class="v num">${c.receivables.topCust}</span></div>
+      ${kvs(c.receivables.eligible)}
+      <div class="cardfoot">source · ${c.receivables.src}</div>
+    </div>
+    <div class="cardp" id="pnl">
+      <h2>P&amp;L trajectory · FY24–26 ${statusT(c.pnl.tag)} ${askBtn("pnl")}</h2>
+      <table class="data">
+        <tr><th>₹ Cr</th><th class="r">FY24</th><th class="r">FY25</th><th class="r">FY26</th></tr>
+        ${pnlRows}
+      </table>
+      <div style="margin-top:8px">${kvs(c.pnl.margins)}</div>
+      <div class="cardfoot">source · ${c.pnl.src}</div>
+    </div>
+    <div class="cardp" id="conduct">
+      <h2>Governance &amp; conduct ${statusT(c.conduct.tag)} ${askBtn("conduct")}</h2>
+      ${shold}
+      <div style="margin-top:10px">${kvs(c.conduct.rows)}</div>
+      <div class="cardfoot">source · ${c.conduct.src}</div>
+    </div>
+  </div>
+
+  <div class="structure">
+    <div class="head">
+      <h2>${c.structure.title}</h2>
+      <span class="why">${c.structure.why}</span>
+    </div>
+    <div class="body">
+      ${terms}
+      <div class="covrow">${c.structure.covs.map(v=>`<span class="cov">${v}</span>`).join("")}</div>
+      <ul class="cplist">${c.structure.cps.map(v=>`<li>${v}</li>`).join("")}</ul>
+    </div>
+  </div>
+
+  <div class="decisionbar">
+    <div class="dtitle">Your decision on this lead</div>
+    <div class="row">
+      <button class="btn primary" onclick="toast('${c.decision.toast}')">${c.decision.primary}</button>
+      <button class="btn" onclick="openCopilot()">Hold — ask a question first</button>
+      ${c.stamp.cls==="decline"?
+        `<button class="btn" onclick="toast('Escalated to restructuring desk')">Escalate to restructuring desk</button>`:
+        `<button class="btn danger" onclick="toast('Lead declined · RM notified')">Decline this lead</button>`}
+    </div>
+    <div class="micro">${c.decision.micro}</div>
+  </div>
+
+  <div class="footer">Assembled by AICA pipeline · ${c.tele.tok} tokens · ${c.tele.cost} · ${c.tele.time} · every figure verified across the dataroom — no manual spreadsheet work required</div>
+  `;
+  renderTabs();renderChat(true);
+}
+
+function renderTabs(){
+  document.getElementById("tabs").innerHTML=order.map(k=>
+    `<button class="tab ${k===current?"active":""}" onclick="render('${k}')">
+      <span class="dot ${C[k].dotClass}"></span>${C[k].tabName}</button>`).join("");
+}
+function jump(id){
+  const el=document.getElementById(id);if(!el)return;
+  el.scrollIntoView({behavior:"smooth",block:"center"});
+  el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1600);
+}
+function toast(msg){
+  const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");
+  clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),2600);
+}
+
+const ov=document.getElementById("rerunOverlay"),modal=document.getElementById("rerunModal");
+function openRerun(){
+  modal.innerHTML=`<h3>Re-run analysis</h3>
+  <div class="msub">Select the dataroom folder. The AICA pipeline will re-parse every file, re-run all cross-document checks and rebuild this memo.</div>
+  ${order.map(k=>`<button class="fold" onclick="runPipeline('${k}')">
+    <span class="fico">▸</span> data/<b>${k}</b>/<span class="cnt">${C[k].files.length} files</span></button>`).join("")}
+  <div class="mrow">
+    <span class="hint">Or pick any folder from disk</span>
+    <button class="btn" onclick="document.getElementById('dirpick').click()">Browse…</button>
+    <button class="btn quiet" onclick="closeRerun()">Cancel</button>
+  </div>`;
+  ov.classList.add("show");
+}
+function closeRerun(){ov.classList.remove("show")}
+ov.addEventListener("click",e=>{if(e.target===ov)closeRerun()});
+document.getElementById("dirpick").addEventListener("change",e=>{
+  const n=e.target.files.length;if(!n)return;
+  const folder=(e.target.files[0].webkitRelativePath||"").split("/")[0]||"selected folder";
+  const key=order.find(k=>folder.toLowerCase().includes(k))||current;
+  runPipeline(key,folder,n);
+  e.target.value="";
+});
+function runPipeline(key,folderName,nFiles){
+  const c=C[key];
+  const steps=[
+    [`Classifying ${nFiles||c.files.length} files in ${folderName||("data/"+key)}`,"",420],
+    [`Parsing Bank_Statement.xlsx · 2,7xx rows`,"0 tokens",650],
+    [`Parsing ageing, debt schedule, cashflow model`,"0 tokens",520],
+    [`Computing ratios — DSCR, leverage, ICR, DSO`,"0 tokens",430],
+    [`Running ${c.checks.total} reconciliation checks`,`${c.checks.flagged} flagged`,700],
+    [`Haiku ×5 · extracting small PDFs + sanction scan`,"~11k tok",900],
+    [`Sonnet ×1 · structuring call on snapshot + KB`,"~7k tok",950],
+    [`Validators — DSCR floor, advance-rate band`,"pass",380],
+    [`Memo rebuilt · ${c.tele.tok} tokens · ${c.tele.cost} · ${c.tele.time}`,"",300]
+  ];
+  const docNames=["Bank_Statement.xlsx","Debtor_Ageing.xlsx","Financial_Statements.pdf","Sanction_Letter.png","Debt_Schedule.xlsx","GST_Returns.pdf","Financial_Model.xlsx","AICA_Report.pdf","Shareholding.pdf"];
+  const docChips=docNames.concat(docNames).map(d=>`<span class="sdoc">${d}</span>`).join("");
+  const NCELLS=28;
+  modal.innerHTML=`<h3>Analysing ${c.tabName}</h3>
+    <div class="msub">AICA pipeline v0.3 — deterministic parsers first, models last.</div>
+    <div class="scan"><div class="docs">${docChips}</div><div class="beam"></div></div>
+    <div class="cellsanim" id="pcells">${Array.from({length:NCELLS},()=>"<i></i>").join("")}</div>
+    <div class="pbar"><i id="pbarfill"></i></div>
+    <div class="plog" id="plog">${steps.map((s,i)=>
+      `<div class="pline" id="pl${i}"><span class="pmark">·</span><span>${s[0]}</span><span class="pcost">${s[1]}</span></div>`).join("")}</div>
+    <div style="text-align:center"><span class="donestamp" id="donestamp">Memo ready</span></div>`;
+  ov.classList.add("show");
+  const cellEls=[...document.getElementById("pcells").children];
+  let lit=0;
+  function lightCells(upto){
+    while(lit<upto&&lit<NCELLS){
+      const el=cellEls[lit];el.classList.add("on","hot");
+      setTimeout(()=>el.classList.remove("hot"),380);lit++;
+    }
+  }
+  let t=0;
+  steps.forEach((s,i)=>{
+    t+=s[2];
+    setTimeout(()=>{
+      const el=document.getElementById("pl"+i);if(!el)return;
+      el.classList.add("run");el.querySelector(".pmark").textContent="▸";
+      document.getElementById("pbarfill").style.width=Math.round(((i+1)/steps.length)*100)+"%";
+      lightCells(Math.round(((i+1)/steps.length)*NCELLS));
+      if(i>0){const p=document.getElementById("pl"+(i-1));p.classList.remove("run");p.classList.add("done");p.querySelector(".pmark").textContent="✓";}
+      if(i===steps.length-1){
+        setTimeout(()=>{
+          el.classList.remove("run");el.classList.add("done");el.querySelector(".pmark").textContent="✓";
+          lightCells(NCELLS);
+          document.getElementById("donestamp").classList.add("show");
+          setTimeout(()=>{closeRerun();render(key);toast(`Analysis refreshed · ${c.tele.cost} · ${c.tele.time}`);},900);
+        },420);
+      }
+    },t);
+  });
+}
+
+const cop=document.getElementById("copilot");
+function openCopilot(){cop.classList.remove("closed");syncCopBtn();document.getElementById("dtext").focus()}
+function toggleCopilot(){cop.classList.toggle("closed");syncCopBtn()}
+function toggleFloat(){
+  cop.classList.toggle("float");
+  document.getElementById("modeBtn").textContent=cop.classList.contains("float")?"⇲ Dock":"⇱ Float";
+}
+function syncCopBtn(){document.getElementById("copBtn").classList.toggle("on",!cop.classList.contains("closed"))}
+
+function renderChat(reset){
+  const c=C[current];
+  if(reset){document.getElementById("dmsgs").innerHTML=
+    `<div class="msg ai">Assessment loaded for <b>${c.tabName}</b>. Ask why any term or figure was set — answers cite the underlying snapshot fields. The Ask links on each card work too.</div>`;}
+  document.getElementById("dchips").innerHTML=c.chat.chips.map(q=>
+    `<button class="dchip" onclick="ask('${q.replace(/'/g,"\\'")}')">${q}</button>`).join("");
+}
+function ask(q){
+  openCopilot();
+  const box=document.getElementById("dmsgs");
+  box.insertAdjacentHTML("beforeend",`<div class="msg user">${q}</div>`);
+  const a=C[current].chat.answers[q];
+  box.insertAdjacentHTML("beforeend",`<div class="msg ai" style="opacity:.55">…</div>`);
+  box.scrollTop=box.scrollHeight;
+  setTimeout(()=>{
+    box.lastElementChild.remove();
+    const ans=a?a.a:"In the working build this routes to the pipeline chat (Sonnet grounded on this company's snapshot). Prototype answers are scripted for the suggested questions and card Ask links.";
+    const cite=a?`<span class="cite">↳ ${a.cite}</span>`:"";
+    box.insertAdjacentHTML("beforeend",`<div class="msg ai">${ans}${cite}</div>`);
+    box.scrollTop=box.scrollHeight;
+  },520);
+}
+document.getElementById("dsend").onclick=()=>{
+  const t=document.getElementById("dtext");if(!t.value.trim())return;
+  ask(t.value.trim());t.value="";
+};
+document.getElementById("dtext").addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("dsend").click()});
+
+if(window.innerWidth<1180)cop.classList.add("closed");
+syncCopBtn();
+renderQueue();
+</script>
+</body>
+</html>

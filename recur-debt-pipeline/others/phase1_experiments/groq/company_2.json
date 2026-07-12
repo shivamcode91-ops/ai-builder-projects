@@ -1,0 +1,432 @@
+{
+  "company": {
+    "name": "Nimbus Textiles Private Limited",
+    "sector": "Textiles / Apparel Mfg",
+    "cin": "U81852GU2014PTC783774",
+    "gstin": "24UMZHA6138W1ZV"
+  },
+  "generated_at": "2026-07-06T02:31:28",
+  "credit_snapshot": {
+    "company": {
+      "name": "Nimbus Textiles Private Limited",
+      "sector": "Textiles / Apparel Mfg",
+      "cin": "U81852GU2014PTC783774",
+      "gstin": "24UMZHA6138W1ZV"
+    },
+    "financials": {
+      "years": [
+        "FY2023-24",
+        "FY2024-25",
+        "FY2025-26"
+      ],
+      "revenue_inr": {
+        "FY2023-24": 270202020.0,
+        "FY2024-25": 297222222.0,
+        "FY2025-26": 321000000.0
+      },
+      "ebitda_inr": {
+        "FY2023-24": 24858586.0,
+        "FY2024-25": 27344444.0,
+        "FY2025-26": 29532000.0
+      },
+      "pat_inr": {
+        "FY2023-24": 3643946.0,
+        "FY2024-25": 5503368.0,
+        "FY2025-26": 7139660.0
+      },
+      "interest_inr": 12387000.0,
+      "balance_sheet_latest": {
+        "Net Block (Fixed Assets)": 49400000.0,
+        "Inventory": 50076000.0,
+        "Trade Receivables": 75632877.0,
+        "Cash & Bank": 2600000.0,
+        "Other Assets": 12840000.0,
+        "TOTAL ASSETS": 190548877.0,
+        "Borrowings": 112500000.0,
+        "Trade Payables": 21828000.0,
+        "Shareholders' Equity": 56220877.0
+      }
+    },
+    "working_capital": {
+      "dso_days": 86,
+      "dpo_days": 34,
+      "inventory_days": 78,
+      "top_customer_pct": 41
+    },
+    "debt_profile": {
+      "facilities": [
+        {
+          "lender": "Bank of Baroda",
+          "facility_type": "Cash Credit",
+          "sanctioned_inr": 70000000.0,
+          "outstanding_inr": 67500000.0,
+          "roi_pct": 10.6,
+          "monthly_emi_inr": 0.0,
+          "tenor_months": 12
+        },
+        {
+          "lender": "Bank of Baroda",
+          "facility_type": "Term Loan",
+          "sanctioned_inr": 35000000.0,
+          "outstanding_inr": 21000000.0,
+          "roi_pct": 11.2,
+          "monthly_emi_inr": 820000.0,
+          "tenor_months": 48
+        },
+        {
+          "lender": "Tata Capital",
+          "facility_type": "WCDL",
+          "sanctioned_inr": 25000000.0,
+          "outstanding_inr": 24000000.0,
+          "roi_pct": 12.0,
+          "monthly_emi_inr": 0.0,
+          "tenor_months": 12
+        }
+      ],
+      "total_sanctioned_inr": 130000000.0,
+      "total_outstanding_inr": 112500000.0,
+      "monthly_emi_inr": 820000.0,
+      "wc_utilisation_pct": 96.3
+    },
+    "receivables": {
+      "total_inr": 75632877.0,
+      "buckets_inr": {
+        "0-30 days": 31765808.0,
+        "31-60 days": 17395562.0,
+        "61-90 days": 11344932.0,
+        "90+ days": 15126575.0
+      },
+      "eligible_0_60_inr": 49161370.0,
+      "pct_90_plus": 20.0
+    },
+    "banking": {
+      "avg_monthly_inflows_inr": 32378141.0,
+      "avg_monthly_outflows_inr": 29609509.0,
+      "monthly_inflows_inr": {
+        "Apr-25": 34563592,
+        "May-25": 28134247,
+        "Jun-25": 30743961,
+        "Jul-25": 31880744,
+        "Aug-25": 32829209,
+        "Sep-25": 35756264,
+        "Oct-25": 31166679,
+        "Nov-25": 28707917,
+        "Dec-25": 28961751,
+        "Jan-26": 34641069,
+        "Feb-26": 36280636,
+        "Mar-26": 34871625
+      },
+      "closing_balance_inr": 38456898.41,
+      "closing_date": "28-Mar-26",
+      "bounce_count_12m": 4
+    },
+    "ratios_reported": {
+      "DSCR": 1.33,
+      "Total Debt / EBITDA": 3.81,
+      "Interest Coverage": 2.38,
+      "Current Ratio": 1.13,
+      "EBITDA Margin": 0.09,
+      "Gross Margin": 0.27
+    },
+    "ratios_computed": {
+      "revenue_growth_pct": 8.0,
+      "ebitda_margin_pct": 9.2,
+      "dscr": 1.33,
+      "debt_to_ebitda": 3.81,
+      "interest_coverage": 2.38,
+      "annual_debt_service_inr": 22227000.0,
+      "net_worth_inr": 56220877.0,
+      "cash_months_cover": 0.09
+    },
+    "aica": {
+      "risk_score": 6.1,
+      "risk_band": "Elevated",
+      "risk_observations": [
+        "Receivable days stretched (~86); working-capital cycle elongating.",
+        "4 cheque returns in trailing 12 months \u2014 liquidity strain.",
+        "High customer concentration (~41%).",
+        "Thin closing cash relative to monthly outflows."
+      ],
+      "positive_signals": []
+    },
+    "governance": {
+      "promoter_pct": 85.0,
+      "holders": [
+        {
+          "name": "Mahesh Patel",
+          "category": "Promoter",
+          "pct": 55.0
+        },
+        {
+          "name": "Bhavna Patel",
+          "category": "Promoter",
+          "pct": 30.0
+        },
+        {
+          "name": "Patel Family Trust",
+          "category": "Investor",
+          "pct": 15.0
+        }
+      ],
+      "pledging_disclosed": null
+    },
+    "documents": {
+      "aica_report": "AICA_Report.pdf",
+      "financial_statements": "Financial_Statements_FY26.pdf",
+      "gst_returns": "GST_Returns_Summary.pdf",
+      "shareholding": "Shareholding_Pattern.pdf",
+      "sanction_letter": "Sanction_Letter_scan.png"
+    },
+    "mis": {
+      "facility_utilisation": [
+        {
+          "lender": "Bank of Baroda",
+          "facility": "Cash Credit",
+          "sanctioned_inr": 70000000.0,
+          "drawing_power_inr": 68561521.0,
+          "outstanding_inr": 67500000.0,
+          "utilisation_pct": 96.4,
+          "roi_pct": 10.6
+        },
+        {
+          "lender": "Bank of Baroda",
+          "facility": "Term Loan",
+          "sanctioned_inr": 35000000.0,
+          "drawing_power_inr": 33006911.0,
+          "outstanding_inr": 21000000.0,
+          "utilisation_pct": 60.0,
+          "roi_pct": 11.2
+        },
+        {
+          "lender": "Tata Capital",
+          "facility": "WCDL",
+          "sanctioned_inr": 25000000.0,
+          "drawing_power_inr": 23091073.0,
+          "outstanding_inr": 24000000.0,
+          "utilisation_pct": 96.0,
+          "roi_pct": 12.0
+        }
+      ],
+      "working_capital": {
+        "latest_month": "Mar-26",
+        "dso_days": 92.0,
+        "dio_days": 76.0,
+        "dpo_days": 33.0,
+        "wc_cycle_days": 135.0,
+        "avg_wc_cycle_days": 129.0
+      },
+      "customers": {
+        "count": 47,
+        "total_sales_inr": 320997690.0,
+        "top5": [
+          {
+            "name": "Vastra Global Exports LLP",
+            "region": "Export",
+            "sales_inr": 129301408.0,
+            "pct": 40.3,
+            "outstanding_inr": 35092141.0
+          },
+          {
+            "name": "Metro Garments Pvt Ltd",
+            "region": "East",
+            "sales_inr": 8745789.0,
+            "pct": 2.7,
+            "outstanding_inr": 2919525.0
+          },
+          {
+            "name": "Jindal Creations Pvt Ltd",
+            "region": "West",
+            "sales_inr": 8198809.0,
+            "pct": 2.6,
+            "outstanding_inr": 1488139.0
+          },
+          {
+            "name": "Jai Apparels LLP",
+            "region": "East",
+            "sales_inr": 7171048.0,
+            "pct": 2.2,
+            "outstanding_inr": 2399104.0
+          },
+          {
+            "name": "Surya Enterprises",
+            "region": "Export",
+            "sales_inr": 7117439.0,
+            "pct": 2.2,
+            "outstanding_inr": 2352267.0
+          }
+        ],
+        "top1_pct": 40.3,
+        "top5_pct": 50.0
+      },
+      "debtor_ageing": {
+        "buckets_inr": {
+          "0-30": 28524448.0,
+          "31-60": 25006135.0,
+          "61-90": 21892911.0,
+          "90+": 12202559.0
+        },
+        "total_inr": 87626053.0,
+        "pct_90_plus": 13.9
+      },
+      "order_book": {
+        "orders": 60,
+        "total_value_inr": 276504811.0,
+        "confirmed_value_inr": 154987083.0
+      }
+    },
+    "risk_signals": [
+      {
+        "severity": "medium",
+        "signal": "Modest DSCR headroom",
+        "evidence": "computed DSCR 1.33"
+      },
+      {
+        "severity": "medium",
+        "signal": "Leverage above ~3x EBITDA norm",
+        "evidence": "debt/EBITDA 3.81x"
+      },
+      {
+        "severity": "high",
+        "signal": "Cheque returns in trailing 12m",
+        "evidence": "4 returns in bank statement (fee rows excluded)"
+      },
+      {
+        "severity": "high",
+        "signal": "Customer concentration",
+        "evidence": "top customer 41% of revenue"
+      },
+      {
+        "severity": "medium",
+        "signal": "Elevated 90+ day receivables",
+        "evidence": "20.0% of book overdue 90+ days"
+      },
+      {
+        "severity": "high",
+        "signal": "Working-capital limits near ceiling",
+        "evidence": "96.3% of sanctioned WC limits drawn"
+      },
+      {
+        "severity": "high",
+        "signal": "Thin liquidity buffer",
+        "evidence": "closing cash covers 0.09 months of avg bank outflows"
+      },
+      {
+        "severity": "medium",
+        "signal": "Current ratio below 1.2 covenant norm",
+        "evidence": "current ratio 1.13"
+      }
+    ],
+    "data_quality_flags": [
+      {
+        "flag": "cashflow_reconciliation_break",
+        "detail": "Mar-26: opening+inflows-outflows exceeds stated closing by INR 36,173,218 (closing appears forced to the balance-sheet cash figure)"
+      },
+      {
+        "flag": "bs_cash_vs_bank_statement",
+        "detail": "Balance sheet cash INR 2,600,000 vs bank statement closing INR 38,456,898 (28-Mar-26) \u2014 unexplained gap of INR 35,856,898"
+      },
+      {
+        "flag": "mis_vs_dataroom_ageing",
+        "detail": "MIS debtor ageing total INR 87,626,053 vs Dataroom ageing INR 75,632,877 (diff INR 11,993,176); bucket mix also differs \u2014 eligible-receivable base is ambiguous"
+      },
+      {
+        "flag": "sanction_letter_partial_coverage",
+        "detail": "Sanction letter shows only 1 facility (Bank of Baroda Cash Credit, INR 7,000,000) but debt schedule lists 3 facilities \u2014 remaining sanction letters not in dataroom"
+      }
+    ]
+  },
+  "debt_structure": {
+    "eligibility": "conditional",
+    "eligibility_reason": "The company's high leverage, thin liquidity buffer, and working-capital limits near ceiling raise concerns, but a structured approach can mitigate these risks.",
+    "recommended_products": [
+      {
+        "product": "Invoice Discounting",
+        "purpose": "Unlocking cash stuck in receivables to improve liquidity",
+        "amount_inr": 24565823,
+        "amount_basis": "70% of eligible 0-60 day receivables (49161370 * 0.7, using the lower number due to data-quality flags)",
+        "tenor_months": 3,
+        "pricing": {
+          "benchmark": "MCLR",
+          "spread_bps": 200,
+          "all_in_rate_pct": 10.2,
+          "processing_fee_pct": 0.5
+        },
+        "repayment": "self-liquidating",
+        "advance_rate_pct": 70,
+        "security": [
+          "Assignment of receivables"
+        ],
+        "covenants": [
+          "DSCR >= 1.25",
+          "Debt/EBITDA <= 3.5"
+        ],
+        "conditions_precedent": [
+          "Resolution of data-quality flags",
+          "Updated ageing report"
+        ],
+        "monitoring": [
+          "Regular review of debtor ageing",
+          "Monthly cash flow statements"
+        ],
+        "serviceability_check": "Post-facility DSCR = (EBITDA - interest on new facility) / (principal due on new facility + existing debt service) = (29532000 - 4932915) / (22227000 + 820000) = 1.31, which is above the required 1.25"
+      },
+      {
+        "product": "Revolving Credit Facility (RCF)",
+        "purpose": "Providing a flexible, recurring draw/repay facility for working capital needs",
+        "amount_inr": 12000000,
+        "amount_basis": "20% of average monthly inflows (32378141 * 0.2, considering the company's cash flow seasonality)",
+        "tenor_months": 12,
+        "pricing": {
+          "benchmark": "repo",
+          "spread_bps": 250,
+          "all_in_rate_pct": 9.5,
+          "processing_fee_pct": 0.75
+        },
+        "repayment": "revolving",
+        "advance_rate_pct": null,
+        "security": [
+          "Hypothecation of inventory and book debts"
+        ],
+        "covenants": [
+          "Current Ratio >= 1.2",
+          "No additional debt without lender's consent"
+        ],
+        "conditions_precedent": [
+          "Sanction letters for all existing facilities",
+          "Updated financial statements"
+        ],
+        "monitoring": [
+          "Quarterly review of financial performance",
+          "Regular verification of inventory and receivables"
+        ],
+        "serviceability_check": "Post-facility interest coverage = EBITDA / (interest on new facility + existing interest) = 29532000 / (1200000 + 12387000) = 2.14, which is above the required 2.0"
+      }
+    ],
+    "declined_products": [
+      {
+        "product": "Term Loan",
+        "reason": "The company's high leverage and thin liquidity buffer make it challenging to service additional term debt."
+      }
+    ],
+    "key_risks": [
+      "High leverage: The company's debt/EBITDA ratio is 3.81, which is above the norm of 3.0. The recommended structure aims to reduce this ratio by providing a self-liquidating facility and improving cash flows.",
+      "Thin liquidity buffer: The company's closing cash covers only 0.09 months of average bank outflows. The recommended Invoice Discounting facility will help unlock cash stuck in receivables, improving liquidity.",
+      "Working-capital limits near ceiling: The company's working-capital limits are near the ceiling, which may lead to liquidity issues. The recommended RCF will provide a flexible, recurring draw/repay facility to manage working capital needs."
+    ],
+    "rationale": "The company's financial performance, as reflected in the latest fiscal year's figures (FY2025-26), shows a revenue growth of 8% and an EBITDA margin of 9.2%. However, the company faces challenges such as high leverage, thin liquidity buffer, and working-capital limits near the ceiling. The recommended structure aims to mitigate these risks by providing a self-liquidating Invoice Discounting facility to improve liquidity and a Revolving Credit Facility to manage working capital needs. The structure also includes covenants and conditions precedent to ensure the company's financial discipline and transparency. The serviceability checks demonstrate that the company can service the recommended facilities, and the key risks are mitigated through the structured approach."
+  },
+  "validation_warnings": [],
+  "run_meta": {
+    "wall_clock_seconds": 5.1,
+    "llm_calls": 6,
+    "cached_calls": 5,
+    "prompt_tokens": 4295,
+    "completion_tokens": 996,
+    "llm_seconds": 4.06,
+    "est_cost_usd": 0.0,
+    "models": {
+      "extract": "meta-llama/llama-4-scout-17b-16e-instruct",
+      "reason": "llama-3.3-70b-versatile"
+    }
+  }
+}

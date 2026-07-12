@@ -1,0 +1,504 @@
+{
+  "company": {
+    "name": "Nimbus Textiles Private Limited",
+    "sector": "Textiles / Apparel Mfg",
+    "cin": "U81852GU2014PTC783774",
+    "gstin": "24UMZHA6138W1ZV"
+  },
+  "generated_at": "2026-07-09T19:17:07",
+  "credit_snapshot": {
+    "company": {
+      "name": "Nimbus Textiles Private Limited",
+      "sector": "Textiles / Apparel Mfg",
+      "cin": "U81852GU2014PTC783774",
+      "gstin": "24UMZHA6138W1ZV"
+    },
+    "financials": {
+      "years": [
+        "FY2023-24",
+        "FY2024-25",
+        "FY2025-26"
+      ],
+      "revenue_inr": {
+        "FY2023-24": 270202020.0,
+        "FY2024-25": 297222222.0,
+        "FY2025-26": 321000000.0
+      },
+      "ebitda_inr": {
+        "FY2023-24": 24858586.0,
+        "FY2024-25": 27344444.0,
+        "FY2025-26": 29532000.0
+      },
+      "pat_inr": {
+        "FY2023-24": 3643946.0,
+        "FY2024-25": 5503368.0,
+        "FY2025-26": 7139660.0
+      },
+      "interest_inr": 12387000.0,
+      "balance_sheet_latest": {
+        "Net Block (Fixed Assets)": 49400000.0,
+        "Inventory": 50076000.0,
+        "Trade Receivables": 75632877.0,
+        "Cash & Bank": 2600000.0,
+        "Other Assets": 12840000.0,
+        "TOTAL ASSETS": 190548877.0,
+        "Borrowings": 112500000.0,
+        "Trade Payables": 21828000.0,
+        "Shareholders' Equity": 56220877.0
+      }
+    },
+    "working_capital": {
+      "dso_days": 86,
+      "dpo_days": 34,
+      "inventory_days": 78,
+      "top_customer_pct": 41
+    },
+    "debt_profile": {
+      "facilities": [
+        {
+          "lender": "Bank of Baroda",
+          "facility_type": "Cash Credit",
+          "sanctioned_inr": 70000000.0,
+          "outstanding_inr": 67500000.0,
+          "roi_pct": 10.6,
+          "monthly_emi_inr": 0.0,
+          "tenor_months": 12
+        },
+        {
+          "lender": "Bank of Baroda",
+          "facility_type": "Term Loan",
+          "sanctioned_inr": 35000000.0,
+          "outstanding_inr": 21000000.0,
+          "roi_pct": 11.2,
+          "monthly_emi_inr": 820000.0,
+          "tenor_months": 48
+        },
+        {
+          "lender": "Tata Capital",
+          "facility_type": "WCDL",
+          "sanctioned_inr": 25000000.0,
+          "outstanding_inr": 24000000.0,
+          "roi_pct": 12.0,
+          "monthly_emi_inr": 0.0,
+          "tenor_months": 12
+        }
+      ],
+      "total_sanctioned_inr": 130000000.0,
+      "total_outstanding_inr": 112500000.0,
+      "monthly_emi_inr": 820000.0,
+      "wc_utilisation_pct": 96.3
+    },
+    "receivables": {
+      "total_inr": 75632877.0,
+      "buckets_inr": {
+        "0-30 days": 31765808.0,
+        "31-60 days": 17395562.0,
+        "61-90 days": 11344932.0,
+        "90+ days": 15126575.0
+      },
+      "eligible_0_60_inr": 49161370.0,
+      "pct_90_plus": 20.0
+    },
+    "banking": {
+      "avg_monthly_inflows_inr": 32378141.0,
+      "avg_monthly_outflows_inr": 29609509.0,
+      "monthly_inflows_inr": {
+        "Apr-25": 34563592,
+        "May-25": 28134247,
+        "Jun-25": 30743961,
+        "Jul-25": 31880744,
+        "Aug-25": 32829209,
+        "Sep-25": 35756264,
+        "Oct-25": 31166679,
+        "Nov-25": 28707917,
+        "Dec-25": 28961751,
+        "Jan-26": 34641069,
+        "Feb-26": 36280636,
+        "Mar-26": 34871625
+      },
+      "closing_balance_inr": 38456898.41,
+      "closing_date": "28-Mar-26",
+      "bounce_count_12m": 4
+    },
+    "ratios_reported": {
+      "DSCR": 1.33,
+      "Total Debt / EBITDA": 3.81,
+      "Interest Coverage": 2.38,
+      "Current Ratio": 1.13,
+      "EBITDA Margin": 0.09,
+      "Gross Margin": 0.27
+    },
+    "ratios_computed": {
+      "revenue_growth_pct": 8.0,
+      "ebitda_margin_pct": 9.2,
+      "dscr": 1.33,
+      "debt_to_ebitda": 3.81,
+      "interest_coverage": 2.38,
+      "annual_debt_service_inr": 22227000.0,
+      "net_worth_inr": 56220877.0,
+      "cash_months_cover": 0.09
+    },
+    "aica": {
+      "risk_score": 6.1,
+      "risk_band": "Elevated",
+      "risk_observations": [
+        "Receivable days stretched (~86); working-capital cycle elongating",
+        "4 cheque returns in trailing 12 months \u2014 liquidity strain",
+        "High customer concentration (~41%)",
+        "Thin closing cash relative to monthly outflows"
+      ],
+      "positive_signals": []
+    },
+    "governance": {
+      "promoter_pct": 85.0,
+      "holders": [
+        {
+          "name": "Mahesh Patel",
+          "category": "Promoter",
+          "pct": 55.0
+        },
+        {
+          "name": "Bhavna Patel",
+          "category": "Promoter",
+          "pct": 30.0
+        },
+        {
+          "name": "Patel Family Trust",
+          "category": "Investor",
+          "pct": 15.0
+        }
+      ],
+      "pledging_disclosed": null
+    },
+    "documents": {
+      "aica_report": "AICA_Report.pdf",
+      "financial_statements": "Financial_Statements_FY26.pdf",
+      "gst_returns": "GST_Returns_Summary.pdf",
+      "shareholding": "Shareholding_Pattern.pdf",
+      "sanction_letter": "Sanction_Letter_scan.png"
+    },
+    "mis": {
+      "facility_utilisation": [
+        {
+          "lender": "Bank of Baroda",
+          "facility": "Cash Credit",
+          "sanctioned_inr": 70000000.0,
+          "drawing_power_inr": 68561521.0,
+          "outstanding_inr": 67500000.0,
+          "utilisation_pct": 96.4,
+          "roi_pct": 10.6
+        },
+        {
+          "lender": "Bank of Baroda",
+          "facility": "Term Loan",
+          "sanctioned_inr": 35000000.0,
+          "drawing_power_inr": 33006911.0,
+          "outstanding_inr": 21000000.0,
+          "utilisation_pct": 60.0,
+          "roi_pct": 11.2
+        },
+        {
+          "lender": "Tata Capital",
+          "facility": "WCDL",
+          "sanctioned_inr": 25000000.0,
+          "drawing_power_inr": 23091073.0,
+          "outstanding_inr": 24000000.0,
+          "utilisation_pct": 96.0,
+          "roi_pct": 12.0
+        }
+      ],
+      "working_capital": {
+        "latest_month": "Mar-26",
+        "dso_days": 92.0,
+        "dio_days": 76.0,
+        "dpo_days": 33.0,
+        "wc_cycle_days": 135.0,
+        "avg_wc_cycle_days": 129.0
+      },
+      "customers": {
+        "count": 47,
+        "total_sales_inr": 320997690.0,
+        "top5": [
+          {
+            "name": "Vastra Global Exports LLP",
+            "region": "Export",
+            "sales_inr": 129301408.0,
+            "pct": 40.3,
+            "outstanding_inr": 35092141.0
+          },
+          {
+            "name": "Metro Garments Pvt Ltd",
+            "region": "East",
+            "sales_inr": 8745789.0,
+            "pct": 2.7,
+            "outstanding_inr": 2919525.0
+          },
+          {
+            "name": "Jindal Creations Pvt Ltd",
+            "region": "West",
+            "sales_inr": 8198809.0,
+            "pct": 2.6,
+            "outstanding_inr": 1488139.0
+          },
+          {
+            "name": "Jai Apparels LLP",
+            "region": "East",
+            "sales_inr": 7171048.0,
+            "pct": 2.2,
+            "outstanding_inr": 2399104.0
+          },
+          {
+            "name": "Surya Enterprises",
+            "region": "Export",
+            "sales_inr": 7117439.0,
+            "pct": 2.2,
+            "outstanding_inr": 2352267.0
+          }
+        ],
+        "top1_pct": 40.3,
+        "top5_pct": 50.0
+      },
+      "debtor_ageing": {
+        "buckets_inr": {
+          "0-30": 28524448.0,
+          "31-60": 25006135.0,
+          "61-90": 21892911.0,
+          "90+": 12202559.0
+        },
+        "total_inr": 87626053.0,
+        "pct_90_plus": 13.9
+      },
+      "order_book": {
+        "orders": 60,
+        "total_value_inr": 276504811.0,
+        "confirmed_value_inr": 154987083.0
+      }
+    },
+    "risk_signals": [
+      {
+        "severity": "medium",
+        "signal": "Modest DSCR headroom",
+        "evidence": "computed DSCR 1.33"
+      },
+      {
+        "severity": "medium",
+        "signal": "Leverage above ~3x EBITDA norm",
+        "evidence": "debt/EBITDA 3.81x"
+      },
+      {
+        "severity": "high",
+        "signal": "Cheque returns in trailing 12m",
+        "evidence": "4 returns in bank statement (fee rows excluded)"
+      },
+      {
+        "severity": "high",
+        "signal": "Customer concentration",
+        "evidence": "top customer 41% of revenue"
+      },
+      {
+        "severity": "medium",
+        "signal": "Elevated 90+ day receivables",
+        "evidence": "20.0% of book overdue 90+ days"
+      },
+      {
+        "severity": "high",
+        "signal": "Working-capital limits near ceiling",
+        "evidence": "96.3% of sanctioned WC limits drawn"
+      },
+      {
+        "severity": "high",
+        "signal": "Thin liquidity buffer",
+        "evidence": "closing cash covers 0.09 months of avg bank outflows"
+      },
+      {
+        "severity": "medium",
+        "signal": "Current ratio below 1.2 covenant norm",
+        "evidence": "current ratio 1.13"
+      }
+    ],
+    "data_quality_flags": [
+      {
+        "flag": "cashflow_reconciliation_break",
+        "detail": "Mar-26: opening+inflows-outflows exceeds stated closing by INR 36,173,218 (closing appears forced to the balance-sheet cash figure)"
+      },
+      {
+        "flag": "bs_cash_vs_bank_statement",
+        "detail": "Balance sheet cash INR 2,600,000 vs bank statement closing INR 38,456,898 (28-Mar-26) \u2014 unexplained gap of INR 35,856,898"
+      },
+      {
+        "flag": "mis_vs_dataroom_ageing",
+        "detail": "MIS debtor ageing total INR 87,626,053 vs Dataroom ageing INR 75,632,877 (diff INR 11,993,176); bucket mix also differs \u2014 eligible-receivable base is ambiguous"
+      },
+      {
+        "flag": "sanction_letter_partial_coverage",
+        "detail": "Sanction letter shows only 1 facility (Bank of Baroda Cash Credit, INR 70,000,000) but debt schedule lists 3 facilities \u2014 remaining sanction letters not in dataroom"
+      }
+    ]
+  },
+  "debt_structure": {
+    "eligibility": "conditional",
+    "eligibility_reason": "Nimbus Textiles is a growing, profitable business but carries elevated leverage (3.81x Debt/EBITDA), near-ceiling WC utilisation (96.3%), four cheque bounces, thin liquidity (0.09 months cash cover), and material data-quality discrepancies that must be resolved before any new limit is sanctioned.",
+    "recommended_products": [
+      {
+        "product": "Invoice Discounting (Receivables Discounting)",
+        "purpose": "Unlock cash trapped in trade receivables to reduce CC/OD utilisation and ease day-to-day liquidity without adding EMI-bearing senior debt to an already stretched balance sheet",
+        "amount_inr": 24500000,
+        "amount_basis": "Eligible receivables (0-60 day) per dataroom ageing = INR 49,161,370. MIS ageing shows a higher total (INR 87,626,053) but the dataroom figure is used conservatively per data-quality flag 'mis_vs_dataroom_ageing'. Base advance rate 80% on 0-60d bucket = 0.80 \u00d7 49,161,370 = INR 39,329,096. Apply 25% concentration haircut on Vastra Global Exports LLP (40.3% of revenue; outstanding INR 35,092,141 per MIS): Vastra-attributable eligible receivables estimated at 40.3% \u00d7 49,161,370 = INR 19,802,032; haircut 50% of Vastra portion = reduce eligible base by 0.50 \u00d7 19,802,032 = INR 9,901,016; adjusted eligible base = 49,161,370 \u2212 9,901,016 = INR 39,260,354; 80% advance = INR 31,408,283. Round down to INR 24,500,000 to stay within a conservative first-tranche limit given 4 cheque bounces and unresolved cash discrepancy; limit can step up to INR 31,000,000 upon resolution of data-quality flags.",
+        "tenor_months": 3,
+        "pricing": {
+          "benchmark": "repo",
+          "spread_bps": 350,
+          "all_in_rate_pct": 9.75,
+          "processing_fee_pct": 0.5
+        },
+        "repayment": "self-liquidating \u2014 each invoice discounted is repaid directly from debtor collections within 30-90 day cycle; revolving within sanctioned limit",
+        "advance_rate_pct": 80,
+        "security": [
+          "Assignment / hypothecation of specific invoices discounted",
+          "Escrow / collection account: all debtor payments routed through lender-controlled account",
+          "Personal guarantees of Mahesh Patel (55%) and Bhavna Patel (30%)",
+          "Negative lien on receivables not already charged to Bank of Baroda"
+        ],
+        "covenants": [
+          "Vastra Global Exports LLP concentration cap: single-debtor outstanding under this facility \u2264 35% of total discounted pool at any time",
+          "90+ day overdue receivables \u2264 15% of total trade receivables book (currently 20% per dataroom; step-down trigger)",
+          "Dilution rate (credit notes / disputes) \u2264 5% of discounted invoices per quarter",
+          "No additional borrowing without prior written consent",
+          "Monthly submission of updated debtor ageing within 7 days of month-end",
+          "Cheque bounce count \u2264 2 in any rolling 6-month window; breach triggers facility review"
+        ],
+        "conditions_precedent": [
+          "Resolution of data-quality flag 'bs_cash_vs_bank_statement': borrower to provide bank reconciliation statement explaining INR 35,856,898 gap between balance-sheet cash (INR 2,600,000) and bank-statement closing (INR 38,456,898) \u2014 conservative balance-sheet figure used for all sizing",
+          "Resolution of data-quality flag 'mis_vs_dataroom_ageing': reconciled and auditor-certified debtor ageing as at a date not older than 30 days prior to first drawdown; limit will be re-sized off reconciled eligible base",
+          "Submission of all three sanction letters (Bank of Baroda TL, Tata Capital WCDL) to confirm existing charge structure \u2014 flag 'sanction_letter_partial_coverage'",
+          "No-objection certificate (NOC) / pari-passu / second-charge confirmation from Bank of Baroda on receivables proposed for discounting",
+          "KYC and CIBIL/bureau check on top-5 debtors; Vastra Global Exports LLP credit check mandatory",
+          "Execution of escrow/collection account agreement before first drawdown",
+          "Personal guarantee documentation from both promoters",
+          "GST return cross-check: invoices to be discounted must be reflected in GSTR-1 filings"
+        ],
+        "monitoring": [
+          "Monthly debtor ageing report (bucket-wise) within 7 days of month-end",
+          "Quarterly bank statement review; flag if bounce count exceeds 2 in any 6-month window",
+          "Real-time escrow account monitoring; lender to receive daily credit alerts on collection account",
+          "Half-yearly review of Vastra Global Exports LLP concentration and creditworthiness",
+          "Annual renewal with fresh audited financials and updated bureau checks on borrower and key debtors"
+        ],
+        "serviceability_check": [
+          "Product is self-liquidating: repayment comes from debtor collections, NOT from Nimbus operating cash flows \u2014 no incremental DSCR burden on the borrower",
+          "Existing annual debt service (FY2025-26): interest INR 12,387,000 + TL principal (INR 820,000/month \u00d7 12) = INR 9,840,000; total = INR 22,227,000 (matches snapshot field 'annual_debt_service_inr')",
+          "EBITDA FY2025-26 (latest year used) = INR 29,532,000",
+          "Current DSCR = 29,532,000 / 22,227,000 = 1.33x (matches computed ratio)",
+          "Invoice discounting adds ZERO principal/interest EMI to debt service numerator \u2014 it is off-balance-sheet self-liquidating; DSCR unchanged at 1.33x post-facility",
+          "Discounting fee (9.75% p.a. on INR 24,500,000 for avg 60-day cycle) \u2248 INR 24,500,000 \u00d7 9.75% \u00d7 (60/365) = INR 393,493 per cycle \u2014 treated as a cost of funds, not a debt-service obligation; well within operating cash generation",
+          "Conclusion: DSCR post-facility = 1.33x \u2265 1.25x threshold; structure is serviceable"
+        ]
+      },
+      {
+        "product": "Cash Credit (CC/OD) \u2014 Restructuring / Rationalisation of Existing Facility",
+        "purpose": "Restructure the existing Bank of Baroda Cash Credit (INR 70,000,000 sanctioned, INR 67,500,000 drawn, 96.4% utilised) by introducing a drawing-power discipline linked to a freshly reconciled stock + receivables statement, and adding a sub-limit carve-out for the invoice discounting facility to prevent double-financing of the same receivables",
+        "amount_inr": 70000000,
+        "amount_basis": "No increase in sanctioned limit recommended. Existing limit INR 70,000,000 retained. Drawing power to be recomputed monthly: 75% of eligible inventory (0-60d stock) + 75% of eligible receivables (0-60d, post-concentration haircut) net of creditors. At current inventory INR 50,076,000 and eligible receivables INR 39,260,354 (post-haircut, per invoice discounting sizing above): DP = 0.75 \u00d7 50,076,000 + 0.75 \u00d7 39,260,354 \u2212 21,828,000 (trade payables) = 37,557,000 + 29,445,266 \u2212 21,828,000 = INR 45,174,266. This implies the current outstanding of INR 67,500,000 exceeds recomputed DP by ~INR 22.3 million \u2014 a step-down plan is required (see covenants). Limit is not increased; restructuring only.",
+        "tenor_months": 12,
+        "pricing": {
+          "benchmark": "MCLR",
+          "spread_bps": 200,
+          "all_in_rate_pct": 10.6,
+          "processing_fee_pct": 0.25
+        },
+        "repayment": "revolving \u2014 repaid from daily collections routed through CC account; annual renewal subject to satisfactory conduct",
+        "advance_rate_pct": 75,
+        "security": [
+          "Existing first charge on current assets (inventory + receivables) \u2014 Bank of Baroda to confirm via updated charge registration",
+          "Personal guarantees of Mahesh Patel and Bhavna Patel (existing; to be reconfirmed)",
+          "Carve-out / sub-limit: receivables assigned to invoice discounting facility to be excluded from CC drawing-power computation to prevent double-financing"
+        ],
+        "covenants": [
+          "Drawing power recomputed monthly from stock + debtor statements submitted within 5 days of month-end; outstanding to be brought within DP within 30 days of each recomputation",
+          "Step-down plan: outstanding to reduce from INR 67,500,000 to \u2264 INR 55,000,000 within 6 months and \u2264 INR 45,000,000 within 12 months, consistent with invoice discounting releasing receivable cash",
+          "No double-financing: receivables discounted under the invoice discounting facility to be excluded from CC DP base",
+          "DSCR \u2265 1.25x on trailing 12-month basis, tested semi-annually",
+          "Debt/EBITDA \u2264 3.5x tested annually (current 3.81x \u2014 step-down covenant)",
+          "Current Ratio \u2265 1.15x tested semi-annually (current 1.13x \u2014 near-term cure required)",
+          "Cheque bounce count \u2264 2 in any rolling 6-month window; breach triggers immediate review and possible limit reduction",
+          "No additional secured borrowing without lender consent"
+        ],
+        "conditions_precedent": [
+          "Reconciliation of balance-sheet cash vs bank-statement closing (INR 35,856,898 gap) \u2014 flag 'bs_cash_vs_bank_statement'; conservative balance-sheet figure (INR 2,600,000) used",
+          "Submission of missing sanction letters for Bank of Baroda TL and Tata Capital WCDL \u2014 flag 'sanction_letter_partial_coverage'",
+          "Reconciled debtor ageing (MIS INR 87,626,053 vs dataroom INR 75,632,877) certified by statutory auditor \u2014 flag 'mis_vs_dataroom_ageing'",
+          "Updated stock statement and drawing-power computation as at a date not older than 15 days",
+          "Confirmation that no undisclosed borrowings exist beyond the three listed facilities",
+          "Pledging status of promoter shares to be disclosed and confirmed \u2014 field 'pledging_disclosed: null'"
+        ],
+        "monitoring": [
+          "Monthly stock and debtor statements within 5 days of month-end for DP recomputation",
+          "Quarterly financial MIS (P&L, balance sheet, cash flow)",
+          "Bank statement review monthly; bounce incidents to be reported immediately",
+          "Semi-annual DSCR and leverage covenant test with management certification",
+          "Annual renewal with audited financials, bureau refresh, and site visit"
+        ],
+        "serviceability_check": [
+          "CC is a revolving facility \u2014 no fixed principal repayment; interest is the only recurring cost",
+          "Annual interest on CC at 10.6% on average outstanding ~INR 67,500,000 = INR 7,155,000",
+          "Existing total debt service already includes CC interest within the INR 12,387,000 interest line \u2014 no incremental debt service from restructuring (limit unchanged)",
+          "EBITDA FY2025-26 = INR 29,532,000; existing DSCR = 1.33x; restructuring does not change this",
+          "Step-down of CC outstanding by INR 22,500,000 over 12 months (funded by invoice discounting collections) will reduce interest cost by ~INR 2,385,000 p.a., improving DSCR to ~1.41x at steady state",
+          "Conclusion: DSCR post-restructuring \u2265 1.25x; structure is serviceable and improves over time"
+        ]
+      }
+    ],
+    "declined_products": [
+      {
+        "product": "New Term Loan (incremental capex or balance-sheet TL)",
+        "reason": "Debt/EBITDA already 3.81x (above 3.0x norm); DSCR headroom is thin at 1.33x; adding a new amortising TL with annual principal + interest would reduce DSCR below 1.25x. Example: a INR 20,000,000 TL at 11.5% over 48 months adds ~INR 5,000,000 annual principal + INR 2,300,000 interest = INR 7,300,000 incremental debt service; revised DSCR = 29,532,000 / (22,227,000 + 7,300,000) = 1.00x \u2014 below threshold."
+      },
+      {
+        "product": "Incremental Working Capital Demand Loan (new WCDL beyond existing)",
+        "reason": "Existing WCDL (Tata Capital, INR 25,000,000) is 96% utilised; total WC limits are 96.3% drawn; adding a new WCDL increases leverage further above 3.81x Debt/EBITDA and adds bullet repayment risk given 4 cheque bounces and thin liquidity (0.09 months cash cover). Self-liquidating invoice discounting is the correct product to address the receivables-driven WC gap."
+      },
+      {
+        "product": "Unsecured / Clean Revolving Credit Facility",
+        "reason": "Weak governance flag (pledging status undisclosed), 4 cheque bounces, current ratio 1.13x below 1.2x covenant norm, and unresolved cash discrepancy of INR 35.9 million make an unsecured facility inappropriate at this time."
+      }
+    ],
+    "key_risks": [
+      "Customer concentration (Vastra Global 40.3% of revenue, INR 35.1M outstanding): mitigated by 50% haircut on Vastra-attributable receivables in invoice discounting advance-rate computation and a 35% single-debtor cap covenant",
+      "Data-quality: INR 35.9M gap between balance-sheet cash and bank-statement closing, and INR 12.0M ageing discrepancy between MIS and dataroom \u2014 mitigated by using conservative (lower) figures for all sizing and making reconciliation a hard condition precedent before first drawdown",
+      "Thin DSCR headroom (1.33x): mitigated by recommending only self-liquidating invoice discounting (no new EMI burden) and a CC step-down plan that reduces interest cost over 12 months",
+      "Near-ceiling WC utilisation (96.3%) and 4 cheque bounces: mitigated by drawing-power discipline on CC, escrow routing of debtor collections, and a bounce-count covenant (\u22642 per 6 months) with automatic review trigger",
+      "Elevated 90+ day receivables (20% per dataroom): mitigated by excluding 90+ day bucket from eligible base entirely and a covenant requiring 90+ days \u2264 15% of total book",
+      "Leverage above 3x norm (3.81x Debt/EBITDA): mitigated by declining all new senior debt, imposing a Debt/EBITDA step-down covenant to \u22643.5x within 12 months, and structuring the CC step-down to reduce absolute debt"
+    ],
+    "rationale": [
+      "Invoice discounting chosen as lead product because receivables (DSO 86-92 days) are the primary cash trap; self-liquidating structure adds zero EMI burden to a thin DSCR of 1.33x.",
+      "Eligible receivable base capped at INR 39.3M (post 50% Vastra haircut on 40.3% concentration) per concentration risk rules; first-tranche limit set conservatively at INR 24.5M.",
+      "No new senior amortising debt recommended: incremental TL of INR 20M would collapse DSCR to ~1.00x (29.5M EBITDA / 29.5M revised debt service) \u2014 below 1.25x threshold.",
+      "CC restructuring (not increase) addresses 96.4% utilisation; DP recomputation will require step-down from INR 67.5M to INR 45M over 12 months, reducing leverage toward 3.5x.",
+      "Data-quality flag 'bs_cash_vs_bank_statement' (INR 35.9M gap) is a hard CP: conservative balance-sheet cash of INR 2.6M used; bank-statement closing of INR 38.5M not credited until reconciled.",
+      "MIS vs dataroom ageing discrepancy (INR 11.99M) resolved conservatively by using lower dataroom figure (INR 75.6M total, INR 49.2M eligible 0-60d) for all advance-rate calculations.",
+      "Missing sanction letters for 2 of 3 facilities (flag 'sanction_letter_partial_coverage') are a CP: charge structure and pari-passu position cannot be confirmed without them.",
+      "Four cheque bounces in 12 months signal liquidity strain; bounce-count covenant (\u22642 per 6 months) and escrow routing of collections are structural mitigants.",
+      "Promoter pledging status is undisclosed (null); disclosure and confirmation are a CP; personal guarantees from both promoters (85% combined holding) are required security.",
+      "Revenue growing at 8% YoY (FY24-26) and EBITDA margin stable at ~9.2% are positive; structure preserves headroom to step up invoice discounting limit to INR 31M once data flags are resolved.",
+      "Debt/EBITDA at 3.81x exceeds 3.0x norm; step-down covenant to \u22643.5x within 12 months and \u22643.0x within 24 months is embedded in CC restructuring terms.",
+      "Current ratio 1.13x is below 1.2x covenant norm; CC step-down and invoice discounting cash release are expected to improve it to \u22651.2x within two quarters \u2014 tested semi-annually."
+    ]
+  },
+  "validation_warnings": [
+    "Cash Credit (CC/OD) \u2014 Restructuring / Rationalisation of Existing Facility: amount INR 70,000,000 exceeds 90% of eligible 0-60d receivables INR 49,161,370"
+  ],
+  "run_meta": {
+    "wall_clock_seconds": 111.3,
+    "llm_calls": 6,
+    "cached_calls": 0,
+    "prompt_tokens": 29392,
+    "completion_tokens": 6093,
+    "llm_seconds": 110.21,
+    "est_cost_usd": 0.1148,
+    "models": {
+      "extract": "claude-haiku-4-5-20251001",
+      "reason": "claude-sonnet-4-6"
+    }
+  }
+}

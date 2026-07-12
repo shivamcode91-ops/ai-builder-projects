@@ -1,0 +1,152 @@
+{
+ "eligibility": "conditional",
+ "eligibility_reason": "Nimbus Textiles is a growing, profitable business but carries elevated leverage (3.81x Debt/EBITDA), near-maxed WC limits (96.3% utilised), 4 cheque bounces, thin liquidity (0.09 months cash cover), a material cash/bank-statement reconciliation break, and ambiguous receivables data \u2014 approval is viable only with strict haircuts, escrow, concentration covenants, and resolution of all data-quality flags as conditions precedent.",
+ "recommended_products": [
+  {
+   "product": "Invoice Discounting (Receivables Discounting Facility)",
+   "purpose": "Unlock cash trapped in trade receivables to relieve the near-fully-drawn CC/WCDL limits without adding EMI-bearing term debt; self-liquidating from debtor collections",
+   "amount_inr": 24500000,
+   "amount_basis": "Step 1 \u2014 Use LOWER/more conservative eligible-receivable base: Dataroom 0-60d = INR 49,161,370 vs MIS 0-60d (28,524,448 + 25,006,135) = INR 53,530,583; conservative = INR 49,161,370. Step 2 \u2014 Apply 80% base advance rate (standard 70-85%). Step 3 \u2014 Top customer (Vastra Global Exports) outstanding INR 35,092,141 = 71% of total receivables; apply 25% concentration haircut on Vastra-linked receivables. Vastra eligible share (pro-rata 0-60d): 49,161,370 \u00d7 40.3% = INR 19,812,032; haircut to 60% advance = INR 11,887,219. Non-Vastra eligible: 49,161,370 \u2212 19,812,032 = INR 29,349,338 at 80% = INR 23,479,470. Total eligible pool = 11,887,219 + 23,479,470 = INR 35,366,689. Step 4 \u2014 Round down conservatively to INR 24,500,000 (~69% of pool) to stay within a prudent first-draw limit given data-quality ambiguity on ageing.",
+   "tenor_months": 3,
+   "pricing": {
+    "benchmark": "repo",
+    "spread_bps": 350,
+    "all_in_rate_pct": 9.9,
+    "processing_fee_pct": 0.5
+   },
+   "repayment": "self-liquidating \u2014 each invoice discounted repaid on collection from named debtor within 30-90 day cycle; revolving within sanctioned limit",
+   "advance_rate_pct": 69,
+   "security": [
+    "Assignment/hypothecation of specific invoices discounted",
+    "Escrow/collection account: all debtor payments routed through lender-controlled escrow; surplus released to Nimbus after repayment of each discounted invoice",
+    "Personal guarantees of Mahesh Patel (55%) and Bhavna Patel (30%)",
+    "Negative lien on existing fixed assets (pari passu with Bank of Baroda)"
+   ],
+   "covenants": [
+    "Eligible receivables (0-60d) to be refreshed monthly; limit auto-reduces if eligible pool falls below INR 30,625,000 (1.25x cover on INR 24,500,000)",
+    "Single-debtor concentration cap: no more than 50% of outstanding discounted invoices from any one debtor",
+    "90+ day receivables not to exceed 15% of total book (currently 20% on dataroom; 13.9% on MIS \u2014 trigger at 15% requires immediate ageing reconciliation)",
+    "Vastra Global Exports LLP invoices: advance rate capped at 60%; maximum exposure INR 12,000,000",
+    "Cheque/payment return events: any further bounce triggers 48-hour cure notice; two bounces in any rolling 6-month period triggers facility review",
+    "Monthly MIS submission within 15 days of month-end (debtor ageing, collections, utilisation)"
+   ],
+   "conditions_precedent": [
+    "Resolution of data-quality flag 'mis_vs_dataroom_ageing': borrower to provide auditor-certified debtor ageing as at a single cut-off date reconciling MIS (INR 87,626,053) vs dataroom (INR 75,632,877); limit sized off whichever is lower",
+    "Resolution of data-quality flag 'bs_cash_vs_bank_statement': CA-certified explanation of INR 35,856,898 gap between balance-sheet cash (INR 2,600,000) and bank-statement closing (INR 38,456,898); if unexplained, treat balance-sheet figure as operative",
+    "Resolution of data-quality flag 'cashflow_reconciliation_break': restatement of Mar-26 cash-flow statement to eliminate INR 36,173,218 forced closing",
+    "Submission of all three sanction letters (Bank of Baroda TL, Tata Capital WCDL) to confirm outstanding balances and security positions",
+    "Execution of escrow/collection account agreement with named debtors' acknowledgement of assignment",
+    "KYC and credit check on Vastra Global Exports LLP (export debtor, 40.3% concentration) \u2014 minimum acceptable: no NPA/default history",
+    "Updated GST returns (Apr-25 to Mar-26) reconciled to revenue of INR 321,000,000",
+    "Personal guarantees executed and registered",
+    "No additional debt covenant signed"
+   ],
+   "monitoring": [
+    "Monthly debtor ageing statement (auditor/CA certified, within 15 days of month-end)",
+    "Escrow account daily balance feed to lender",
+    "Quarterly financials with DSCR and leverage recomputation",
+    "Alert if Vastra Global Exports outstanding exceeds INR 12,000,000 or payment overdue >60 days",
+    "Annual limit review tied to audited financials",
+    "Cheque/ECS return tracker \u2014 immediate notification to lender on any return"
+   ],
+   "serviceability_check": [
+    "FY2025-26 EBITDA (latest year used) = INR 29,532,000",
+    "Existing annual debt service: TL EMI INR 820,000/month \u00d7 12 = INR 9,840,000 principal; interest on CC INR 67,500,000 \u00d7 10.6% = INR 7,155,000; interest on WCDL INR 24,000,000 \u00d7 12.0% = INR 2,880,000; interest on TL INR 21,000,000 \u00d7 11.2% = INR 2,352,000; total existing debt service \u2248 INR 22,227,000 (matches snapshot annual_debt_service_inr)",
+    "Invoice discounting is SELF-LIQUIDATING \u2014 no new EMI or fixed principal obligation added to DSCR denominator; interest cost on INR 24,500,000 at 9.9% = INR 2,425,500/year (incremental interest only)",
+    "Revised annual debt service = INR 22,227,000 + INR 2,425,500 = INR 24,652,500",
+    "Post-facility DSCR = INR 29,532,000 / INR 24,652,500 = 1.198x",
+    "DSCR marginally below 1.25x covenant norm \u2014 however, invoice discounting replaces drawn CC/WCDL utilisation (not additive net debt); if INR 24,500,000 of CC/WCDL is repaid from ID proceeds, interest saving = INR 24,500,000 \u00d7 ~11% blended = INR 2,695,000/year",
+    "Net revised debt service (ID replaces CC/WCDL draw) = INR 22,227,000 \u2212 INR 2,695,000 + INR 2,425,500 = INR 21,957,500",
+    "Net post-facility DSCR = INR 29,532,000 / INR 21,957,500 = 1.345x \u2014 ABOVE 1.25x threshold; structure is serviceable on a net-replacement basis",
+    "Condition: lender to confirm INR 24,500,000 ID proceeds are used to repay CC/WCDL drawdown (end-use covenant); DSCR covenant set at >= 1.25x tested quarterly"
+   ]
+  },
+  {
+   "product": "Cash Credit (CC) \u2014 Restructuring / Rationalisation of Existing Bank of Baroda CC",
+   "purpose": "Rationalise the existing near-maxed CC limit (96.4% utilised, INR 67,500,000 outstanding vs INR 70,000,000 sanctioned) by introducing a drawing-power discipline linked to eligible receivables and inventory, reducing effective limit to a serviceable level; not a new facility but a restructured renewal with tighter controls",
+   "amount_inr": 55000000,
+   "amount_basis": "Step 1 \u2014 Drawing power formula: eligible receivables (0-60d, conservative) INR 49,161,370 \u00d7 75% = INR 36,871,028; plus eligible inventory (inventory INR 50,076,000 \u00d7 50% standard textile haircut) = INR 25,038,000; gross DP = INR 61,909,028. Step 2 \u2014 Apply 10% overall haircut for data-quality flags (ageing ambiguity, cash reconciliation break) = INR 55,718,125. Step 3 \u2014 Round down to INR 55,000,000. Step 4 \u2014 This is INR 15,000,000 BELOW current sanctioned limit of INR 70,000,000, requiring INR 12,500,000 repayment of current outstanding (INR 67,500,000 \u2192 INR 55,000,000) funded from ID proceeds above.",
+   "tenor_months": 12,
+   "pricing": {
+    "benchmark": "MCLR",
+    "spread_bps": 175,
+    "all_in_rate_pct": 10.5,
+    "processing_fee_pct": 0.25
+   },
+   "repayment": "revolving \u2014 repaid from collections; annual renewal subject to audited financials and DP recomputation",
+   "advance_rate_pct": 75,
+   "security": [
+    "First charge hypothecation of current assets (inventory + receivables) \u2014 existing Bank of Baroda charge to be confirmed and updated",
+    "Second charge on fixed assets (net block INR 49,400,000)",
+    "Personal guarantees of Mahesh Patel and Bhavna Patel",
+    "Drawing power to be recomputed monthly from CA-certified stock and debtor statements"
+   ],
+   "covenants": [
+    "Drawing power recomputed monthly; outstanding not to exceed DP at any time",
+    "Current Ratio >= 1.20 (currently 1.13 \u2014 borrower to improve within 2 quarters via ID-funded CC repayment)",
+    "Debt/EBITDA <= 3.5x (currently 3.81x \u2014 to be achieved within FY2026-27 as TL amortises)",
+    "DSCR >= 1.25x tested semi-annually on trailing 12-month EBITDA",
+    "90+ day receivables <= 15% of total book; breach triggers DP reduction by equivalent amount",
+    "No incremental borrowing from any lender without prior written consent",
+    "Cheque return limit: maximum 2 returns in any rolling 12-month period; breach triggers cash collateral of 10% of limit (INR 5,500,000)"
+   ],
+   "conditions_precedent": [
+    "Repayment of INR 12,500,000 from CC outstanding (from ID proceeds) before revised limit is operative",
+    "Submission of all sanction letters (data-quality flag: sanction_letter_partial_coverage) \u2014 Bank of Baroda TL and Tata Capital WCDL sanction letters to be provided",
+    "Reconciliation of balance-sheet cash vs bank-statement closing (data-quality flag: bs_cash_vs_bank_statement) \u2014 CA certificate required",
+    "Reconciliation of MIS vs dataroom debtor ageing (data-quality flag: mis_vs_dataroom_ageing)",
+    "Updated stock statement and debtor statement as at restructuring date",
+    "Confirmation from Bank of Baroda of existing charge details and no cross-default clauses triggered by limit reduction",
+    "Personal guarantees refreshed and stamped"
+   ],
+   "monitoring": [
+    "Monthly stock and debtor statements (within 10 days of month-end) for DP recomputation",
+    "Quarterly financials with covenant compliance certificate",
+    "Annual audited financials within 180 days of fiscal year-end",
+    "Bank account statement (all accounts) monthly",
+    "Immediate notification of any cheque/ECS return"
+   ],
+   "serviceability_check": [
+    "CC is revolving \u2014 no fixed principal repayment; interest cost on revised limit INR 55,000,000 at 10.5% = INR 5,775,000/year",
+    "Existing CC interest (INR 67,500,000 \u00d7 10.6%) = INR 7,155,000; saving from limit reduction = INR 1,380,000/year",
+    "Revised total debt service: TL EMI INR 9,840,000 + CC interest INR 5,775,000 + WCDL interest INR 2,880,000 + TL interest INR 2,352,000 = INR 20,847,000",
+    "Post-restructuring DSCR (before ID) = INR 29,532,000 / INR 20,847,000 = 1.416x \u2014 comfortably above 1.25x",
+    "Conclusion: CC restructuring to INR 55,000,000 improves DSCR headroom and brings leverage closer to 3.5x target as TL amortises"
+   ]
+  }
+ ],
+ "declined_products": [
+  {
+   "product": "Fresh Term Loan (new capex or balance-sheet TL)",
+   "reason": "Debt/EBITDA already 3.81x (above 3.0x norm); current ratio 1.13 (below 1.2 covenant); 4 cheque bounces; thin liquidity (0.09 months cash cover); adding fixed EMI obligations would push DSCR below 1.25x. No capex need identified in snapshot."
+  },
+  {
+   "product": "Incremental Working Capital Demand Loan (new WCDL)",
+   "reason": "Existing WCDL (Tata Capital) already 96% utilised at INR 24,000,000; total WC limits 96.3% drawn; adding another WCDL increases leverage beyond 3.81x Debt/EBITDA and worsens current ratio (already 1.13); repayment source is the same constrained operating cash flow."
+  },
+  {
+   "product": "Unsecured / Clean Revolving Credit Facility",
+   "reason": "Governance flag (pledging_disclosed = null), 4 cheque bounces, unresolved cash reconciliation break of INR 35,856,898, and ambiguous ageing data make unsecured exposure inappropriate at this credit quality."
+  }
+ ],
+ "key_risks": [
+  "Customer concentration (Vastra Global Exports 40.3% of revenue, INR 35,092,141 outstanding): mitigated by capping Vastra-linked invoice discounting at INR 12,000,000 (60% advance rate) and requiring KYC/credit check on Vastra as a CP",
+  "Data integrity \u2014 three material reconciliation breaks (cash gap INR 35,856,898, ageing gap INR 11,993,176, cashflow forced closing INR 36,173,218): mitigated by making CA-certified reconciliation of all three a hard condition precedent before any disbursement",
+  "Near-maxed WC limits (96.3% utilised) and thin liquidity (0.09 months cover): mitigated by replacing CC draw with self-liquidating ID proceeds, reducing CC limit to INR 55,000,000 with DP discipline, and routing collections through escrow",
+  "Cheque bounces (4 in 12 months): mitigated by cash-collateral trigger (10% of CC limit) on any further bounce, and ID escrow ensuring collections bypass borrower's operating account",
+  "Elevated 90+ day receivables (20% on dataroom, 13.9% on MIS \u2014 ambiguous): mitigated by using lower/conservative dataroom base for eligible receivable sizing, and a 15% 90+ day covenant with auto DP reduction on breach",
+  "Leverage above norm (3.81x Debt/EBITDA vs 3.0x guideline): mitigated by declining new term debt, reducing CC limit, and setting a Debt/EBITDA covenant of 3.5x with a glide path as the existing TL amortises (INR 820,000/month)"
+ ],
+ "rationale": [
+  "Lead product is Invoice Discounting, not a new CC/TL, because WC limits are 96.3% drawn and adding EMI debt risks DSCR below 1.25x \u2014 ID is self-liquidating.",
+  "Conservative eligible-receivable base of INR 49,161,370 used (dataroom 0-60d, lower than MIS INR 53,530,583) per data-quality flag 'mis_vs_dataroom_ageing'.",
+  "Vastra Global Exports (40.3% revenue, INR 35,092,141 outstanding) triggers concentration haircut: advance rate cut to 60% and exposure capped at INR 12,000,000.",
+  "INR 35,856,898 cash/bank-statement gap (flag 'bs_cash_vs_bank_statement') is unresolved; balance-sheet cash of INR 2,600,000 used as operative figure \u2014 confirms 0.09 months liquidity cover.",
+  "CC restructured down from INR 70,000,000 to INR 55,000,000 (DP-linked); INR 12,500,000 repayment funded from ID proceeds improves current ratio toward 1.20 covenant.",
+  "Post-restructuring DSCR = INR 29,532,000 / INR 20,847,000 = 1.416x; net ID-replacement DSCR = 1.345x \u2014 both above 1.25x floor.",
+  "Debt/EBITDA at 3.81x exceeds 3.0x norm; no new term debt recommended; covenant set at 3.5x with natural deleveraging as TL (INR 820,000/month EMI) amortises over 48 months.",
+  "4 cheque bounces in 12 months (high severity) addressed via cash-collateral trigger (10% of CC = INR 5,500,000) and escrow routing of ID collections.",
+  "Sanction letter covers only 1 of 3 facilities (flag 'sanction_letter_partial_coverage'); submission of all three sanction letters is a hard CP before any new disbursement.",
+  "FY2025-26 figures used throughout (latest year); revenue INR 321,000,000, EBITDA INR 29,532,000, PAT INR 7,139,660 \u2014 all show consistent 8-10% growth trajectory supporting conditional approval."
+ ]
+}

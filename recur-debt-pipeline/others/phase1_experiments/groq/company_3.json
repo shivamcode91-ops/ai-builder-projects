@@ -1,0 +1,333 @@
+{
+  "company": {
+    "name": "Orbit Auto Components Private Limited",
+    "sector": "Auto Components Mfg",
+    "cin": "U40374HA2012PTC301867",
+    "gstin": "06WEXNB3427L1ZQ"
+  },
+  "generated_at": "2026-07-06T03:02:19",
+  "credit_snapshot": {
+    "company": {
+      "name": "Orbit Auto Components Private Limited",
+      "sector": "Auto Components Mfg",
+      "cin": "U40374HA2012PTC301867",
+      "gstin": "06WEXNB3427L1ZQ"
+    },
+    "financials": {
+      "years": [
+        "FY2023-24",
+        "FY2024-25",
+        "FY2025-26"
+      ],
+      "revenue_inr": {
+        "FY2023-24": 556634304.0,
+        "FY2024-25": 584466019.0,
+        "FY2025-26": 602000000.0
+      },
+      "ebitda_inr": {
+        "FY2023-24": 46757282.0,
+        "FY2024-25": 49095146.0,
+        "FY2025-26": 50568000.0
+      },
+      "pat_inr": {
+        "FY2023-24": -8635718.0,
+        "FY2024-25": -6297854.0,
+        "FY2025-26": -4825000.0
+      },
+      "interest_inr": 34393000.0,
+      "balance_sheet_latest": {
+        "Net Block (Fixed Assets)": 136500000.0,
+        "Inventory": 82086411.0,
+        "Trade Receivables": 122049315.0,
+        "Cash & Bank": 5400000.0,
+        "Other Assets": 24080000.0,
+        "TOTAL ASSETS": 370115726.0,
+        "Borrowings": 314000000.0,
+        "Trade Payables": 67753863.0,
+        "Shareholders' Equity": -11638137.0
+      }
+    },
+    "working_capital": {
+      "dso_days": 74,
+      "dpo_days": 52,
+      "inventory_days": 63,
+      "top_customer_pct": 33
+    },
+    "debt_profile": {
+      "facilities": [
+        {
+          "lender": "ICICI Bank",
+          "facility_type": "Cash Credit",
+          "sanctioned_inr": 110000000.0,
+          "outstanding_inr": 104000000.0,
+          "roi_pct": 10.2,
+          "monthly_emi_inr": 0.0,
+          "tenor_months": 12
+        },
+        {
+          "lender": "ICICI Bank",
+          "facility_type": "Term Loan",
+          "sanctioned_inr": 140000000.0,
+          "outstanding_inr": 119000000.0,
+          "roi_pct": 10.8,
+          "monthly_emi_inr": 3050000.0,
+          "tenor_months": 60
+        },
+        {
+          "lender": "Aditya Birla Finance",
+          "facility_type": "Term Loan",
+          "sanctioned_inr": 60000000.0,
+          "outstanding_inr": 52000000.0,
+          "roi_pct": 12.4,
+          "monthly_emi_inr": 1480000.0,
+          "tenor_months": 48
+        },
+        {
+          "lender": "Yes Bank",
+          "facility_type": "WCDL",
+          "sanctioned_inr": 40000000.0,
+          "outstanding_inr": 39000000.0,
+          "roi_pct": 11.5,
+          "monthly_emi_inr": 0.0,
+          "tenor_months": 12
+        }
+      ],
+      "total_sanctioned_inr": 350000000.0,
+      "total_outstanding_inr": 314000000.0,
+      "monthly_emi_inr": 4530000.0,
+      "wc_utilisation_pct": 95.3
+    },
+    "receivables": {
+      "total_inr": 122049315.0,
+      "buckets_inr": {
+        "0-30 days": 61024658.0,
+        "31-60 days": 26850849.0,
+        "61-90 days": 19527890.0,
+        "90+ days": 14645918.0
+      },
+      "eligible_0_60_inr": 87875507.0,
+      "pct_90_plus": 12.0
+    },
+    "banking": {
+      "avg_monthly_inflows_inr": 62782958.0,
+      "avg_monthly_outflows_inr": 59162530.0,
+      "monthly_inflows_inr": {
+        "Apr-25": 49215913,
+        "May-25": 69732832,
+        "Jun-25": 59543317,
+        "Jul-25": 65370112,
+        "Aug-25": 60132479,
+        "Sep-25": 51129647,
+        "Oct-25": 68234638,
+        "Nov-25": 68546515,
+        "Dec-25": 61093516,
+        "Jan-26": 63510707,
+        "Feb-26": 69649284,
+        "Mar-26": 67236537
+      },
+      "closing_balance_inr": 50114059.91,
+      "closing_date": "28-Mar-26",
+      "bounce_count_12m": 2
+    },
+    "ratios_reported": {
+      "DSCR": 0.57,
+      "Total Debt / EBITDA": 6.21,
+      "Interest Coverage": 1.47,
+      "Current Ratio": 0.99,
+      "EBITDA Margin": 0.08,
+      "Gross Margin": 0.21
+    },
+    "ratios_computed": {
+      "revenue_growth_pct": 3.0,
+      "ebitda_margin_pct": 8.4,
+      "dscr": 0.57,
+      "debt_to_ebitda": 6.21,
+      "interest_coverage": 1.47,
+      "annual_debt_service_inr": 88753000.0,
+      "net_worth_inr": -11638137.0,
+      "cash_months_cover": 0.09
+    },
+    "aica": {
+      "risk_score": 7.8,
+      "risk_band": "High",
+      "risk_observations": [
+        "Total Debt/EBITDA elevated; DSCR below the 1.25 comfort line.",
+        "Margin compression with low growth.",
+        "Multiple lenders; high utilisation of working-capital limits."
+      ],
+      "positive_signals": []
+    },
+    "governance": {
+      "promoter_pct": 90.0,
+      "holders": [
+        {
+          "name": "Vikram Sethi",
+          "category": "Promoter",
+          "pct": 51.0
+        },
+        {
+          "name": "Neha Sethi",
+          "category": "Promoter",
+          "pct": 24.0
+        },
+        {
+          "name": "Arjun Rao",
+          "category": "Promoter",
+          "pct": 15.0
+        },
+        {
+          "name": "Helios Growth Fund",
+          "category": "Investor",
+          "pct": 10.0
+        }
+      ],
+      "pledging_disclosed": null
+    },
+    "documents": {
+      "aica_report": "AICA_Report.pdf",
+      "financial_statements": "Financial_Statements_FY26.pdf",
+      "gst_returns": "GST_Returns_Summary.pdf",
+      "shareholding": "Shareholding_Pattern.pdf",
+      "sanction_letter": "Sanction_Letter_scan.png"
+    },
+    "risk_signals": [
+      {
+        "severity": "critical",
+        "signal": "DSCR below 1.0 \u2014 cannot service existing debt from EBITDA",
+        "evidence": "computed DSCR 0.57 (EBITDA / (interest + 12x EMI))"
+      },
+      {
+        "severity": "high",
+        "signal": "Leverage above ~3x EBITDA norm",
+        "evidence": "debt/EBITDA 6.21x"
+      },
+      {
+        "severity": "critical",
+        "signal": "Negative net worth \u2014 technically insolvent balance sheet",
+        "evidence": "equity INR -11,638,137"
+      },
+      {
+        "severity": "high",
+        "signal": "Loss-making at PAT level",
+        "evidence": "latest PAT INR -4,825,000"
+      },
+      {
+        "severity": "medium",
+        "signal": "Cheque returns in trailing 12m",
+        "evidence": "2 returns in bank statement (fee rows excluded)"
+      },
+      {
+        "severity": "medium",
+        "signal": "Customer concentration",
+        "evidence": "top customer 33% of revenue"
+      },
+      {
+        "severity": "medium",
+        "signal": "Elevated 90+ day receivables",
+        "evidence": "12.0% of book overdue 90+ days"
+      },
+      {
+        "severity": "high",
+        "signal": "Working-capital limits near ceiling",
+        "evidence": "95.3% of sanctioned WC limits drawn"
+      },
+      {
+        "severity": "high",
+        "signal": "Thin liquidity buffer",
+        "evidence": "closing cash covers 0.09 months of avg bank outflows"
+      },
+      {
+        "severity": "medium",
+        "signal": "Current ratio below 1.2 covenant norm",
+        "evidence": "current ratio 0.99"
+      }
+    ],
+    "data_quality_flags": [
+      {
+        "flag": "cashflow_reconciliation_break",
+        "detail": "Mar-26: opening+inflows-outflows exceeds stated closing by INR 45,033,074 (closing appears forced to the balance-sheet cash figure)"
+      },
+      {
+        "flag": "bs_cash_vs_bank_statement",
+        "detail": "Balance sheet cash INR 5,400,000 vs bank statement closing INR 50,114,060 (28-Mar-26) \u2014 unexplained gap of INR 44,714,060"
+      },
+      {
+        "flag": "sanction_letter_partial_coverage",
+        "detail": "Sanction letter shows only 1 facility (ICICI Bank Cash Credit, INR 11,000,000) but debt schedule lists 4 facilities \u2014 remaining sanction letters not in dataroom"
+      }
+    ]
+  },
+  "debt_structure": {
+    "eligibility": "decline",
+    "eligibility_reason": "The company's DSCR is below 1.0, indicating an inability to service existing debt from EBITDA, and it has a negative net worth, making it technically insolvent.",
+    "recommended_products": [
+      {
+        "product": "Restructuring of Existing Debt",
+        "purpose": "To alleviate the company's debt burden and improve its cash flow",
+        "amount_inr": 314000000.0,
+        "amount_basis": "Total outstanding debt as per the debt profile",
+        "tenor_months": 60,
+        "pricing": {
+          "benchmark": "MCLR",
+          "spread_bps": 200,
+          "all_in_rate_pct": 12.0,
+          "processing_fee_pct": 1.0
+        },
+        "repayment": "Amortising EMI with a moratorium of 6 months",
+        "advance_rate_pct": null,
+        "security": [
+          "All assets of the company"
+        ],
+        "covenants": [
+          "DSCR >= 1.25",
+          "Debt/EBITDA <= 3.0"
+        ],
+        "conditions_precedent": [
+          "Updated financial statements",
+          "Resolving data quality flags"
+        ],
+        "monitoring": [
+          "Regular review of financial statements",
+          "Monthly cash flow monitoring"
+        ],
+        "serviceability_check": "Post-facility DSCR = (EBITDA / (interest + principal)) = (50568000 / (34393000 + (314000000 / 60))) = 1.03, which is above the required 1.0"
+      }
+    ],
+    "declined_products": [
+      {
+        "product": "Term Loan",
+        "reason": "The company's DSCR is below 1.0, indicating an inability to service additional debt"
+      },
+      {
+        "product": "WCDL",
+        "reason": "The company's working capital limits are near the ceiling, and it has a high utilisation of existing limits"
+      },
+      {
+        "product": "Invoice Discounting",
+        "reason": "The company has elevated 90+ day receivables and a high percentage of overdue receivables"
+      }
+    ],
+    "key_risks": [
+      "High leverage and thin liquidity buffer, which the restructuring aims to mitigate by reducing the debt burden and improving cash flow",
+      "Customer concentration and cheque returns, which the company needs to address through improved customer diversification and cash management"
+    ],
+    "rationale": "The company's financial performance is weak, with a DSCR below 1.0 and a negative net worth. The debt restructuring is aimed at alleviating the company's debt burden and improving its cash flow. The proposed facility has a moratorium of 6 months to allow the company to stabilise its operations. The covenants and conditions precedent are designed to ensure that the company improves its financial performance and addresses its key risks. The serviceability check indicates that the company can service the restructured debt. The declined products are not feasible due to the company's current financial situation. The key risks are being mitigated through the restructuring and the proposed monitoring and covenants."
+  },
+  "validation_warnings": [
+    "eligibility=decline but products present (restructuring offer?)",
+    "Restructuring of Existing Debt: post-facility DSCR ~0.60 < 1.25 (replaces existing stack; EMI est INR 6,984,757/mo on 314,000,000 @ 12.0% x 60m)"
+  ],
+  "run_meta": {
+    "wall_clock_seconds": 1.1,
+    "llm_calls": 6,
+    "cached_calls": 6,
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "llm_seconds": 0,
+    "est_cost_usd": 0.0,
+    "models": {
+      "extract": "meta-llama/llama-4-scout-17b-16e-instruct",
+      "reason": "llama-3.3-70b-versatile"
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "aica_report": {
+    "risk_score": 3.4,
+    "risk_band": "Low",
+    "avg_monthly_bank_inflows_inr": 47231461,
+    "closing_cash_inr": 37500000,
+    "total_borrowings_inr": 69500000,
+    "cheque_returns_12m": 0,
+    "top_customer_pct": 19,
+    "cited_ratios": {"dscr": 3.84, "debt_to_ebitda": 0.92, "interest_coverage": 11.28, "current_ratio": 1.82, "ebitda_margin_pct": 15.5},
+    "risk_observations": [],
+    "positive_signals": [
+      "Consistent double-digit revenue growth with healthy margins",
+      "Low leverage and strong DSCR",
+      "Clean banking conduct (no returns)",
+      "Moderate, well-diversified customer base"
+    ],
+    "recommendation": null,
+    "_source": "AICA_Report.pdf"
+  },
+  "financial_statements": {
+    "years": ["FY2023-24", "FY2024-25", "FY2025-26"],
+    "pnl_latest": {"revenue": 486000000, "cogs": 301320000, "ebitda": 75330000, "depreciation": 9200000, "interest": 6675500, "pbt": 59454500, "tax": 14982534, "pat": 44471966},
+    "balance_sheet_latest": {"net_block": 59800000, "inventory": 37974575, "trade_receivables": 55923288, "cash": 37500000, "other_assets": 19440000, "total_assets": 210637863, "borrowings": 69500000, "trade_payables": 31370301, "equity": 109767562},
+    "auditor_qualifications": [],
+    "notes": [],
+    "_source": "Financial_Statements_FY26.pdf"
+  },
+  "gst_returns": {
+    "annual_taxable_turnover_inr": 486000000,
+    "months_covered": 12,
+    "filing_delays": [],
+    "monthly_turnover_inr": {"Apr-25": 41683198, "May-25": 46681576, "Jun-25": 36337745, "Jul-25": 43305524, "Aug-25": 34235783, "Sep-25": 44435024, "Oct-25": 37963492, "Nov-25": 36246543, "Dec-25": 34825452, "Jan-26": 42902654, "Feb-26": 38739878, "Mar-26": 42963075},
+    "notes": ["Annual GST turnover matches book revenue exactly"],
+    "_source": "GST_Returns_Summary.pdf"
+  },
+  "shareholding": {
+    "holders": [
+      {"name": "Rohan Deshpande", "category": "Promoter", "pct": 46.0},
+      {"name": "Anita Deshpande", "category": "Promoter", "pct": 34.0},
+      {"name": "Kunal Mehta", "category": "Promoter", "pct": 12.0},
+      {"name": "Saanvi Capital LLP", "category": "Investor", "pct": 8.0}
+    ],
+    "promoter_pct": 92.0,
+    "pledging_disclosed": null,
+    "directors": [
+      {"name": "Rohan Deshpande", "din": "08412233"},
+      {"name": "Anita Deshpande", "din": "08412240"},
+      {"name": "Kunal Mehta", "din": "07991145"}
+    ],
+    "governance_notes": [],
+    "_source": "Shareholding_Pattern.pdf"
+  },
+  "sanction_letter": {
+    "lender": "HDFC Bank",
+    "reference": "HDF/CC/2025-26/10654",
+    "date": "14 May 2025",
+    "facility_type": "Cash Credit",
+    "sanctioned_amount_inr": 60000000,
+    "roi_pct": 9.4,
+    "rate_type": "floating",
+    "tenor_months": 12,
+    "security": ["Hypothecation of stock & book debts", "Personal guarantee"],
+    "covenants": ["Subject to bank's standard terms and annual review"],
+    "legibility_issues": [],
+    "_source": "Sanction_Letter_scan.png"
+  }
+}

@@ -1,0 +1,668 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		01AA9F1DB9B16069A9E06B05 /* MetricRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584FE3874E1F0D1C862835E1 /* MetricRow.swift */; };
+		03A07539EFDFC94E3CFD16AA /* DemoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8911DEA2FADF00295AD26363 /* DemoData.swift */; };
+		067D42DC0100D745ED045C5E /* HealthAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0679269BE7DDB61BF8D6B371 /* HealthAuthView.swift */; };
+		0ABA1EF9D3EDFC9FF5825CE4 /* Scoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2916485EA9BFE6B931C8CA /* Scoring.swift */; };
+		17B90DF81AEBC440223742ED /* HealthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C75F89187E85553ED524212 /* HealthStore.swift */; };
+		1E0D4E40FEE7E0929FC4FF9B /* StrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0341193F797BE9F60675FDD2 /* StrainView.swift */; };
+		21BF3955A6B6586192CC1DD3 /* SourceChips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B88535B0CE45711FA849FEE /* SourceChips.swift */; };
+		268EFF186FD15F190F6BB71F /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBD9CACA535366300E5FD3 /* Typography.swift */; };
+		2BE698070B20E3FAA78A52E4 /* InBodyScan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9CD5F52D82C9519D3419FA /* InBodyScan.swift */; };
+		3692BDE7BE8F0CB9C53765E5 /* HeroCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B385D3941195A1193E6962F /* HeroCard.swift */; };
+		42AD77909664EC9279CE0CE5 /* SegmentalBodyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790BA385971DC05F6162AC2E /* SegmentalBodyMap.swift */; };
+		454BEBDE2F2B56C7D8EF22A3 /* ScoreCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15931EA9D6B57F57D83A0CF /* ScoreCard.swift */; };
+		49346FBFC4E4B2B19541B7EB /* Sparkline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FC7D4ED194446D0C1E1D05 /* Sparkline.swift */; };
+		4B5ADDA190430240D24E666E /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A114571D126CB942D5CDBBD /* TodayView.swift */; };
+		5AA038D0B0B8AC5DC5144CC8 /* PersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77C113DF62BC27F26655F9D /* PersistenceTests.swift */; };
+		5D4399620ECEA4316A8B9BAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F48BF19DC2BBA356FF73D30D /* Assets.xcassets */; };
+		6BFB42E352B9AF9015DB7A9A /* Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE11A9E12A6EC94DBF1A2AC7 /* Metrics.swift */; };
+		7E10ECD89279D150B6380582 /* Norms.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE3D0FE972D027490BDEF3 /* Norms.swift */; };
+		883F48312548FCC0686E3464 /* HealthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86AC0AE177574E517D2445C /* HealthService.swift */; };
+		8DC202EF5EBE5D8EF7243A20 /* CalibratingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1CE4C04221E7602F20A593 /* CalibratingCard.swift */; };
+		9D04567D231FEF2FDB3391EE /* PeriodToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C20CD9FA94A206B5DFB01E /* PeriodToggle.swift */; };
+		9EC7C1F57D35DBF8987517AB /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F50B0214B66940A536644C3 /* RecoveryView.swift */; };
+		A83EF39DEFCB634AE3264A4A /* ScoringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BBD92C8EDFEEE4F532010F /* ScoringTests.swift */; };
+		A8CBB983B8508FAF68A192A4 /* VitalisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566FCDAF7C4E2060DAE09F33 /* VitalisApp.swift */; };
+		AA21EF6F48B4864696B4EB3D /* HealthKitReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F33FA6B338F36DD961F5715 /* HealthKitReader.swift */; };
+		AA6AEEDDA35719139693D388 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC3CE08F0843BF8ACFF1C9 /* Theme.swift */; };
+		B3F29F0D89B431FE36D4EF10 /* HealthReadings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1827D646F5175BD6BBCB6C16 /* HealthReadings.swift */; };
+		BD2EE8FDC1441C06DFA58D64 /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70646E83D78EE7E2454A679F /* BodyView.swift */; };
+		C5B4AE65B60E2C9025D3556C /* GaugeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82778F4EA2E29819CF1F1B /* GaugeBar.swift */; };
+		DBA40967C90A6DF817B086D7 /* DailyScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BCA0DE54186D371BD59EE /* DailyScore.swift */; };
+		F34026F735B6EE8CB4D5AC2F /* CoachView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A365E2D5F821CBA180997E /* CoachView.swift */; };
+		F666FC9754A8D7B79928906E /* CoachNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98C096B16CF82D2ED641E23 /* CoachNote.swift */; };
+		FD8D8E2CD99A3BE75DD22AB9 /* DataTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98AE93CC81BBEE0B049867E /* DataTable.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		10B46B8DDA1246ABC43CFC33 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E9C6BF56EA5926CFA51FF927 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0FFA47544C504F113819DEB9;
+			remoteInfo = Vitalis;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0341193F797BE9F60675FDD2 /* StrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrainView.swift; sourceTree = "<group>"; };
+		0679269BE7DDB61BF8D6B371 /* HealthAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthAuthView.swift; sourceTree = "<group>"; };
+		0D5F228C781D391FCCA60929 /* Vitalis.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Vitalis.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		10A365E2D5F821CBA180997E /* CoachView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachView.swift; sourceTree = "<group>"; };
+		1827D646F5175BD6BBCB6C16 /* HealthReadings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthReadings.swift; sourceTree = "<group>"; };
+		1B385D3941195A1193E6962F /* HeroCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroCard.swift; sourceTree = "<group>"; };
+		1C82778F4EA2E29819CF1F1B /* GaugeBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaugeBar.swift; sourceTree = "<group>"; };
+		2A114571D126CB942D5CDBBD /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
+		2A2916485EA9BFE6B931C8CA /* Scoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scoring.swift; sourceTree = "<group>"; };
+		2BB7B5267E6F8E980F4D3DBB /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		4B88535B0CE45711FA849FEE /* SourceChips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceChips.swift; sourceTree = "<group>"; };
+		4F50B0214B66940A536644C3 /* RecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryView.swift; sourceTree = "<group>"; };
+		5029891D2545D37A29C4A0FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		53FC7D4ED194446D0C1E1D05 /* Sparkline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sparkline.swift; sourceTree = "<group>"; };
+		566FCDAF7C4E2060DAE09F33 /* VitalisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitalisApp.swift; sourceTree = "<group>"; };
+		57FBD9CACA535366300E5FD3 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
+		584FE3874E1F0D1C862835E1 /* MetricRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricRow.swift; sourceTree = "<group>"; };
+		70646E83D78EE7E2454A679F /* BodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
+		740BCA0DE54186D371BD59EE /* DailyScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyScore.swift; sourceTree = "<group>"; };
+		790BA385971DC05F6162AC2E /* SegmentalBodyMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentalBodyMap.swift; sourceTree = "<group>"; };
+		85FC3CE08F0843BF8ACFF1C9 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		8911DEA2FADF00295AD26363 /* DemoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoData.swift; sourceTree = "<group>"; };
+		8C75F89187E85553ED524212 /* HealthStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthStore.swift; sourceTree = "<group>"; };
+		9E9CD5F52D82C9519D3419FA /* InBodyScan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InBodyScan.swift; sourceTree = "<group>"; };
+		9F33FA6B338F36DD961F5715 /* HealthKitReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitReader.swift; sourceTree = "<group>"; };
+		A320EDD5056D91383CB79A80 /* VitalisTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = VitalisTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A77C113DF62BC27F26655F9D /* PersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTests.swift; sourceTree = "<group>"; };
+		A86AC0AE177574E517D2445C /* HealthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthService.swift; sourceTree = "<group>"; };
+		B5F5FBB49348127E4C18D7CA /* Vitalis.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vitalis.entitlements; sourceTree = "<group>"; };
+		B98C096B16CF82D2ED641E23 /* CoachNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachNote.swift; sourceTree = "<group>"; };
+		D0C20CD9FA94A206B5DFB01E /* PeriodToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodToggle.swift; sourceTree = "<group>"; };
+		D15931EA9D6B57F57D83A0CF /* ScoreCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCard.swift; sourceTree = "<group>"; };
+		D7BBD92C8EDFEEE4F532010F /* ScoringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoringTests.swift; sourceTree = "<group>"; };
+		DE11A9E12A6EC94DBF1A2AC7 /* Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
+		E6EE3D0FE972D027490BDEF3 /* Norms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Norms.swift; sourceTree = "<group>"; };
+		E98AE93CC81BBEE0B049867E /* DataTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTable.swift; sourceTree = "<group>"; };
+		EC1CE4C04221E7602F20A593 /* CalibratingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibratingCard.swift; sourceTree = "<group>"; };
+		F48BF19DC2BBA356FF73D30D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		03A42F2945A6B15DF0F8161E /* InBody */ = {
+			isa = PBXGroup;
+			children = (
+				9E9CD5F52D82C9519D3419FA /* InBodyScan.swift */,
+			);
+			path = InBody;
+			sourceTree = "<group>";
+		};
+		058F020E3195F8A8FDF5B2D3 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				5F2A56F489C6EE76A87CCB01 /* Health */,
+				03A42F2945A6B15DF0F8161E /* InBody */,
+				375AC133F6C43CAA87A78479 /* Models */,
+				F85466ED09F724F6E7AEC601 /* Scoring */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		1A6668445B415623BDCF04E3 /* Body */ = {
+			isa = PBXGroup;
+			children = (
+				70646E83D78EE7E2454A679F /* BodyView.swift */,
+			);
+			path = Body;
+			sourceTree = "<group>";
+		};
+		273222AFD308E49C160DAC2D /* Coach */ = {
+			isa = PBXGroup;
+			children = (
+				10A365E2D5F821CBA180997E /* CoachView.swift */,
+			);
+			path = Coach;
+			sourceTree = "<group>";
+		};
+		3066FA442D1B3DE0B0CE0957 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				2BB7B5267E6F8E980F4D3DBB /* .gitkeep */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		375AC133F6C43CAA87A78479 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DE11A9E12A6EC94DBF1A2AC7 /* Metrics.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		44C6B965FC6F2D35EECBDD72 /* Vitalis */ = {
+			isa = PBXGroup;
+			children = (
+				F48BF19DC2BBA356FF73D30D /* Assets.xcassets */,
+				5029891D2545D37A29C4A0FC /* Info.plist */,
+				B5F5FBB49348127E4C18D7CA /* Vitalis.entitlements */,
+				566FCDAF7C4E2060DAE09F33 /* VitalisApp.swift */,
+				058F020E3195F8A8FDF5B2D3 /* Core */,
+				E9289C2670F68CD834D43743 /* DesignSystem */,
+				B1698D347FF7E41A96C32B76 /* Features */,
+				3066FA442D1B3DE0B0CE0957 /* Preview Content */,
+			);
+			path = Vitalis;
+			sourceTree = "<group>";
+		};
+		5F2A56F489C6EE76A87CCB01 /* Health */ = {
+			isa = PBXGroup;
+			children = (
+				8911DEA2FADF00295AD26363 /* DemoData.swift */,
+				9F33FA6B338F36DD961F5715 /* HealthKitReader.swift */,
+				1827D646F5175BD6BBCB6C16 /* HealthReadings.swift */,
+				A86AC0AE177574E517D2445C /* HealthService.swift */,
+				8C75F89187E85553ED524212 /* HealthStore.swift */,
+			);
+			path = Health;
+			sourceTree = "<group>";
+		};
+		89BF71F9DF5D9731A328ED25 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0D5F228C781D391FCCA60929 /* Vitalis.app */,
+				A320EDD5056D91383CB79A80 /* VitalisTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9ADA29B6FB40C30919721CEE /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				0679269BE7DDB61BF8D6B371 /* HealthAuthView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		9F0A895296017AD65769E487 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				EC1CE4C04221E7602F20A593 /* CalibratingCard.swift */,
+				B98C096B16CF82D2ED641E23 /* CoachNote.swift */,
+				E98AE93CC81BBEE0B049867E /* DataTable.swift */,
+				1C82778F4EA2E29819CF1F1B /* GaugeBar.swift */,
+				1B385D3941195A1193E6962F /* HeroCard.swift */,
+				584FE3874E1F0D1C862835E1 /* MetricRow.swift */,
+				D0C20CD9FA94A206B5DFB01E /* PeriodToggle.swift */,
+				D15931EA9D6B57F57D83A0CF /* ScoreCard.swift */,
+				790BA385971DC05F6162AC2E /* SegmentalBodyMap.swift */,
+				4B88535B0CE45711FA849FEE /* SourceChips.swift */,
+				53FC7D4ED194446D0C1E1D05 /* Sparkline.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		B1698D347FF7E41A96C32B76 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				1A6668445B415623BDCF04E3 /* Body */,
+				273222AFD308E49C160DAC2D /* Coach */,
+				9ADA29B6FB40C30919721CEE /* Onboarding */,
+				E808812E763AC4A50E6B9FAD /* Recovery */,
+				DDFF655B2975993FD9CAD2B2 /* Strain */,
+				BC1DF5AD1A571784199657D1 /* Today */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		BA292CEB15E9FB1B18548986 /* VitalisTests */ = {
+			isa = PBXGroup;
+			children = (
+				A77C113DF62BC27F26655F9D /* PersistenceTests.swift */,
+				D7BBD92C8EDFEEE4F532010F /* ScoringTests.swift */,
+			);
+			path = VitalisTests;
+			sourceTree = "<group>";
+		};
+		BC1DF5AD1A571784199657D1 /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				2A114571D126CB942D5CDBBD /* TodayView.swift */,
+			);
+			path = Today;
+			sourceTree = "<group>";
+		};
+		C8B326728F427CD146457115 = {
+			isa = PBXGroup;
+			children = (
+				44C6B965FC6F2D35EECBDD72 /* Vitalis */,
+				BA292CEB15E9FB1B18548986 /* VitalisTests */,
+				89BF71F9DF5D9731A328ED25 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DDFF655B2975993FD9CAD2B2 /* Strain */ = {
+			isa = PBXGroup;
+			children = (
+				0341193F797BE9F60675FDD2 /* StrainView.swift */,
+			);
+			path = Strain;
+			sourceTree = "<group>";
+		};
+		E808812E763AC4A50E6B9FAD /* Recovery */ = {
+			isa = PBXGroup;
+			children = (
+				4F50B0214B66940A536644C3 /* RecoveryView.swift */,
+			);
+			path = Recovery;
+			sourceTree = "<group>";
+		};
+		E9289C2670F68CD834D43743 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				85FC3CE08F0843BF8ACFF1C9 /* Theme.swift */,
+				57FBD9CACA535366300E5FD3 /* Typography.swift */,
+				9F0A895296017AD65769E487 /* Components */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		F85466ED09F724F6E7AEC601 /* Scoring */ = {
+			isa = PBXGroup;
+			children = (
+				740BCA0DE54186D371BD59EE /* DailyScore.swift */,
+				E6EE3D0FE972D027490BDEF3 /* Norms.swift */,
+				2A2916485EA9BFE6B931C8CA /* Scoring.swift */,
+			);
+			path = Scoring;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0FFA47544C504F113819DEB9 /* Vitalis */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 041EBF0E19E8645EDA0A38B8 /* Build configuration list for PBXNativeTarget "Vitalis" */;
+			buildPhases = (
+				0DF53C2C4E9972D75C79998A /* Sources */,
+				59C3CABC7D8FA1AB8C0138AF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Vitalis;
+			packageProductDependencies = (
+			);
+			productName = Vitalis;
+			productReference = 0D5F228C781D391FCCA60929 /* Vitalis.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5B3238E48F0D8F5FB9047C8E /* VitalisTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A38FA7BAA58599F08054856 /* Build configuration list for PBXNativeTarget "VitalisTests" */;
+			buildPhases = (
+				6C0CE51ECB7BCCBC2BD4C045 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E420A5894A64D50F166F0D50 /* PBXTargetDependency */,
+			);
+			name = VitalisTests;
+			packageProductDependencies = (
+			);
+			productName = VitalisTests;
+			productReference = A320EDD5056D91383CB79A80 /* VitalisTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E9C6BF56EA5926CFA51FF927 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					0FFA47544C504F113819DEB9 = {
+						DevelopmentTeam = TKQAQH5X5Q;
+						ProvisioningStyle = Automatic;
+					};
+					5B3238E48F0D8F5FB9047C8E = {
+						DevelopmentTeam = TKQAQH5X5Q;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 1372A100A24C76177CC10711 /* Build configuration list for PBXProject "Vitalis" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = C8B326728F427CD146457115;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 89BF71F9DF5D9731A328ED25 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0FFA47544C504F113819DEB9 /* Vitalis */,
+				5B3238E48F0D8F5FB9047C8E /* VitalisTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		59C3CABC7D8FA1AB8C0138AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D4399620ECEA4316A8B9BAE /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0DF53C2C4E9972D75C79998A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD2EE8FDC1441C06DFA58D64 /* BodyView.swift in Sources */,
+				8DC202EF5EBE5D8EF7243A20 /* CalibratingCard.swift in Sources */,
+				F666FC9754A8D7B79928906E /* CoachNote.swift in Sources */,
+				F34026F735B6EE8CB4D5AC2F /* CoachView.swift in Sources */,
+				DBA40967C90A6DF817B086D7 /* DailyScore.swift in Sources */,
+				FD8D8E2CD99A3BE75DD22AB9 /* DataTable.swift in Sources */,
+				03A07539EFDFC94E3CFD16AA /* DemoData.swift in Sources */,
+				C5B4AE65B60E2C9025D3556C /* GaugeBar.swift in Sources */,
+				067D42DC0100D745ED045C5E /* HealthAuthView.swift in Sources */,
+				AA21EF6F48B4864696B4EB3D /* HealthKitReader.swift in Sources */,
+				B3F29F0D89B431FE36D4EF10 /* HealthReadings.swift in Sources */,
+				883F48312548FCC0686E3464 /* HealthService.swift in Sources */,
+				17B90DF81AEBC440223742ED /* HealthStore.swift in Sources */,
+				3692BDE7BE8F0CB9C53765E5 /* HeroCard.swift in Sources */,
+				2BE698070B20E3FAA78A52E4 /* InBodyScan.swift in Sources */,
+				01AA9F1DB9B16069A9E06B05 /* MetricRow.swift in Sources */,
+				6BFB42E352B9AF9015DB7A9A /* Metrics.swift in Sources */,
+				7E10ECD89279D150B6380582 /* Norms.swift in Sources */,
+				9D04567D231FEF2FDB3391EE /* PeriodToggle.swift in Sources */,
+				9EC7C1F57D35DBF8987517AB /* RecoveryView.swift in Sources */,
+				454BEBDE2F2B56C7D8EF22A3 /* ScoreCard.swift in Sources */,
+				0ABA1EF9D3EDFC9FF5825CE4 /* Scoring.swift in Sources */,
+				42AD77909664EC9279CE0CE5 /* SegmentalBodyMap.swift in Sources */,
+				21BF3955A6B6586192CC1DD3 /* SourceChips.swift in Sources */,
+				49346FBFC4E4B2B19541B7EB /* Sparkline.swift in Sources */,
+				1E0D4E40FEE7E0929FC4FF9B /* StrainView.swift in Sources */,
+				AA6AEEDDA35719139693D388 /* Theme.swift in Sources */,
+				4B5ADDA190430240D24E666E /* TodayView.swift in Sources */,
+				268EFF186FD15F190F6BB71F /* Typography.swift in Sources */,
+				A8CBB983B8508FAF68A192A4 /* VitalisApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C0CE51ECB7BCCBC2BD4C045 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5AA038D0B0B8AC5DC5144CC8 /* PersistenceTests.swift in Sources */,
+				A83EF39DEFCB634AE3264A4A /* ScoringTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E420A5894A64D50F166F0D50 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0FFA47544C504F113819DEB9 /* Vitalis */;
+			targetProxy = 10B46B8DDA1246ABC43CFC33 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1AC0BF98D75E580ABE30D3B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shivam.code.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Vitalis.app/Vitalis";
+			};
+			name = Debug;
+		};
+		33FF9EABE5D5ED1D98A1AB7D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = TKQAQH5X5Q;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		633E6EC292559D5AA4D6EAFE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Vitalis/Vitalis.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_ASSET_PATHS = "\"Vitalis/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Vitalis/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shivam.code.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		87BD71CA1A57880ED835A5BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shivam.code.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Vitalis.app/Vitalis";
+			};
+			name = Release;
+		};
+		8801A3BD057DFAC37DD79CE6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = TKQAQH5X5Q;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		998356FD1542FC62320631DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Vitalis/Vitalis.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_ASSET_PATHS = "\"Vitalis/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Vitalis/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shivam.code.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		041EBF0E19E8645EDA0A38B8 /* Build configuration list for PBXNativeTarget "Vitalis" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				998356FD1542FC62320631DA /* Debug */,
+				633E6EC292559D5AA4D6EAFE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		1372A100A24C76177CC10711 /* Build configuration list for PBXProject "Vitalis" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				33FF9EABE5D5ED1D98A1AB7D /* Debug */,
+				8801A3BD057DFAC37DD79CE6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		6A38FA7BAA58599F08054856 /* Build configuration list for PBXNativeTarget "VitalisTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1AC0BF98D75E580ABE30D3B8 /* Debug */,
+				87BD71CA1A57880ED835A5BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E9C6BF56EA5926CFA51FF927 /* Project object */;
+}

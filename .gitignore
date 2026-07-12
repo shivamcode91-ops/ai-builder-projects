@@ -1,0 +1,19 @@
+# --- Python (recur-debt-pipeline) ---
+.venv/
+venv/
+__pycache__/
+*.pyc
+.cache/
+.pytest_cache/
+.env
+datasets/
+
+# --- Xcode / Swift (vitalis-health-app) ---
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# --- macOS ---
+.DS_Store

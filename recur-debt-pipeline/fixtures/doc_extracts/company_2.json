@@ -1,0 +1,66 @@
+{
+  "aica_report": {
+    "risk_score": 6.1,
+    "risk_band": "Elevated",
+    "avg_monthly_bank_inflows_inr": 32378141,
+    "closing_cash_inr": 2600000,
+    "total_borrowings_inr": 112500000,
+    "cheque_returns_12m": 4,
+    "top_customer_pct": 41,
+    "cited_ratios": {"dscr": 1.33, "debt_to_ebitda": 3.81, "interest_coverage": 2.38, "current_ratio": 1.13, "ebitda_margin_pct": 9.2},
+    "risk_observations": [
+      "Receivable days stretched (~86); working-capital cycle elongating",
+      "4 cheque returns in trailing 12 months — liquidity strain",
+      "High customer concentration (~41%)",
+      "Thin closing cash relative to monthly outflows"
+    ],
+    "positive_signals": [],
+    "recommendation": null,
+    "_source": "AICA_Report.pdf"
+  },
+  "financial_statements": {
+    "years": ["FY2023-24", "FY2024-25", "FY2025-26"],
+    "pnl_latest": {"revenue": 321000000, "cogs": 234330000, "ebitda": 29532000, "depreciation": 7600000, "interest": 12387000, "pbt": 9545000, "tax": 2405340, "pat": 7139660},
+    "balance_sheet_latest": {"net_block": 49400000, "inventory": 50076000, "trade_receivables": 75632877, "cash": 2600000, "other_assets": 12840000, "total_assets": 190548877, "borrowings": 112500000, "trade_payables": 21828000, "equity": 56220877},
+    "auditor_qualifications": [],
+    "notes": [],
+    "_source": "Financial_Statements_FY26.pdf"
+  },
+  "gst_returns": {
+    "annual_taxable_turnover_inr": 321000000,
+    "months_covered": 12,
+    "filing_delays": [],
+    "monthly_turnover_inr": {"Apr-25": 29291180, "May-25": 23842582, "Jun-25": 26054204, "Jul-25": 27017580, "Aug-25": 27821364, "Sep-25": 30301919, "Oct-25": 26412440, "Nov-25": 24328743, "Dec-25": 24543857, "Jan-26": 29356838, "Feb-26": 30746302, "Mar-26": 29522224},
+    "notes": ["Annual GST turnover matches book revenue exactly"],
+    "_source": "GST_Returns_Summary.pdf"
+  },
+  "shareholding": {
+    "holders": [
+      {"name": "Mahesh Patel", "category": "Promoter", "pct": 55.0},
+      {"name": "Bhavna Patel", "category": "Promoter", "pct": 30.0},
+      {"name": "Patel Family Trust", "category": "Investor", "pct": 15.0}
+    ],
+    "promoter_pct": 85.0,
+    "pledging_disclosed": null,
+    "directors": [
+      {"name": "Mahesh Patel", "din": "06678120"},
+      {"name": "Bhavna Patel", "din": "06678139"}
+    ],
+    "governance_notes": ["Family-led; no independent directors"],
+    "_source": "Shareholding_Pattern.pdf"
+  },
+  "sanction_letter": {
+    "lender": "Bank of Baroda",
+    "reference": "BAN/CC/2025-26/25713",
+    "date": "14 May 2025",
+    "facility_type": "Cash Credit",
+    "sanctioned_amount_inr": 70000000,
+    "roi_pct": 10.6,
+    "rate_type": "floating",
+    "tenor_months": 12,
+    "security": ["Hypothecation of stock & book debts", "Personal guarantee (promoters)"],
+    "covenants": ["Subject to bank's standard terms and annual review"],
+    "legibility_issues": [],
+    "_source": "Sanction_Letter_scan.png"
+  }
+}

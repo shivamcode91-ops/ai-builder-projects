@@ -1,0 +1,153 @@
+{
+ "eligibility": "conditional",
+ "eligibility_reason": "Fundamentally strong credit (DSCR 3.84, Debt/EBITDA 0.92, zero bounces) but material cash reconciliation break of INR 61.4M between balance-sheet cash and bank-statement closing requires resolution before final sanction.",
+ "recommended_products": [
+  {
+   "product": "Cash Credit / Overdraft (Enhancement)",
+   "purpose": "Augment existing working-capital limit to fund growing inventory and receivables cycle as revenue scales from INR 385.7M (FY25) to INR 486M (FY26)",
+   "amount_inr": 25000000,
+   "amount_basis": "Existing CC sanctioned INR 60M; utilisation 68.3% (INR 41M drawn). Gross WC gap = DSO 42d + Inventory 46d \u2013 DPO 38d = 50 net days. Monthly revenue FY26 = INR 486M/12 = INR 40.5M; 50-day gap \u00d7 (INR 40.5M/30) = INR 67.5M required WC. Existing CC limit covers INR 60M; incremental need = INR 67.5M \u2013 INR 60M = INR 7.5M. Rounded up to INR 25M to provide headroom for 26% YoY revenue growth and seasonal peaks (peak monthly inflow INR 55.1M in May-25). Total revised CC limit = INR 85M. Cross-check: INR 85M / avg monthly inflow INR 47.2M = 1.80x (within 1\u20132x heuristic). Conservative sizing applied given unresolved cash reconciliation flag.",
+   "tenor_months": 12,
+   "pricing": {
+    "benchmark": "MCLR",
+    "spread_bps": 75,
+    "all_in_rate_pct": 9.75,
+    "processing_fee_pct": 0.5
+   },
+   "repayment": "revolving",
+   "advance_rate_pct": null,
+   "security": [
+    "Primary: Hypothecation of current assets (inventory + trade receivables) \u2014 first charge, pari passu with HDFC Bank",
+    "Collateral: Extension of existing mortgage/charge on fixed assets (Net Block INR 59.8M) pari passu with HDFC Bank",
+    "Personal guarantees of all three promoter-directors: Rohan Deshpande, Anita Deshpande, Kunal Mehta"
+   ],
+   "covenants": [
+    "DSCR >= 1.25 tested semi-annually (current computed DSCR 3.84 provides ample headroom)",
+    "Debt/EBITDA <= 3.0x (current 0.92x; revised post-enhancement ~1.34x \u2014 well within limit)",
+    "Interest Coverage Ratio >= 2.0x (current 11.28x)",
+    "Current Ratio >= 1.2x (current 1.82x)",
+    "CC utilisation reporting monthly; if utilisation < 20% for 3 consecutive months, limit reviewed downward",
+    "No additional secured borrowings without prior written consent",
+    "End-use certificate for each drawdown above INR 5M",
+    "No change of control without lender consent (promoter holding currently 92%)",
+    "Top-customer revenue concentration cap: single customer <= 25% of annual revenue (current top customer 19%)"
+   ],
+   "conditions_precedent": [
+    "MANDATORY \u2014 Cash reconciliation resolution: Borrower to provide auditor-certified reconciliation explaining INR 61.4M gap between balance-sheet cash (INR 37.5M) and bank-statement closing (INR 98.9M) as at 28-Mar-26; limit not to be released until resolved",
+    "MANDATORY \u2014 Missing sanction letter: Provide original/certified HDFC Bank Term Loan sanction letter (INR 50M facility) currently absent from dataroom",
+    "Submission of latest stock and book-debt statement (not older than 30 days) at time of drawdown",
+    "Execution of pari-passu inter-creditor agreement / NOC from HDFC Bank",
+    "Updated KYC for all promoters and Saanvi Capital LLP",
+    "ROC search confirming no undisclosed charges on assets",
+    "GST returns for last 6 months reconciled to revenue figures",
+    "Pledging disclosure: promoters to confirm nil pledge on shares or disclose details"
+   ],
+   "monitoring": [
+    "Monthly stock and book-debt statement within 10 days of month-end",
+    "Quarterly management accounts (P&L, balance sheet) within 30 days of quarter-end",
+    "Annual audited financials within 120 days of fiscal year-end",
+    "Bank-statement download (all accounts) monthly \u2014 automated feed preferred",
+    "Semi-annual DSCR and leverage covenant compliance certificate signed by CFO",
+    "Alert if any single monthly inflow drops > 30% below trailing 3-month average"
+   ],
+   "serviceability_check": [
+    "EBITDA FY2025-26 (latest year used) = INR 75,330,000",
+    "Existing annual interest on CC (INR 41M drawn \u00d7 9.4%) = INR 3,854,000",
+    "Existing annual interest on TL (INR 28.5M \u00d7 9.9%) = INR 2,821,500",
+    "Incremental interest on new INR 25M CC at 9.75% (assume 80% avg utilisation = INR 20M) = INR 1,950,000",
+    "Total interest post-enhancement = INR 3,854,000 + INR 2,821,500 + INR 1,950,000 = INR 8,625,500",
+    "Existing TL principal repayment = INR 1,080,000/month \u00d7 12 = INR 12,960,000",
+    "Total annual debt service post-enhancement = INR 8,625,500 + INR 12,960,000 = INR 21,585,500",
+    "Post-enhancement DSCR = INR 75,330,000 / INR 21,585,500 = 3.49x \u2014 comfortably above 1.25x threshold",
+    "Revised Debt/EBITDA = (INR 69,500,000 + INR 25,000,000) / INR 75,330,000 = 1.26x \u2014 well within 3.0x limit",
+    "CONCLUSION: Serviceability confirmed; DSCR 3.49x >> 1.25x minimum"
+   ]
+  },
+  {
+   "product": "Invoice Discounting (Receivables Financing)",
+   "purpose": "Unlock cash tied in trade receivables to fund the 42-day DSO gap, providing a self-liquidating complement to the CC line during peak sales months",
+   "amount_inr": 35600000,
+   "amount_basis": "Eligible receivables (0\u201360 days) = INR 50,890,192 per snapshot. Top customer = 19% of total receivables = INR 10,625,425; apply concentration haircut: advance rate on top-customer portion = 70% (vs standard 80%), all others at 80%. Eligible ex-top-customer = INR 50,890,192 \u2013 INR 10,625,425 = INR 40,264,767 \u00d7 80% = INR 32,211,814. Top-customer eligible = INR 10,625,425 \u00d7 70% = INR 7,437,798. Gross eligible pool = INR 32,211,814 + INR 7,437,798 = INR 39,649,612. Exclude 61\u201390d (INR 3,355,397) and 90+ (INR 1,677,699) from pool entirely. Rounded limit = INR 35,600,000 (conservative floor below computed INR 39.6M given cash-reconciliation flag).",
+   "tenor_months": 12,
+   "pricing": {
+    "benchmark": "repo",
+    "spread_bps": 175,
+    "all_in_rate_pct": 8.25,
+    "processing_fee_pct": 0.25
+   },
+   "repayment": "self-liquidating",
+   "advance_rate_pct": 78,
+   "security": [
+    "Assignment / hypothecation of specific invoices discounted",
+    "Recourse to Solara Foods Private Limited on non-payment by debtor",
+    "Personal guarantees of promoter-directors (Rohan Deshpande, Anita Deshpande, Kunal Mehta)"
+   ],
+   "covenants": [
+    "Only invoices in 0\u201360 day bucket eligible for discounting",
+    "Single-debtor concentration cap: no debtor to exceed 25% of outstanding discounted pool",
+    "90+ day receivables as % of total receivables to remain <= 5% (current 3.0%)",
+    "Borrower to notify lender within 48 hours of any debtor dispute or credit note > INR 500,000",
+    "No contra-trade or set-off arrangements with discounted debtors without prior consent"
+   ],
+   "conditions_precedent": [
+    "MANDATORY \u2014 Cash reconciliation resolution (same as CC enhancement; shared condition)",
+    "MANDATORY \u2014 Submission of debtor-wise ageing schedule certified by auditor (not older than 30 days)",
+    "Execution of tripartite agreement / debtor acknowledgement for top-5 debtors (covering ~60%+ of receivables)",
+    "Confirmation that invoices are GST-compliant and e-invoicing enabled (cross-check to GST returns)",
+    "No existing assignment or charge on the specific receivables being discounted",
+    "KYC and creditworthiness check on top-3 debtors by lender's credit team"
+   ],
+   "monitoring": [
+    "Invoice-level MIS submitted at each drawdown request",
+    "Monthly debtor-wise ageing statement",
+    "Alert on any invoice unpaid beyond 75 days from invoice date (i.e., 15-day buffer before 90d bucket)",
+    "Quarterly review of debtor concentration; if any single debtor exceeds 25%, reduce advance rate to 65% on that debtor",
+    "Annual renewal with fresh ageing and debtor KYC"
+   ],
+   "serviceability_check": [
+    "Invoice discounting is self-liquidating \u2014 repaid directly from debtor collections, not from operating cash flow",
+    "No incremental EMI or fixed debt-service obligation added to P&L",
+    "Implicit cost: discount fee on INR 35.6M at 8.25% p.a. for avg 42-day cycle = INR 35,600,000 \u00d7 8.25% \u00d7 (42/365) = INR 338,400 per cycle",
+    "Annual implied cost (8\u20139 cycles/year) = ~INR 2,707,200 \u2014 absorbed within EBITDA of INR 75,330,000 with negligible impact",
+    "Post-facility DSCR (including CC enhancement from Product 1) remains 3.49x as computed above; invoice discounting does not alter this",
+    "CONCLUSION: Self-liquidating structure; no serviceability stress; DSCR unaffected"
+   ]
+  }
+ ],
+ "declined_products": [
+  {
+   "product": "New Amortising Term Loan (incremental capex)",
+   "reason": "No capex requirement evidenced in snapshot; Net Block INR 59.8M is stable and no expansion plan cited. Adding a new TL would be mismatched to the working-capital use-of-funds profile and unnecessarily increase fixed debt-service obligations on a business whose primary gap is operating-cycle funding."
+  },
+  {
+   "product": "Venture Debt",
+   "reason": "Company is profitable (PAT INR 44.5M FY26), cash-generative, and not pre-revenue or equity-runway dependent. Venture debt is structurally inappropriate and would be more expensive than conventional bank facilities."
+  },
+  {
+   "product": "Unsecured / Clean Working Capital Line",
+   "reason": "While credit quality is strong, the unresolved INR 61.4M cash reconciliation break (data-quality flag: bs_cash_vs_bank_statement) and missing TL sanction letter preclude any unsecured exposure until discrepancies are resolved."
+  }
+ ],
+ "key_risks": [
+  "Cash reconciliation break (INR 61.4M gap between BS cash INR 37.5M and bank closing INR 98.9M): mitigated by making auditor-certified reconciliation a hard condition precedent before any limit release \u2014 conservative sizing uses balance-sheet (lower) cash figure",
+  "Missing HDFC Bank TL sanction letter: mitigated by requiring original sanction letter as CP; pari-passu inter-creditor agreement ensures lender has equal security standing",
+  "Revenue concentration (top customer 19%): mitigated by 25% single-customer covenant and reduced 70% advance rate on top-customer receivables in invoice discounting pool",
+  "Pledging disclosure gap (promoter pledging = null): mitigated by CP requiring promoters to certify nil pledge or disclose; personal guarantees from all three promoter-directors provide recourse regardless",
+  "Seasonal cash-flow volatility (monthly inflows range INR 40.4M\u201355.1M, 37% swing): mitigated by revolving CC structure (not amortising TL) allowing drawdown/repayment flexibility; DSCR headroom of 3.49x absorbs trough months",
+  "Leverage creep as business scales: mitigated by Debt/EBITDA <= 3.0x covenant (current 1.26x post-enhancement) and no-additional-debt clause"
+ ],
+ "rationale": [
+  "Lead product is CC enhancement (not invoice discounting) because the 50-day net WC gap (DSO 42d + Inv 46d \u2013 DPO 38d) is a recurring operating-cycle need best served by a revolving cash-credit line.",
+  "CC limit sized to INR 85M total (INR 25M incremental): 50-day gap on FY26 monthly revenue INR 40.5M = INR 67.5M need; INR 85M covers peak-month inflow of INR 55.1M (May-25) with headroom.",
+  "Post-enhancement DSCR = 3.49x (EBITDA INR 75.33M / debt service INR 21.59M) \u2014 2.8x above the 1.25x minimum; serviceability is not a constraint.",
+  "Invoice discounting (INR 35.6M) is additive, not lead: self-liquidating, zero EMI burden, unlocks the INR 50.9M eligible receivable pool at 78% blended advance rate with concentration haircut on top customer (19%).",
+  "Eligibility is 'conditional' not 'eligible': INR 61.4M cash reconciliation break (data-quality flag bs_cash_vs_bank_statement) is material and must be resolved before drawdown.",
+  "Conservative sizing applied throughout: balance-sheet cash INR 37.5M (lower figure) used, not bank-statement INR 98.9M; CC increment capped at INR 25M vs computed INR 39.6M invoice pool.",
+  "Zero cheque bounces in 12 months and DSCR 3.84x support pricing at MCLR+75bps for CC \u2014 tighter than a stressed credit but not the floor, reflecting the unresolved data flag.",
+  "Debt/EBITDA post-enhancement = 1.26x vs 3.0x covenant ceiling; leverage is not a binding constraint even after both facilities.",
+  "Promoter holding 92% with no disclosed pledging; personal guarantees from all three promoter-directors (Rohan, Anita, Kunal) required as standard governance control.",
+  "Missing TL sanction letter (data-quality flag: sanction_letter_partial_coverage) addressed as hard CP; pari-passu NOC from HDFC Bank required before security perfection.",
+  "Revenue growth 26% YoY (FY24\u2192FY25) and 26% projected (FY25\u2192FY26 INR 486M) supports the incremental limit; WC need scales proportionally with revenue.",
+  "No new term loan recommended: no capex evidence in snapshot; Net Block INR 59.8M stable; adding fixed amortisation would be product-use mismatch per selection heuristics."
+ ]
+}

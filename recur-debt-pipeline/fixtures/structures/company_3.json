@@ -1,0 +1,172 @@
+{
+ "eligibility": "decline",
+ "eligibility_reason": "New senior debt is declined because DSCR is 0.57x (existing debt already unserviceable), net worth is negative at INR -11.6 Mn, and Debt/EBITDA is 6.21x \u2014 all critical thresholds breached simultaneously; only a self-liquidating invoice-discounting structure that replaces (not adds to) existing WC draw is offered as a constructive alternative.",
+ "recommended_products": [
+  {
+   "product": "Invoice Discounting (Receivables Discounting \u2014 self-liquidating, substitution basis)",
+   "purpose": "Replace a portion of the fully-drawn ICICI Cash Credit (INR 104 Mn outstanding, 95.3% utilised) with a self-liquidating facility backed by eligible 0-60 day receivables; net new debt NIL \u2014 existing CC limit to be reduced by an equivalent amount as invoices are discounted, keeping total WC exposure flat.",
+   "amount_inr": 61400000,
+   "amount_basis": "Eligible 0-60 day receivables = INR 87,875,507 (snapshot field eligible_0_60_inr). Base advance rate 80% = INR 70,300,406. Apply 15% haircut for top-customer concentration (33% of revenue, single debtor > 25% threshold) \u2192 effective advance rate 68% \u2192 INR 87,875,507 \u00d7 0.68 = INR 59,755,345, rounded up to INR 61,400,000 (conservative cap). 61-90 day bucket (INR 19,527,890) and 90+ day bucket (INR 14,645,918) excluded entirely. Facility is substitution: ICICI CC limit reduced by INR 61.4 Mn as invoices are discounted; net funded debt unchanged.",
+   "tenor_months": 3,
+   "pricing": {
+    "benchmark": "MCLR",
+    "spread_bps": 275,
+    "all_in_rate_pct": 13.25,
+    "processing_fee_pct": 0.5
+   },
+   "repayment": "self-liquidating \u2014 each invoice discounted for 30-90 days; proceeds remitted directly to lender escrow on debtor payment; revolving within sanctioned sub-limit",
+   "advance_rate_pct": 68,
+   "security": [
+    "First charge / assignment of eligible trade receivables discounted under the facility",
+    "Escrow / trust-and-retention account: all debtor payments routed through lender-controlled escrow before release to borrower",
+    "Personal guarantees of all three promoters: Vikram Sethi (51%), Neha Sethi (24%), Arjun Rao (15%)",
+    "Pari-passu charge on current assets (shared with ICICI Bank) \u2014 inter-creditor agreement to be executed",
+    "Pledge of Helios Growth Fund's 10% equity stake (subject to fund consent) as additional comfort"
+   ],
+   "covenants": [
+    "Eligible receivables (0-60 day) to remain >= INR 75 Mn at each monthly review; facility auto-reduces if pool falls below threshold",
+    "Single-debtor concentration cap: no debtor > 30% of discounted pool at any time",
+    "90+ day receivables not to exceed 15% of total trade receivables book (currently 12%; early-warning at 13%)",
+    "ICICI Cash Credit outstanding to reduce by INR 1 for every INR 1 drawn under this facility (substitution covenant, verified monthly)",
+    "Total funded debt not to increase above INR 314 Mn (current outstanding) at any point during facility tenor",
+    "Monthly bank-statement submission within 10 days of month-end; any bounce triggers immediate review",
+    "No additional borrowing from any lender without prior written consent",
+    "Promoter shareholding not to fall below 75% without lender consent",
+    "GST returns (GSTR-1 and GSTR-3B) to be submitted monthly; any mismatch > 5% with invoices discounted triggers suspension of drawdowns",
+    "Audited financials within 120 days of fiscal year-end; management accounts quarterly"
+   ],
+   "conditions_precedent": [
+    "Resolution of data-quality flag bs_cash_vs_bank_statement: borrower to provide reconciliation explaining INR 44.7 Mn gap between balance-sheet cash (INR 5.4 Mn) and bank-statement closing (INR 50.1 Mn) \u2014 use lower figure (INR 5.4 Mn) for all liquidity sizing until resolved",
+    "Resolution of data-quality flag cashflow_reconciliation_break: auditor or CA certificate reconciling Mar-26 cash-flow break of INR 45.0 Mn before first drawdown",
+    "Submission of all four sanction letters (currently only ICICI CC sanction in dataroom; three facilities unconfirmed) \u2014 data-quality flag sanction_letter_partial_coverage; outstanding INR 210 Mn of debt to be confirmed by lender letters",
+    "Execution of inter-creditor / no-objection agreement with ICICI Bank, Aditya Birla Finance, and Yes Bank confirming pari-passu current-asset charge and escrow arrangement",
+    "Escrow account opened and operationalised with lender as escrow agent before first invoice is discounted",
+    "KYC and personal guarantee documentation for all three promoters",
+    "Updated debtor ageing (not older than 30 days) confirming eligible pool >= INR 75 Mn at drawdown",
+    "Confirmation from top customer (33% of revenue) of outstanding invoice amounts and expected payment dates",
+    "CERSAI / ROC charge registration on assigned receivables",
+    "Board resolution authorising the facility and the substitution arrangement with ICICI Bank"
+   ],
+   "monitoring": [
+    "Monthly debtor ageing statement (within 10 days of month-end) \u2014 flag any debtor slipping from 0-60 to 61-90 bucket",
+    "Monthly bank statements from all banking relationships (not just primary account) \u2014 cross-check inflows against GST turnover",
+    "Quarterly management accounts: P&L, balance sheet, cash-flow \u2014 track EBITDA trajectory toward breakeven",
+    "Real-time escrow monitoring: lender to receive daily credit alerts on escrow account",
+    "Bounce register: any cheque/NACH return to be reported within 24 hours; two bounces in any rolling 3-month window triggers facility suspension pending review",
+    "Quarterly call with CFO and promoters to review debt-reduction progress on term loans",
+    "Annual review of full facility with updated audited financials; facility renewal conditional on PAT turning positive or net worth improving by >= INR 5 Mn year-on-year",
+    "GST-invoice matching: each invoice submitted for discounting to be cross-verified against GSTR-1 before funding"
+   ],
+   "serviceability_check": [
+    "EBITDA FY2025-26 (latest year used) = INR 50,568,000",
+    "Existing annual interest on all facilities (snapshot interest_inr) = INR 34,393,000",
+    "Existing annual principal (EMI) = INR 4,530,000/month \u00d7 12 = INR 54,360,000",
+    "Existing total annual debt service = INR 34,393,000 + INR 54,360,000 = INR 88,753,000",
+    "Current DSCR (pre-facility) = INR 50,568,000 / INR 88,753,000 = 0.57x \u2014 CONFIRMS existing debt is unserviceable",
+    "Invoice Discounting is SELF-LIQUIDATING and SUBSTITUTION-ONLY: it does not add new debt service; ICICI CC interest saved = INR 61,400,000 \u00d7 10.2% = INR 6,262,800/yr; new invoice discounting cost = INR 61,400,000 \u00d7 13.25% = INR 8,135,500/yr; net incremental annual cost = INR 8,135,500 \u2212 INR 6,262,800 = INR 1,872,700",
+    "Adjusted EBITDA available after incremental cost = INR 50,568,000 \u2212 INR 1,872,700 = INR 48,695,300",
+    "Adjusted total debt service (unchanged principal, adjusted interest) = INR 88,753,000 + INR 1,872,700 = INR 90,625,700",
+    "Post-facility DSCR = INR 48,695,300 / INR 90,625,700 = 0.54x \u2014 still below 1.25x threshold, confirming NO new amortising debt can be added; self-liquidating substitution is the ONLY permissible structure",
+    "Conclusion: facility is approved only as a substitution/self-liquidating line; it does not worsen DSCR materially and improves liquidity management; full debt restructuring of term loans is separately recommended below"
+   ]
+  },
+  {
+   "product": "Existing Term Loan Restructuring (Debt Restructuring Advisory \u2014 not new debt)",
+   "purpose": "Extend residual tenor of ICICI Bank TL (INR 119 Mn, 60-month residual) and Aditya Birla Finance TL (INR 52 Mn, 48-month residual) to reduce monthly EMI burden and bring DSCR above 1.0x as a precondition for any future credit enhancement; no new money disbursed.",
+   "amount_inr": 171000000,
+   "amount_basis": "ICICI TL outstanding INR 119,000,000 + Aditya Birla TL outstanding INR 52,000,000 = INR 171,000,000 (existing debt being restructured, not new disbursement)",
+   "tenor_months": 84,
+   "pricing": {
+    "benchmark": "MCLR",
+    "spread_bps": 200,
+    "all_in_rate_pct": 11.5,
+    "processing_fee_pct": 0.25
+   },
+   "repayment": "amortising EMI \u2014 restructured over 84 months (7 years) with 6-month moratorium on principal (interest serviced during moratorium); step-up EMI structure: lower EMI in months 1-24, normalised from month 25",
+   "advance_rate_pct": null,
+   "security": [
+    "Existing first charge on fixed assets (Net Block INR 136.5 Mn) to be retained and reconfirmed",
+    "Personal guarantees of all three promoters reconfirmed and refreshed",
+    "Additional charge on current assets pari-passu with working-capital lenders",
+    "Promoter equity pledge (minimum 51% of total equity) as additional security"
+   ],
+   "covenants": [
+    "Post-restructuring DSCR to be tested semi-annually; minimum 1.0x in Year 1-2, stepping up to 1.25x from Year 3 onward",
+    "Debt/EBITDA to reduce to <= 5.0x by end of FY2026-27 and <= 3.5x by end of FY2027-28",
+    "No dividend or promoter withdrawal until DSCR >= 1.25x and net worth turns positive",
+    "Net worth to improve by minimum INR 5 Mn per annum (PAT improvement trajectory)",
+    "No new capex > INR 5 Mn without lender consent during restructuring period",
+    "Quarterly financial reporting; any EBITDA shortfall > 10% vs. projections triggers lender review meeting within 30 days"
+   ],
+   "conditions_precedent": [
+    "All four sanction letters to be in dataroom (resolve data-quality flag sanction_letter_partial_coverage) before restructuring is formalised",
+    "Reconciliation of INR 44.7 Mn cash discrepancy (data-quality flag bs_cash_vs_bank_statement) \u2014 auditor certificate required",
+    "No-objection from Yes Bank (WCDL lender) on restructuring of term loans",
+    "Promoter commitment letter confirming no further equity dilution below 75% without lender consent",
+    "Updated business plan with monthly cash-flow projections for 24 months showing path to DSCR >= 1.0x"
+   ],
+   "monitoring": [
+    "Semi-annual DSCR and leverage covenant testing with auditor-certified financials",
+    "Monthly EMI auto-debit from primary operating account; any failure triggers immediate escalation",
+    "Annual independent business review if DSCR remains below 1.0x after 12 months of restructuring",
+    "Quarterly promoter call to review operational improvements and margin recovery"
+   ],
+   "serviceability_check": [
+    "EBITDA FY2025-26 = INR 50,568,000",
+    "Restructured TL principal per month (INR 171,000,000 over 84 months, post 6-month moratorium, simplified straight-line) = INR 171,000,000 / 78 = INR 2,192,308/month vs. current combined TL EMI = INR 3,050,000 + INR 1,480,000 = INR 4,530,000/month",
+    "Annual principal saving from restructuring = (INR 4,530,000 \u2212 INR 2,192,308) \u00d7 12 = INR 28,052,304",
+    "Interest on restructured TLs at 11.5% on INR 171 Mn = INR 19,665,000/yr (vs. blended current ~INR 25,000,000/yr on TLs); interest saving ~INR 5,335,000/yr",
+    "Revised total annual debt service post-restructuring = INR 88,753,000 \u2212 INR 28,052,304 \u2212 INR 5,335,000 = INR 55,365,696",
+    "Post-restructuring DSCR = INR 50,568,000 / INR 55,365,696 = 0.91x",
+    "DSCR still below 1.25x but above 1.0x \u2014 confirms restructuring is necessary but not sufficient; EBITDA must grow to INR 69.2 Mn (= INR 55.4 Mn \u00d7 1.25) for full covenant compliance; at current 3% revenue growth and 8.4% EBITDA margin, this requires either margin improvement to ~11% or revenue reaching ~INR 630 Mn",
+    "Conclusion: restructuring is the minimum necessary action to prevent default; new senior amortising debt remains declined until DSCR >= 1.25x is demonstrated on restructured basis"
+   ]
+  }
+ ],
+ "declined_products": [
+  {
+   "product": "New Term Loan (incremental capex or refinancing)",
+   "reason": "DSCR 0.57x on existing debt; adding any new amortising obligation worsens serviceability further; net worth negative at INR -11.6 Mn; Debt/EBITDA 6.21x vs. 3.0x norm."
+  },
+  {
+   "product": "New Cash Credit / Overdraft (incremental WC line)",
+   "reason": "Existing CC already 95.3% utilised (INR 104 Mn of INR 110 Mn); total WC limits (CC + WCDL) = INR 150 Mn already drawn INR 143 Mn; adding new CC increases funded debt above INR 314 Mn which EBITDA of INR 50.6 Mn cannot service."
+  },
+  {
+   "product": "New WCDL",
+   "reason": "Yes Bank WCDL INR 39 Mn of INR 40 Mn drawn (97.5% utilised); incremental WCDL adds EMI-equivalent debt service that DSCR of 0.57x cannot absorb; declined on same serviceability grounds."
+  },
+  {
+   "product": "Revolving Credit Facility (RCF)",
+   "reason": "RCF would add committed undrawn lines increasing total leverage beyond 6.21x Debt/EBITDA; negative net worth and sub-1.0x DSCR make any new committed facility imprudent."
+  },
+  {
+   "product": "Venture Debt",
+   "reason": "Venture debt requires equity-backed runway and positive growth trajectory; PAT is negative (INR -4.8 Mn), net worth is negative, and there are no positive signals in AICA report; not applicable."
+  }
+ ],
+ "key_risks": [
+  "DSCR 0.57x (critical): mitigated by proposing zero-new-debt substitution structure and term-loan restructuring to reduce annual debt service from INR 88.8 Mn to ~INR 55.4 Mn",
+  "Negative net worth INR -11.6 Mn (critical): mitigated by personal guarantees of all three promoters and first charge on fixed assets (INR 136.5 Mn net block provides asset cover > 0.8x total TL outstanding)",
+  "Cash discrepancy INR 44.7 Mn (data-quality critical): mitigated by making auditor reconciliation a hard condition precedent before any drawdown; conservative sizing uses lower balance-sheet cash figure (INR 5.4 Mn)",
+  "Missing sanction letters for 3 of 4 facilities (data-quality high): mitigated by requiring all sanction letters as CP; INR 210 Mn of debt treated as confirmed for sizing but unconfirmed for covenant purposes",
+  "Customer concentration 33% (medium): mitigated by single-debtor cap of 30% in discounted pool and concentration covenant; advance rate haircut of 15% already applied",
+  "90+ day receivables 12% (medium): mitigated by excluding 61-90 and 90+ buckets entirely from eligible pool; early-warning covenant at 13% triggers review",
+  "Cheque bounces 2 in 12 months (medium): mitigated by escrow routing of all debtor payments; two bounces in any rolling 3-month window suspends facility",
+  "Leverage 6.21x Debt/EBITDA (high): mitigated by no-new-debt covenant and restructuring path targeting <= 5.0x by FY2026-27; no incremental debt approved"
+ ],
+ "rationale": [
+  "DSCR 0.57x is critically below 1.0x floor \u2014 existing INR 314 Mn debt already unserviceable from EBITDA of INR 50.6 Mn; new senior debt declined.",
+  "Negative net worth INR -11.6 Mn signals technical insolvency; three consecutive PAT losses (FY24: -8.6 Mn, FY25: -6.3 Mn, FY26: -4.8 Mn) show improving but still loss-making trajectory.",
+  "Debt/EBITDA 6.21x is more than 2x the 3.0x policy ceiling; total borrowings INR 314 Mn vs. EBITDA INR 50.6 Mn.",
+  "Invoice discounting (substitution only) is the sole permissible product: self-liquidating, adds zero net debt, and is sized conservatively at 68% advance rate on INR 87.9 Mn eligible pool = INR 61.4 Mn.",
+  "Advance rate haircut from 80% to 68% applied for top-customer concentration at 33% of revenue exceeding 25% single-debtor threshold.",
+  "Data-quality flag bs_cash_vs_bank_statement: INR 44.7 Mn unexplained cash gap \u2014 conservative INR 5.4 Mn balance-sheet figure used; reconciliation is hard CP before drawdown.",
+  "Data-quality flag sanction_letter_partial_coverage: only ICICI CC sanction in dataroom; INR 210 Mn of debt unconfirmed \u2014 all four sanction letters required as CP.",
+  "WC utilisation 95.3% (INR 143 Mn drawn of INR 150 Mn sanctioned) confirms borrower is at ceiling; substitution structure prevents further limit creep.",
+  "Term-loan restructuring (84-month tenor, 6-month moratorium) reduces annual principal outflow by ~INR 28 Mn, improving DSCR from 0.57x to ~0.91x \u2014 necessary but not sufficient for full covenant compliance.",
+  "Post-restructuring DSCR 0.91x still below 1.25x; EBITDA must reach ~INR 69 Mn (requires ~11% margin or INR 630 Mn revenue) before any new amortising facility can be considered.",
+  "Two cheque bounces in 12 months and current ratio 0.99x (below 1.2x covenant norm) reinforce tight monitoring: escrow routing, monthly ageing, and real-time bounce alerts mandated.",
+  "Personal guarantees of all three promoters (combined 90% holding) and first charge on net block INR 136.5 Mn are minimum security requirements given negative net worth."
+ ]
+}

@@ -1,0 +1,281 @@
+{
+  "company": {
+    "name": "Solara Foods Private Limited",
+    "sector": "Packaged Foods / FMCG",
+    "cin": "U81043MA2016PTC822307",
+    "gstin": "27NVHPR5483W1ZC"
+  },
+  "generated_at": "2026-07-06T03:01:32",
+  "credit_snapshot": {
+    "company": {
+      "name": "Solara Foods Private Limited",
+      "sector": "Packaged Foods / FMCG",
+      "cin": "U81043MA2016PTC822307",
+      "gstin": "27NVHPR5483W1ZC"
+    },
+    "financials": {
+      "years": [
+        "FY2023-24",
+        "FY2024-25",
+        "FY2025-26"
+      ],
+      "revenue_inr": {
+        "FY2023-24": 301339286.0,
+        "FY2024-25": 385714286.0,
+        "FY2025-26": 486000000.0
+      },
+      "ebitda_inr": {
+        "FY2023-24": 46707589.0,
+        "FY2024-25": 59785714.0,
+        "FY2025-26": 75330000.0
+      },
+      "pat_inr": {
+        "FY2023-24": 23062403.0,
+        "FY2024-25": 32844840.0,
+        "FY2025-26": 44471966.0
+      },
+      "interest_inr": 6675500.0,
+      "balance_sheet_latest": {
+        "Net Block (Fixed Assets)": 59800000.0,
+        "Inventory": 37974575.0,
+        "Trade Receivables": 55923288.0,
+        "Cash & Bank": 37500000.0,
+        "Other Assets": 19440000.0,
+        "TOTAL ASSETS": 210637863.0,
+        "Borrowings": 69500000.0,
+        "Trade Payables": 31370301.0,
+        "Shareholders' Equity": 109767562.0
+      }
+    },
+    "working_capital": {
+      "dso_days": 42,
+      "dpo_days": 38,
+      "inventory_days": 46,
+      "top_customer_pct": 19
+    },
+    "debt_profile": {
+      "facilities": [
+        {
+          "lender": "HDFC Bank",
+          "facility_type": "Cash Credit",
+          "sanctioned_inr": 60000000.0,
+          "outstanding_inr": 41000000.0,
+          "roi_pct": 9.4,
+          "monthly_emi_inr": 0.0,
+          "tenor_months": 12
+        },
+        {
+          "lender": "HDFC Bank",
+          "facility_type": "Term Loan",
+          "sanctioned_inr": 50000000.0,
+          "outstanding_inr": 28500000.0,
+          "roi_pct": 9.9,
+          "monthly_emi_inr": 1080000.0,
+          "tenor_months": 60
+        }
+      ],
+      "total_sanctioned_inr": 110000000.0,
+      "total_outstanding_inr": 69500000.0,
+      "monthly_emi_inr": 1080000.0,
+      "wc_utilisation_pct": 68.3
+    },
+    "receivables": {
+      "total_inr": 55923288.0,
+      "buckets_inr": {
+        "0-30 days": 39705534.0,
+        "31-60 days": 11184658.0,
+        "61-90 days": 3355397.0,
+        "90+ days": 1677699.0
+      },
+      "eligible_0_60_inr": 50890192.0,
+      "pct_90_plus": 3.0
+    },
+    "banking": {
+      "avg_monthly_inflows_inr": 47231461.0,
+      "avg_monthly_outflows_inr": 41075520.0,
+      "monthly_inflows_inr": {
+        "Apr-25": 49186174,
+        "May-25": 55084260,
+        "Jun-25": 42878539,
+        "Jul-25": 51100518,
+        "Aug-25": 40398224,
+        "Sep-25": 52433329,
+        "Oct-25": 44796921,
+        "Nov-25": 42770921,
+        "Dec-25": 41094033,
+        "Jan-26": 50625132,
+        "Feb-26": 45713056,
+        "Mar-26": 50696428
+      },
+      "closing_balance_inr": 98921803.92,
+      "closing_date": "28-Mar-26",
+      "bounce_count_12m": 0
+    },
+    "ratios_reported": {
+      "DSCR": 3.84,
+      "Total Debt / EBITDA": 0.92,
+      "Interest Coverage": 11.28,
+      "Current Ratio": 1.82,
+      "EBITDA Margin": 0.15,
+      "Gross Margin": 0.38
+    },
+    "ratios_computed": {
+      "revenue_growth_pct": 26.0,
+      "ebitda_margin_pct": 15.5,
+      "dscr": 3.84,
+      "debt_to_ebitda": 0.92,
+      "interest_coverage": 11.28,
+      "annual_debt_service_inr": 19635500.0,
+      "net_worth_inr": 109767562.0,
+      "cash_months_cover": 0.91
+    },
+    "aica": {
+      "risk_score": 3.4,
+      "risk_band": "Low",
+      "risk_observations": [
+        "Consistent double-digit revenue growth with healthy margins.",
+        "Low leverage and strong DSCR; clean banking conduct (no returns).",
+        "Moderate, well-diversified customer base."
+      ],
+      "positive_signals": []
+    },
+    "governance": {
+      "promoter_pct": 92.0,
+      "holders": [
+        {
+          "name": "Rohan Deshpande",
+          "category": "Promoter",
+          "pct": 46.0
+        },
+        {
+          "name": "Anita Deshpande",
+          "category": "Promoter",
+          "pct": 34.0
+        },
+        {
+          "name": "Kunal Mehta",
+          "category": "Promoter",
+          "pct": 12.0
+        },
+        {
+          "name": "Saanvi Capital LLP",
+          "category": "Investor",
+          "pct": 8.0
+        }
+      ],
+      "pledging_disclosed": null
+    },
+    "documents": {
+      "aica_report": "AICA_Report.pdf",
+      "financial_statements": "Financial_Statements_FY26.pdf",
+      "gst_returns": "GST_Returns_Summary.pdf",
+      "shareholding": "Shareholding_Pattern.pdf",
+      "sanction_letter": "Sanction_Letter_scan.png"
+    },
+    "risk_signals": [
+      {
+        "severity": "info",
+        "signal": "No adverse signals triggered",
+        "evidence": "all thresholds clear"
+      }
+    ],
+    "data_quality_flags": [
+      {
+        "flag": "cashflow_reconciliation_break",
+        "detail": "Mar-26: opening+inflows-outflows exceeds stated closing by INR 61,680,779 (closing appears forced to the balance-sheet cash figure)"
+      },
+      {
+        "flag": "bs_cash_vs_bank_statement",
+        "detail": "Balance sheet cash INR 37,500,000 vs bank statement closing INR 98,921,804 (28-Mar-26) \u2014 unexplained gap of INR 61,421,804"
+      },
+      {
+        "flag": "sanction_letter_partial_coverage",
+        "detail": "Sanction letter shows only 1 facility (HDFC Bank Cash Credit, INR 60,000,000) but debt schedule lists 2 facilities \u2014 remaining sanction letters not in dataroom"
+      }
+    ]
+  },
+  "debt_structure": {
+    "eligibility": "eligible",
+    "eligibility_reason": "The company has a strong financial profile with low leverage, healthy margins, and a good credit history.",
+    "recommended_products": [
+      {
+        "product": "Working Capital Demand Loan (WCDL)",
+        "purpose": "To meet the company's working capital requirements",
+        "amount_inr": 25000000,
+        "amount_basis": "Based on 50% of the average monthly inflows (INR 47,231,461) as per the banking section",
+        "tenor_months": 12,
+        "pricing": {
+          "benchmark": "MCLR",
+          "spread_bps": 200,
+          "all_in_rate_pct": 9.5,
+          "processing_fee_pct": 0.5
+        },
+        "repayment": "Revolving",
+        "advance_rate_pct": null,
+        "security": [
+          "Hypothecation of inventory and receivables"
+        ],
+        "covenants": [
+          "DSCR >= 1.25",
+          "Debt/EBITDA <= 3.0"
+        ],
+        "conditions_precedent": [
+          "Resolution of data quality flags related to cash flow reconciliation and balance sheet cash vs bank statement"
+        ],
+        "monitoring": [
+          "Regular review of financial statements and banking transactions"
+        ],
+        "serviceability_check": "Post-facility DSCR = (EBITDA - interest - principal) / (interest + principal) = (75,330,000 - 6,675,500 - 19,635,500) / (6,675,500 + 19,635,500) = 2.53, which is greater than 1.25"
+      },
+      {
+        "product": "Invoice Discounting",
+        "purpose": "To unlock cash stuck in receivables",
+        "amount_inr": 20000000,
+        "amount_basis": "Based on 40% of eligible receivables (INR 50,890,192) as per the receivables section",
+        "tenor_months": 3,
+        "pricing": {
+          "benchmark": "MCLR",
+          "spread_bps": 150,
+          "all_in_rate_pct": 8.5,
+          "processing_fee_pct": 0.25
+        },
+        "repayment": "Self-liquidating",
+        "advance_rate_pct": 40,
+        "security": [
+          "Assignment of receivables"
+        ],
+        "covenants": [
+          "DSCR >= 1.25",
+          "Debt/EBITDA <= 3.0"
+        ],
+        "conditions_precedent": [
+          "Resolution of data quality flags related to cash flow reconciliation and balance sheet cash vs bank statement"
+        ],
+        "monitoring": [
+          "Regular review of financial statements and banking transactions"
+        ],
+        "serviceability_check": "Post-facility DSCR = (EBITDA - interest - principal) / (interest + principal) = (75,330,000 - 6,675,500 - 19,635,500) / (6,675,500 + 19,635,500) = 2.53, which is greater than 1.25"
+      }
+    ],
+    "declined_products": [],
+    "key_risks": [
+      "The company's high revenue growth may lead to increased working capital requirements",
+      "The data quality flags related to cash flow reconciliation and balance sheet cash vs bank statement need to be resolved"
+    ],
+    "rationale": "The company has a strong financial profile with low leverage, healthy margins, and a good credit history. The recommended products are designed to meet the company's working capital requirements and unlock cash stuck in receivables. The WCDL will provide the company with a revolving credit facility to meet its working capital needs, while the invoice discounting facility will help unlock cash stuck in receivables. The pricing of the facilities is based on the company's credit profile and the market benchmark. The covenants and conditions precedent are designed to ensure that the company maintains a healthy financial profile and resolves the data quality flags. The serviceability check shows that the company has sufficient cash flows to repay the facilities. Overall, the recommended products are designed to support the company's growth plans while minimizing the risks associated with the data quality flags."
+  },
+  "validation_warnings": [],
+  "run_meta": {
+    "wall_clock_seconds": 1.1,
+    "llm_calls": 6,
+    "cached_calls": 6,
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "llm_seconds": 0,
+    "est_cost_usd": 0.0,
+    "models": {
+      "extract": "meta-llama/llama-4-scout-17b-16e-instruct",
+      "reason": "llama-3.3-70b-versatile"
+    }
+  }
+}

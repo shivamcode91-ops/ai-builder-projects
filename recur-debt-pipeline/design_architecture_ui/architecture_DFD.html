@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AICA Debt-Structuring Pipeline — Swimlane DFD</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         margin: 0; padding: 24px; background: #fafafa; color: #1a1a1a; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  p.sub { font-size: 13px; color: #555; margin: 0 0 18px; }
+  .wrap { max-width: 1640px; margin: 0 auto; }
+  svg { width: 100%; height: auto; background: #fff; border: 1px solid #e2e2e2;
+        border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  svg text { font-family: inherit; }
+  .foot { font-size: 12px; color: #666; margin-top: 12px; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>AICA Debt-Structuring Pipeline — swimlane data-flow</h1>
+<p class="sub">One command per company: Dataroom + AICA report → credit snapshot → recommended debt structure → grounded multi-turn chat.
+Measured per Prism run (Haiku 4.5 + Sonnet 4.6): ~9k input / ~6k output tokens ≈ $0.07–0.10, 90–120 s wall clock; chat ≈ 5–7k input / turn. Streamed responses (CloudFront-safe); disk cache makes unchanged re-runs free.</p>
+
+<svg viewBox="0 0 1600 1180" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4b5563"/>
+    </marker>
+    <marker id="arrp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#9a86c9"/>
+    </marker>
+  </defs>
+
+  <!-- ============ LANE BANDS ============ -->
+  <rect x="130" y="70"  width="1450" height="230" fill="#f0f6ff"/>
+  <rect x="130" y="310" width="1450" height="310" fill="#eefaf2"/>
+  <rect x="130" y="630" width="1450" height="230" fill="#f5f0fe"/>
+  <rect x="130" y="870" width="1450" height="220" fill="#f4f5f7"/>
+  <line x1="130" y1="70"   x2="1580" y2="70"   stroke="#d8dde3"/>
+  <line x1="130" y1="310"  x2="1580" y2="310"  stroke="#d8dde3"/>
+  <line x1="130" y1="630"  x2="1580" y2="630"  stroke="#d8dde3"/>
+  <line x1="130" y1="870"  x2="1580" y2="870"  stroke="#d8dde3"/>
+  <line x1="130" y1="1090" x2="1580" y2="1090" stroke="#d8dde3"/>
+
+  <!-- lane labels (left gutter) -->
+  <rect x="10" y="70" width="120" height="1020" fill="#fff"/>
+  <text transform="rotate(-90 70 185)"  x="70" y="185"  text-anchor="middle" font-size="14" font-weight="700" fill="#2f6fd6">UNDERWRITER — UI</text>
+  <text transform="rotate(-90 55 465)"  x="55" y="465"  text-anchor="middle" font-size="14" font-weight="700" fill="#1e9e57">PIPELINE ENGINE</text>
+  <text transform="rotate(-90 82 465)"  x="82" y="465"  text-anchor="middle" font-size="11" fill="#3f8f63">deterministic Python · 0 tokens</text>
+  <text transform="rotate(-90 55 745)"  x="55" y="745"  text-anchor="middle" font-size="14" font-weight="700" fill="#7a4fd0">LLM via PRISM</text>
+  <text transform="rotate(-90 82 745)"  x="82" y="745"  text-anchor="middle" font-size="11" fill="#8f6fd0">OpenAI SDK → Anthropic models</text>
+  <text transform="rotate(-90 70 980)"  x="70" y="980"  text-anchor="middle" font-size="14" font-weight="700" fill="#4b5563">DATA STORES</text>
+
+  <!-- UI lane caveat -->
+  <text x="145" y="90" font-size="11" fill="#2f6fd6" font-style="italic">UI: design in design_architecture_ui/ — implemented LIVE in ui/ (queue → memo → copilot). The CLI (pipeline run / chat) is the evaluator path; both drive this same flow.</text>
+
+  <!-- ============ PHASE HEADERS ============ -->
+  <text x="630"  y="45" text-anchor="middle" font-size="15" font-weight="700" fill="#111">STEP A — RUN: document → structure (one command, ~90–120 s live)</text>
+  <text x="1360" y="45" text-anchor="middle" font-size="15" font-weight="700" fill="#111">STEP B — CHAT: grounded follow-ups (multi-turn)</text>
+  <line x1="1130" y1="70" x2="1130" y2="1090" stroke="#9ca3af" stroke-dasharray="7 5"/>
+
+  <!-- ============ BOXES : UI LANE ============ -->
+  <g>
+    <rect x="150" y="120" width="210" height="110" rx="9" fill="#eaf3ff" stroke="#2f6fd6" stroke-width="1.6"/>
+    <text x="255" y="145" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1d4fa0">① Load company &amp; Run</text>
+    <text x="255" y="168" text-anchor="middle" font-size="11.5" fill="#333">pick company folder</text>
+    <text x="255" y="186" text-anchor="middle" font-size="11.5" fill="#333">(Dataroom + AICA report)</text>
+    <text x="255" y="204" text-anchor="middle" font-size="11.5" fill="#333">press Run → pipeline run &lt;dir&gt;</text>
+  </g>
+  <g>
+    <rect x="865" y="95" width="245" height="180" rx="9" fill="#eaf3ff" stroke="#2f6fd6" stroke-width="1.6"/>
+    <text x="987" y="119" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1d4fa0">⑧ Verdict &amp; structure card</text>
+    <text x="987" y="141" text-anchor="middle" font-size="11.5" font-weight="700" fill="#333">ELIGIBLE / CONDITIONAL / DECLINE</text>
+    <text x="987" y="159" text-anchor="middle" font-size="11.5" fill="#333">products + terms (amount, tenor,</text>
+    <text x="987" y="175" text-anchor="middle" font-size="11.5" fill="#333">pricing, security, covenants, CPs)</text>
+    <text x="987" y="193" text-anchor="middle" font-size="11.5" fill="#333">serviceability math + rationale</text>
+    <text x="987" y="211" text-anchor="middle" font-size="11.5" fill="#333">risk signals &amp; data-quality flags</text>
+    <text x="987" y="233" text-anchor="middle" font-size="11" fill="#666">footer: tokens · $ · latency (meter)</text>
+    <text x="987" y="251" text-anchor="middle" font-size="11" fill="#666">validation warnings surfaced</text>
+  </g>
+  <g>
+    <rect x="1160" y="110" width="200" height="110" rx="9" fill="#eaf3ff" stroke="#2f6fd6" stroke-width="1.6"/>
+    <text x="1260" y="135" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1d4fa0">⑨ Follow-up question</text>
+    <text x="1260" y="158" text-anchor="middle" font-size="11.5" fill="#333">"why this tenor?"</text>
+    <text x="1260" y="176" text-anchor="middle" font-size="11.5" fill="#333">"and if amount were 1.5×?"</text>
+    <text x="1260" y="194" text-anchor="middle" font-size="11.5" fill="#333">"what covenants change?"</text>
+  </g>
+  <g>
+    <rect x="1395" y="110" width="180" height="110" rx="9" fill="#eaf3ff" stroke="#2f6fd6" stroke-width="1.6"/>
+    <text x="1485" y="135" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1d4fa0">⑪ Answer in thread</text>
+    <text x="1485" y="158" text-anchor="middle" font-size="11.5" fill="#333">grounded in this company's</text>
+    <text x="1485" y="176" text-anchor="middle" font-size="11.5" fill="#333">snapshot + structure</text>
+    <text x="1485" y="194" text-anchor="middle" font-size="11.5" fill="#333">history kept across turns</text>
+  </g>
+  <!-- multi-turn loop -->
+  <path d="M 1470 105 Q 1370 62 1272 103" fill="none" stroke="#2f6fd6" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#arr)"/>
+  <text x="1372" y="80" text-anchor="middle" font-size="11" fill="#2f6fd6">↺ multi-turn — context retained</text>
+
+  <!-- ============ BOXES : ENGINE LANE ============ -->
+  <g>
+    <rect x="150" y="370" width="250" height="160" rx="9" fill="#eafaf0" stroke="#1e9e57" stroke-width="1.6"/>
+    <text x="275" y="395" text-anchor="middle" font-size="13.5" font-weight="700" fill="#137a41">② Excel parsers (openpyxl)</text>
+    <text x="275" y="418" text-anchor="middle" font-size="11.5" fill="#333">bank stmt 2,700 rows → monthly</text>
+    <text x="275" y="434" text-anchor="middle" font-size="11.5" fill="#333">totals + bounce dedupe (2, not 4)</text>
+    <text x="275" y="452" text-anchor="middle" font-size="11.5" fill="#333">MIS 23 tabs → DSO/DPO/DIO, top-5</text>
+    <text x="275" y="470" text-anchor="middle" font-size="11.5" fill="#333">debt schedule → EMI, utilisation</text>
+    <text x="275" y="488" text-anchor="middle" font-size="11.5" fill="#333">ageing → eligible 0–60d AR</text>
+    <text x="275" y="511" text-anchor="middle" font-size="11" font-weight="700" fill="#137a41">big files never enter a prompt</text>
+  </g>
+  <g>
+    <rect x="470" y="370" width="250" height="160" rx="9" fill="#eafaf0" stroke="#1e9e57" stroke-width="1.6"/>
+    <text x="595" y="395" text-anchor="middle" font-size="13.5" font-weight="700" fill="#137a41">④ Snapshot builder</text>
+    <text x="595" y="418" text-anchor="middle" font-size="11.5" fill="#333">merge Excel facts + doc facts</text>
+    <text x="595" y="436" text-anchor="middle" font-size="11.5" fill="#333">recompute ratios: DSCR, leverage,</text>
+    <text x="595" y="452" text-anchor="middle" font-size="11.5" fill="#333">coverage, cash-months</text>
+    <text x="595" y="470" text-anchor="middle" font-size="11.5" fill="#333">risk signals with severity</text>
+    <text x="595" y="488" text-anchor="middle" font-size="11.5" fill="#333">cross-document DQ flags</text>
+    <text x="595" y="511" text-anchor="middle" font-size="11" font-weight="700" fill="#137a41">= the planted traps, surfaced</text>
+  </g>
+  <g>
+    <rect x="790" y="370" width="230" height="160" rx="9" fill="#eafaf0" stroke="#1e9e57" stroke-width="1.6"/>
+    <text x="905" y="395" text-anchor="middle" font-size="13.5" font-weight="700" fill="#137a41">⑥ Code validator</text>
+    <text x="905" y="418" text-anchor="middle" font-size="11.5" fill="#333">re-derives post-facility DSCR</text>
+    <text x="905" y="436" text-anchor="middle" font-size="11.5" fill="#333">from the proposed EMI</text>
+    <text x="905" y="454" text-anchor="middle" font-size="11.5" fill="#333">(restructuring replaces stack)</text>
+    <text x="905" y="472" text-anchor="middle" font-size="11.5" fill="#333">advance rate ≤ 85% eligible AR</text>
+    <text x="905" y="490" text-anchor="middle" font-size="11.5" fill="#333">warnings attached to output</text>
+    <text x="905" y="513" text-anchor="middle" font-size="11" font-weight="700" fill="#137a41">LLM never grades its own math</text>
+  </g>
+
+  <!-- ============ BOXES : LLM LANE ============ -->
+  <g>
+    <rect x="300" y="670" width="270" height="150" rx="9" fill="#f3edff" stroke="#7a4fd0" stroke-width="1.6"/>
+    <text x="435" y="695" text-anchor="middle" font-size="13.5" font-weight="700" fill="#5c35a8">③ Haiku 4.5 — extract × 5 docs</text>
+    <text x="435" y="718" text-anchor="middle" font-size="11.5" fill="#333">AICA · financials · GST · shareholding:</text>
+    <text x="435" y="734" text-anchor="middle" font-size="11.5" fill="#333">pypdf text → strict typed JSON</text>
+    <text x="435" y="752" text-anchor="middle" font-size="11.5" fill="#333">sanction-letter PNG → vision</text>
+    <text x="435" y="770" text-anchor="middle" font-size="11.5" fill="#333">scanned-PDF fallback → vision</text>
+    <text x="435" y="793" text-anchor="middle" font-size="11" font-weight="700" fill="#5c35a8">~4.2k in / ~1.2k out tokens (measured)</text>
+  </g>
+  <g>
+    <rect x="620" y="670" width="260" height="150" rx="9" fill="#f3edff" stroke="#7a4fd0" stroke-width="1.6"/>
+    <text x="750" y="695" text-anchor="middle" font-size="13.5" font-weight="700" fill="#5c35a8">⑤ Sonnet 4.6 — structure × 1</text>
+    <text x="750" y="718" text-anchor="middle" font-size="11.5" fill="#333">KB ~600 tok + snapshot ~2.5k tok</text>
+    <text x="750" y="736" text-anchor="middle" font-size="11.5" fill="#333">→ eligibility + products + terms</text>
+    <text x="750" y="754" text-anchor="middle" font-size="11.5" fill="#333">+ serviceability arithmetic</text>
+    <text x="750" y="772" text-anchor="middle" font-size="11.5" fill="#333">decline ⇒ still a fully-termed</text>
+    <text x="750" y="788" text-anchor="middle" font-size="11.5" fill="#333">restructuring alternative</text>
+    <text x="750" y="810" text-anchor="middle" font-size="11" font-weight="700" fill="#5c35a8">the ONE judgment call · streamed</text>
+  </g>
+  <g>
+    <rect x="1160" y="670" width="250" height="150" rx="9" fill="#f3edff" stroke="#7a4fd0" stroke-width="1.6"/>
+    <text x="1285" y="695" text-anchor="middle" font-size="13.5" font-weight="700" fill="#5c35a8">⑩ Sonnet 4.6 — chat turn</text>
+    <text x="1285" y="718" text-anchor="middle" font-size="11.5" fill="#333">context = run output JSON (~6 KB)</text>
+    <text x="1285" y="736" text-anchor="middle" font-size="11.5" fill="#333">— never re-reads the dataroom</text>
+    <text x="1285" y="754" text-anchor="middle" font-size="11.5" fill="#333">full history in every turn</text>
+    <text x="1285" y="772" text-anchor="middle" font-size="11.5" fill="#333">cache OFF (turns are unique)</text>
+    <text x="1285" y="795" text-anchor="middle" font-size="11" font-weight="700" fill="#5c35a8">~5–7k in / turn (history grows)</text>
+  </g>
+
+  <!-- ============ BOXES : STORE LANE ============ -->
+  <g>
+    <rect x="150" y="910" width="240" height="115" rx="4" fill="#fff" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="6 3"/>
+    <text x="270" y="935" text-anchor="middle" font-size="13" font-weight="700" fill="#374151">Dataroom + AICA report</text>
+    <text x="270" y="958" text-anchor="middle" font-size="11.5" fill="#444">5 × .xlsx (model, debt, ageing,</text>
+    <text x="270" y="974" text-anchor="middle" font-size="11.5" fill="#444">cash, bank) · 4 × PDF · 1 × PNG</text>
+    <text x="270" y="997" text-anchor="middle" font-size="11" fill="#6b7280">read-only input, per company</text>
+  </g>
+  <g>
+    <rect x="470" y="910" width="220" height="100" rx="4" fill="#fff" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="6 3"/>
+    <text x="580" y="935" text-anchor="middle" font-size="13" font-weight="700" fill="#374151">.cache/llm</text>
+    <text x="580" y="958" text-anchor="middle" font-size="11.5" fill="#444">key = SHA256(model + messages)</text>
+    <text x="580" y="976" text-anchor="middle" font-size="11.5" fill="#444">re-runs &amp; demos spend ₹0</text>
+  </g>
+  <g>
+    <rect x="790" y="910" width="230" height="115" rx="4" fill="#fff" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="6 3"/>
+    <text x="905" y="935" text-anchor="middle" font-size="13" font-weight="700" fill="#374151">final_outputs/…_debt_structure.json</text>
+    <text x="905" y="958" text-anchor="middle" font-size="11.5" fill="#444">credit snapshot + debt structure</text>
+    <text x="905" y="974" text-anchor="middle" font-size="11.5" fill="#444">+ validation warnings + run_meta</text>
+    <text x="905" y="997" text-anchor="middle" font-size="11" fill="#6b7280">(tokens, $, latency per call)</text>
+  </g>
+  <g>
+    <rect x="1395" y="910" width="180" height="100" rx="4" fill="#fff" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="6 3"/>
+    <text x="1485" y="935" text-anchor="middle" font-size="13" font-weight="700" fill="#374151">chat transcript .md</text>
+    <text x="1485" y="958" text-anchor="middle" font-size="11.5" fill="#444">saved on exit —</text>
+    <text x="1485" y="976" text-anchor="middle" font-size="11.5" fill="#444">submission artefact</text>
+  </g>
+
+  <!-- ============ ARROWS : PHASE A ============ -->
+  <!-- 1: UI run -> excel parsers -->
+  <path d="M 255 230 L 255 366" fill="none" stroke="#4b5563" stroke-width="1.6" marker-end="url(#arr)"/>
+  <text x="263" y="300" font-size="11" fill="#555">one command</text>
+  <!-- dataroom xlsx -> excel parsers -->
+  <path d="M 215 910 L 215 534" fill="none" stroke="#4b5563" stroke-width="1.6" marker-end="url(#arr)"/>
+  <text x="162" y="740" font-size="11" fill="#555">.xlsx files</text>
+  <!-- dataroom docs -> Haiku -->
+  <path d="M 340 910 L 400 824" fill="none" stroke="#4b5563" stroke-width="1.6" marker-end="url(#arr)"/>
+  <text x="290" y="868" font-size="11" fill="#555">PDFs + PNG</text>
+  <!-- Haiku <-> cache -->
+  <path d="M 460 820 L 520 906" fill="none" stroke="#9a86c9" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#arrp)" marker-start="url(#arrp)"/>
+  <text x="505" y="868" font-size="11" fill="#8b74bd">cache hit = free</text>
+  <!-- Sonnet <-> cache -->
+  <path d="M 700 820 L 645 906" fill="none" stroke="#9a86c9" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#arrp)" marker-start="url(#arrp)"/>
+  <!-- excel -> snapshot -->
+  <path d="M 400 450 L 466 450" fill="none" stroke="#4b5563" stroke-width="1.6" marker-end="url(#arr)"/>
+  <!-- Haiku -> snapshot -->
+  <path d="M 490 670 L 560 534" fill="none" stroke="#4b5563" stroke-width="1.6" marker-end="url(#arr)"/>
+  <text x="415" y="608" font-size="11" fill="#555">typed JSON facts × 5</text>
+  <!-- snapshot -> Sonnet -->
+  <path d="M 650 530 L 705 666" fill="none" stroke="#4b5563" stroke-width="1.6" marker-end="url(#arr)"/>
+  <text x="655" y="608" font-size="11" fill="#555">snapshot ~2k tok</text>
+  <!-- Sonnet -> validator -->
+  <path d="M 825 670 L 870 534" fill="none" stroke="#4b5563" stroke-width="1.6" marker-end="url(#arr)"/>
+  <text x="852" y="608" font-size="11" fill="#555">structure JSON</text>
+  <!-- validator -> output store -->
+  <path d="M 940 530 L 940 906" fill="none" stroke="#4b5563" stroke-width="1.6" marker-end="url(#arr)"/>
+  <text x="948" y="740" font-size="11" fill="#555">⑦ write JSON + print meter</text>
+  <!-- validator -> verdict card -->
+  <path d="M 950 370 L 972 279" fill="none" stroke="#4b5563" stroke-width="1.6" marker-end="url(#arr)"/>
+  <text x="968" y="330" font-size="11" fill="#555">verdict + terms + rationale</text>
+
+  <!-- ============ ARROWS : PHASE B ============ -->
+  <!-- output json -> chat context -->
+  <path d="M 1020 950 L 1205 824" fill="none" stroke="#4b5563" stroke-width="1.6" marker-end="url(#arr)"/>
+  <text x="1030" y="885" font-size="11" fill="#555">grounding context (~6 KB)</text>
+  <!-- question -> chat turn -->
+  <path d="M 1262 220 L 1272 666" fill="none" stroke="#4b5563" stroke-width="1.6" marker-end="url(#arr)"/>
+  <text x="1278" y="450" font-size="11" fill="#555">question + history</text>
+  <!-- chat turn -> answer -->
+  <path d="M 1382 670 L 1472 224" fill="none" stroke="#4b5563" stroke-width="1.6" marker-end="url(#arr)"/>
+  <text x="1448" y="450" font-size="11" fill="#555">grounded answer</text>
+  <!-- chat -> transcript -->
+  <path d="M 1330 820 L 1445 906" fill="none" stroke="#4b5563" stroke-width="1.6" marker-end="url(#arr)"/>
+  <text x="1318" y="868" font-size="11" fill="#555">⑫ on exit</text>
+
+  <!-- ============ LEGEND ============ -->
+  <g font-size="12">
+    <rect x="150"  y="1112" width="16" height="16" rx="3" fill="#eaf3ff" stroke="#2f6fd6"/>
+    <text x="174"  y="1125" fill="#333">Underwriter UI (design; CLI today)</text>
+    <rect x="420"  y="1112" width="16" height="16" rx="3" fill="#eafaf0" stroke="#1e9e57"/>
+    <text x="444"  y="1125" fill="#333">Deterministic code — 0 tokens, exact numbers</text>
+    <rect x="770"  y="1112" width="16" height="16" rx="3" fill="#f3edff" stroke="#7a4fd0"/>
+    <text x="794"  y="1125" fill="#333">LLM call via Prism — metered ($)</text>
+    <rect x="1040" y="1112" width="16" height="16" rx="3" fill="#fff" stroke="#6b7280" stroke-dasharray="5 3"/>
+    <text x="1064" y="1125" fill="#333">Store / artefact</text>
+    <line x1="1215" y1="1120" x2="1260" y2="1120" stroke="#9a86c9" stroke-width="1.4" stroke-dasharray="4 3"/>
+    <text x="1268" y="1125" fill="#333">cache round-trip (free)</text>
+  </g>
+</svg>
+
+<p class="foot">
+<b>Reading the diagram:</b> follow the numbers ① → ⑫. Step A is the run: the underwriter points at a company folder;
+Excel goes through deterministic parsers (never into a prompt), the 5 small documents go through Haiku extraction,
+everything merges into a computed snapshot whose ratios and data-quality flags are code-derived; one Sonnet call turns
+the snapshot into a structure; code re-checks the structure's own arithmetic before anything reaches the screen.
+Step B is the chat: follow-ups are answered from the compact run output (~6&nbsp;KB), not the dataroom, so each turn
+costs ~5–7k input tokens and stays on the same company. Only the two purple boxes in Step A and one purple box per chat turn
+ever spend tokens — everything else is exact and free. (The identical path was validated on a free stand-in gateway before spending the
+Prism key — see others/phase1_experiments/ — only the gateway env vars change.)
+</p>
+</div>
+</body>
+</html>
