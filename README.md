@@ -5,7 +5,7 @@ project with its own README and run instructions.
 
 | Project | What it is | Stack | Run guide |
 |---|---|---|---|
-| [`recur-debt-pipeline/`](recur-debt-pipeline/) | An AI pipeline that reads a company's financial dataroom and produces a credit snapshot + a recommended debt structure (with a grounded follow-up chat). | Python · Claude (Haiku + Sonnet) | [README](recur-debt-pipeline/README.md) |
+| [`financial-debt-structuring/`](financial-debt-structuring/) | An AI pipeline that reads a company's financial dataroom and produces a credit snapshot + a recommended debt structure (with a grounded follow-up chat). | Python · Claude (Haiku + Sonnet) | [README](financial-debt-structuring/README.md) |
 | [`vitalis-health-app/`](vitalis-health-app/) | A native iOS health app that turns Apple Health + InBody scans into a single "Biological Age" score. 100% on-device. | Swift · SwiftUI · HealthKit | [README](vitalis-health-app/README.md) |
 
 ## How this repo is organised
@@ -28,7 +28,7 @@ project with its own README and run instructions.
 
 ```bash
 # Debt pipeline (Python) — no API key needed to run the offline tests:
-cd recur-debt-pipeline
+cd financial-debt-structuring
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python -m pytest tests/ -q   # 7 pass offline; 16 golden tests need the private datasets (auto-skipped)
 
@@ -36,7 +36,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 open vitalis-health-app/Vitalis.xcodeproj
 ```
 
-> The debt pipeline's full run/chat and its golden tests need the private Recur datasets
+> The debt pipeline's full run/chat and its golden tests need the private datasets
 > supplied as a path (`... run <datasets>/company_1`) — see its README. Everything else
 > (code, architecture, UI design, offline tests) works without them.
 

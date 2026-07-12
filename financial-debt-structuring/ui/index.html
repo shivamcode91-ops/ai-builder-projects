@@ -353,9 +353,9 @@ table.data tr:last-child td{border-bottom:none}
 <body>
 
 <header class="topbar">
-  <div class="bankmark"><span class="banklogo" title="Placeholder — swap with the official Axis Bank asset">A</span>
-    <span class="bw"><b>Axis Bank</b><span>Commercial credit</span></span></div>
-  <span class="sourcetag">Leads via <b>AICA · Recur Club</b></span>
+  <div class="bankmark"><span class="banklogo" title="Placeholder — swap with the bank logo asset">A</span>
+    <span class="bw"><b>Commercial Bank</b><span>Commercial credit</span></span></div>
+  <span class="sourcetag">Leads via <b>AICA</b></span>
   <button class="crumb" id="crumb" onclick="renderQueue()" style="display:none">← Queue</button>
   <nav class="tabs" id="tabs" aria-label="Leads in your queue"></nav>
   <div class="right">
@@ -365,7 +365,7 @@ table.data tr:last-child td{border-bottom:none}
     <button class="btn" onclick="window.print()">Export CAM</button>
     <span class="userchip" aria-label="Account">
       <span class="avatar">PN</span>
-      <span class="who"><b>Priya Nair</b><span>SPOC · Credit, Axis Bank</span></span>
+      <span class="who"><b>Credit Reviewer</b><span>SPOC · Credit, Commercial Bank</span></span>
     </span>
   </div>
 </header>
@@ -502,9 +502,9 @@ function renderQueue(){
   document.getElementById("app").innerHTML=`
   <section class="memo" style="border-bottom-width:2px">
     <div>
-      <div class="eyebrow">Axis Bank credit queue</div>
+      <div class="eyebrow">Commercial Bank credit queue</div>
       <h1>Leads from AICA</h1>
-      <div class="makerline">Assessments generated live by the <b>AICA · Recur Club</b> pipeline · reviewer: <b>Priya Nair, Axis Bank</b></div>
+      <div class="makerline">Assessments generated live by the <b>AICA</b> pipeline · reviewer: <b>Credit Reviewer, Commercial Bank</b></div>
     </div>
   </section>
   <div class="qsummary">
@@ -662,7 +662,7 @@ function render(){
         <span>CIN <b>${esc(o.company?.cin||"—")}</b></span><span>GSTIN <b>${esc(o.company?.gstin||"—")}</b></span>
         <span>${esc(o.company?.sector||"")}</span>
       </div>
-      <div class="makerline">Prepared by <b>AICA pipeline</b> (${esc(m.models?.extract||"")} + ${esc(m.models?.reason||"")}) · Review: <b>Priya Nair</b> (you)</div>
+      <div class="makerline">Prepared by <b>AICA pipeline</b> (${esc(m.models?.extract||"")} + ${esc(m.models?.reason||"")}) · Review: <b>Credit Reviewer</b> (you)</div>
     </div>
     <div class="right-col">
       <span class="stamp ${stamp.cls}">${stamp.text}</span>

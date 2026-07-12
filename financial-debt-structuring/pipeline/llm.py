@@ -1,4 +1,4 @@
-"""LLM client for the Prism gateway (OpenAI-compatible), with disk caching,
+"""LLM client for the LLM gateway (OpenAI-compatible), with disk caching,
 retry handling and per-call token/latency metering.
 
 Every response is cached under .cache/llm keyed on (model, messages,
@@ -64,19 +64,19 @@ class Meter:
         return "\n".join(lines)
 
 
-class PrismLLM:
+class GatewayLLM:
     def __init__(self, cache_dir=".cache/llm", use_cache=True):
-        if not config.PRISM_API_KEY:
+        if not config.LLM_API_KEY:
             raise SystemExit(
-                "PRISM_API_KEY is not set. Export it (see .env.example) or run with --mock."
+                "LLM_API_KEY is not set. Export it (see .env.example) or run with --mock."
             )
         from openai import OpenAI
 
         self.client = OpenAI(
-            base_url=config.PRISM_BASE_URL,
-            api_key=config.PRISM_API_KEY,
+            base_url=config.LLM_BASE_URL,
+            api_key=config.LLM_API_KEY,
             timeout=config.REQUEST_TIMEOUT_S,
-            max_retries=0,  # we handle retries ourselves (Prism has no fallback)
+            max_retries=0,  # we handle retries ourselves (gateway has no fallback)
         )
         self.cache_dir = Path(cache_dir)
         self.use_cache = use_cache
@@ -116,7 +116,7 @@ class PrismLLM:
             if choice.finish_reason:
                 finish_reason = choice.finish_reason
         text = "".join(parts)
-        # Prism's streamed usage can omit prompt_tokens — estimate what's missing
+        # gateway's streamed usage can omit prompt_tokens — estimate what's missing
         # (chars/4) so the meter and budget math stay honest.
         p_tok = getattr(usage_obj, "prompt_tokens", 0) if usage_obj else 0
         c_tok = getattr(usage_obj, "completion_tokens", 0) if usage_obj else 0
@@ -139,7 +139,7 @@ class PrismLLM:
         for attempt in range(1, config.MAX_RETRIES + 1):
             t0 = time.time()
             try:
-                # Streamed: Prism sits behind CloudFront, which 504s long-lived
+                # Streamed: gateway sits behind CloudFront, which 504s long-lived
                 # non-streaming requests; a byte stream keeps the connection alive
                 # for the ~60s a full structuring generation takes.
                 text, finish_reason, usage = self._stream_call(
@@ -163,7 +163,7 @@ class PrismLLM:
                 last_err = e
                 status = getattr(e, "status_code", None)
                 if status == 429:
-                    # A budget-cap 429 is permanent (Prism guide: expected when the
+                    # A budget-cap 429 is permanent (gateway guide: expected when the
                     # key is exhausted) — retrying only burns time. Fail fast.
                     if "insufficient_quota" in str(e) or "budget" in str(e).lower():
                         raise SystemExit(

@@ -1,13 +1,13 @@
-# Phase 2 — clean Prism runs (submission artifacts)
+# Phase 2 — clean gateway runs (submission artifacts)
 
-Only outputs generated via the Prism gateway (Anthropic models) with the candidate key
+Only outputs generated via the LLM gateway (Anthropic models) with the API key
 belong here. The Groq/Gemini stand-ins from phase 1 are never used for these runs.
 
-## Runbook (executed when the Prism key arrives)
+## Runbook (executed when the gateway key arrives)
 
 ```bash
-cd recur-debt-pipeline
-export PRISM_API_KEY="prism-candidate-xxxx"        # from the assignment email; never committed
+cd financial-debt-structuring
+export LLM_API_KEY="your-api-key-here"        # from your provider; keep out of version control
 
 # 0. sanity: list models visible to the key (a metadata GET, no token spend)
 .venv/bin/python -m pipeline.cli models
@@ -30,7 +30,7 @@ one structuring call and the chat (see README "Model choice").
 
 Measured per-company footprint (validated live in phase 1 over two gateways):
 
-| Step | Tokens (in/out) | Est. cost on Prism (Haiku $1/$5, Sonnet $3/$15 per M) |
+| Step | Tokens (in/out) | Est. cost on gateway (Haiku $1/$5, Sonnet $3/$15 per M) |
 |---|---|---|
 | Extraction ×5 (Haiku) | ~5.5k / ~1k | ~$0.01 |
 | Structuring ×1 (Sonnet) | ~3.5k / ~1.5k | ~$0.03 |
@@ -58,9 +58,9 @@ cap. Head-room protections already in the pipeline:
 From the folder above the repo (datasets are NOT included — assignment ground rule):
 
 ```bash
-zip -r recur-debt-pipeline.zip recur-debt-pipeline \
+zip -r financial-debt-structuring.zip financial-debt-structuring \
   -x "*/.venv/*" "*/__pycache__/*" "*/.cache/*" "*/.DS_Store" "*/.playwright-mcp/*"
 ```
 
 `.git/` is kept in the zip deliberately — the commit history documents the build.
-Verify before sending: `unzip -l recur-debt-pipeline.zip | grep -i -c dataset` → 0.
+Verify before sending: `unzip -l financial-debt-structuring.zip | grep -i -c dataset` → 0.

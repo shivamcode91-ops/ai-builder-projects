@@ -1,9 +1,9 @@
-# AICA Debt Structuring Pipeline
+# Financial Debt-Structuring Pipeline
 
 Reads a company's Dataroom + AICA report and produces a **credit snapshot** and a
 **recommended debt structure** (product + terms + rationale) as JSON, then supports a
-multi-turn follow-up chat on the same company. Built for the Recur Club AI Product
-Builder take-home.
+multi-turn follow-up chat on the same company. Built as an AI Product
+Builder project.
 
 ## Run it — step by step
 
@@ -25,7 +25,7 @@ DATASET_DIR=<datasets> .venv/bin/python -m pytest tests/ -q
 #    -> 23 passed
 
 # 4. the real thing — set the key, run a company live (~90-120 s)
-export PRISM_API_KEY="prism-candidate-xxxx"     # see .env.example
+export LLM_API_KEY="your-api-key-here"     # see .env.example
 .venv/bin/python -m pipeline.cli run <datasets>/company_1
 #    -> per-call token/latency/$ meter prints at the end
 
@@ -146,8 +146,8 @@ instead of a crash), and extraction-JSON retries.
 ```
 pipeline/
   cli.py            entry point: run / chat / models
-  config.py         Prism base URL, model selection, pricing table
-  llm.py            OpenAI-SDK client for Prism: cache, retries, token/latency meter
+  config.py         gateway base URL, model selection, pricing table
+  llm.py            OpenAI-SDK client for gateway: cache, retries, token/latency meter
   ingest/excel.py   deterministic parsers (financial model, debt, ageing, bank, MIS)
   ingest/docs.py    Haiku extraction for PDFs/PNG, scanned-PDF fallback via vision
   snapshot.py       computed ratios, risk signals, cross-document DQ flags
@@ -161,7 +161,7 @@ tests/
   test_hardening.py 5 deviation tests: layout drift, corrupt files, extraction retries
 fixtures/           pre-recorded LLM outputs so --mock and tests run offline, no key
                     (NOT company data — datasets stay outside the repo, passed as a path)
-final_outputs/      DELIVERABLE: 3 debt-structure JSONs + 3 chat transcripts (Prism runs)
+final_outputs/      DELIVERABLE: 3 debt-structure JSONs + 3 chat transcripts (gateway runs)
 design_architecture_ui/  DELIVERABLE: UI design (credit workbench) + architecture DFD
 PRODUCTIONIZATION_NOTE.md  DELIVERABLE: what breaks today, what to harden first
 others/             supporting evidence: stand-in gateway experiments, per-model

@@ -17,7 +17,7 @@ from pipeline.snapshot import build_snapshot
 
 DATASETS = Path(os.environ.get(
     "DATASET_DIR",
-    Path(__file__).parents[2] / "candidate_handover_Recur" / "datasets",
+    Path(__file__).parents[2] / "datasets",
 ))
 
 

@@ -334,9 +334,9 @@ table.data tr:last-child td{border-bottom:none}
 <body>
 
 <header class="topbar">
-  <div class="bankmark"><span class="banklogo" title="Placeholder — swap with the official Axis Bank asset">A</span>
-    <span class="bw"><b>Axis Bank</b><span>Commercial credit</span></span></div>
-  <span class="sourcetag">Leads via <b>AICA · Recur Club</b></span>
+  <div class="bankmark"><span class="banklogo" title="Placeholder — swap with the bank logo asset">A</span>
+    <span class="bw"><b>Commercial Bank</b><span>Commercial credit</span></span></div>
+  <span class="sourcetag">Leads via <b>AICA</b></span>
   <button class="crumb" id="crumb" onclick="renderQueue()" style="display:none">← Queue</button>
   <nav class="tabs" id="tabs" aria-label="Leads in your queue"></nav>
   <div class="right">
@@ -346,7 +346,7 @@ table.data tr:last-child td{border-bottom:none}
     <button class="btn" onclick="window.print()">Export CAM</button>
     <button class="userchip" aria-label="Account menu">
       <span class="avatar">PN</span>
-      <span class="who"><b>Priya Nair</b><span>SPOC · Credit, Axis Bank</span></span>
+      <span class="who"><b>Credit Reviewer</b><span>SPOC · Credit, Commercial Bank</span></span>
       <span class="caret">▾</span>
     </button>
   </div>
@@ -614,9 +614,9 @@ function renderQueue(){
   document.getElementById("app").innerHTML=`
   <section class="memo" style="border-bottom-width:2px">
     <div>
-      <div class="eyebrow">Axis Bank credit queue · Monday, 6 Jul 2026</div>
+      <div class="eyebrow">Commercial Bank credit queue · Monday, 6 Jul 2026</div>
       <h1>Leads from AICA</h1>
-      <div class="makerline">Assessments received overnight from <b>AICA · Recur Club</b> · reviewer: <b>Priya Nair, Axis Bank</b></div>
+      <div class="makerline">Assessments received overnight from <b>AICA</b> · reviewer: <b>Credit Reviewer, Commercial Bank</b></div>
     </div>
   </section>
   <div class="qsummary">
@@ -718,7 +718,7 @@ function render(key){
         <span>CIN <b>${c.meta.CIN}</b></span><span>GSTIN <b>${c.meta.GSTIN}</b></span>
         <span>${c.meta.Sector}</span><span>${c.meta.Base}</span><span>Since ${c.meta.Since}</span>
       </div>
-      <div class="makerline">Prepared by <b>AICA pipeline v0.3 · Recur Club</b> · Review: <b>Priya Nair, Axis Bank</b> (you) · SLA: 2 days remaining</div>
+      <div class="makerline">Prepared by <b>AICA pipeline v0.3</b> · Review: <b>Credit Reviewer, Commercial Bank</b> (you) · SLA: 2 days remaining</div>
     </div>
     <div class="right-col">
       <span class="stamp ${c.stamp.cls}">${c.stamp.text}</span>

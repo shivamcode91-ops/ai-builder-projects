@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AICA Debt-Structuring Pipeline — Swimlane DFD</title>
+<title>Financial Debt-Structuring Pipeline — Swimlane DFD</title>
 <style>
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
          margin: 0; padding: 24px; background: #fafafa; color: #1a1a1a; }
@@ -18,9 +18,9 @@
 </head>
 <body>
 <div class="wrap">
-<h1>AICA Debt-Structuring Pipeline — swimlane data-flow</h1>
+<h1>Financial Debt-Structuring Pipeline — swimlane data-flow</h1>
 <p class="sub">One command per company: Dataroom + AICA report → credit snapshot → recommended debt structure → grounded multi-turn chat.
-Measured per Prism run (Haiku 4.5 + Sonnet 4.6): ~9k input / ~6k output tokens ≈ $0.07–0.10, 90–120 s wall clock; chat ≈ 5–7k input / turn. Streamed responses (CloudFront-safe); disk cache makes unchanged re-runs free.</p>
+Measured per gateway run (Haiku 4.5 + Sonnet 4.6): ~9k input / ~6k output tokens ≈ $0.07–0.10, 90–120 s wall clock; chat ≈ 5–7k input / turn. Streamed responses (CloudFront-safe); disk cache makes unchanged re-runs free.</p>
 
 <svg viewBox="0 0 1600 1180" xmlns="http://www.w3.org/2000/svg">
   <defs>
@@ -48,7 +48,7 @@ Measured per Prism run (Haiku 4.5 + Sonnet 4.6): ~9k input / ~6k output tokens �
   <text transform="rotate(-90 70 185)"  x="70" y="185"  text-anchor="middle" font-size="14" font-weight="700" fill="#2f6fd6">UNDERWRITER — UI</text>
   <text transform="rotate(-90 55 465)"  x="55" y="465"  text-anchor="middle" font-size="14" font-weight="700" fill="#1e9e57">PIPELINE ENGINE</text>
   <text transform="rotate(-90 82 465)"  x="82" y="465"  text-anchor="middle" font-size="11" fill="#3f8f63">deterministic Python · 0 tokens</text>
-  <text transform="rotate(-90 55 745)"  x="55" y="745"  text-anchor="middle" font-size="14" font-weight="700" fill="#7a4fd0">LLM via PRISM</text>
+  <text transform="rotate(-90 55 745)"  x="55" y="745"  text-anchor="middle" font-size="14" font-weight="700" fill="#7a4fd0">LLM via GATEWAY</text>
   <text transform="rotate(-90 82 745)"  x="82" y="745"  text-anchor="middle" font-size="11" fill="#8f6fd0">OpenAI SDK → Anthropic models</text>
   <text transform="rotate(-90 70 980)"  x="70" y="980"  text-anchor="middle" font-size="14" font-weight="700" fill="#4b5563">DATA STORES</text>
 
@@ -241,7 +241,7 @@ Measured per Prism run (Haiku 4.5 + Sonnet 4.6): ~9k input / ~6k output tokens �
     <rect x="420"  y="1112" width="16" height="16" rx="3" fill="#eafaf0" stroke="#1e9e57"/>
     <text x="444"  y="1125" fill="#333">Deterministic code — 0 tokens, exact numbers</text>
     <rect x="770"  y="1112" width="16" height="16" rx="3" fill="#f3edff" stroke="#7a4fd0"/>
-    <text x="794"  y="1125" fill="#333">LLM call via Prism — metered ($)</text>
+    <text x="794"  y="1125" fill="#333">LLM call via gateway — metered ($)</text>
     <rect x="1040" y="1112" width="16" height="16" rx="3" fill="#fff" stroke="#6b7280" stroke-dasharray="5 3"/>
     <text x="1064" y="1125" fill="#333">Store / artefact</text>
     <line x1="1215" y1="1120" x2="1260" y2="1120" stroke="#9a86c9" stroke-width="1.4" stroke-dasharray="4 3"/>
@@ -257,7 +257,7 @@ the snapshot into a structure; code re-checks the structure's own arithmetic bef
 Step B is the chat: follow-ups are answered from the compact run output (~6&nbsp;KB), not the dataroom, so each turn
 costs ~5–7k input tokens and stays on the same company. Only the two purple boxes in Step A and one purple box per chat turn
 ever spend tokens — everything else is exact and free. (The identical path was validated on a free stand-in gateway before spending the
-Prism key — see others/phase1_experiments/ — only the gateway env vars change.)
+gateway key — see others/phase1_experiments/ — only the gateway env vars change.)
 </p>
 </div>
 </body>

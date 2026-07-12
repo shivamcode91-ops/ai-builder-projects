@@ -1,6 +1,6 @@
 """One-screen underwriter UI — a thin local server over the existing pipeline.
 
-  PRISM_API_KEY=... python ui/server.py --datasets <dir-with-company_N> [--out final_outputs]
+  LLM_API_KEY=... python ui/server.py --datasets <dir-with-company_N> [--out final_outputs]
 
 Serves http://127.0.0.1:8787 : pick a company, Run (spawns the same CLI the
 evaluators use), read the verdict card, chat grounded in the run output.
@@ -62,12 +62,12 @@ def run_company(company, fresh=False):
 
 
 def chat_turn(company, messages):
-    from pipeline.llm import PrismLLM
+    from pipeline.llm import GatewayLLM
     out = json.loads(out_path(company).read_text())
     system = CHAT_SYSTEM.format(
         snapshot=json.dumps(out["credit_snapshot"], indent=1, default=str),
         structure=json.dumps(out["debt_structure"], indent=1, default=str))
-    llm = PrismLLM(use_cache=False)
+    llm = GatewayLLM(use_cache=False)
     answer = llm.complete("ui:chat", ARGS.reason_model,
                           [{"role": "system", "content": system}] + messages,
                           max_tokens=2500)
@@ -100,7 +100,7 @@ class Handler(BaseHTTPRequestHandler):
         elif self.path == "/api/companies":
             self._json({"companies": list_companies(),
                         "models": {"extract": ARGS.extract_model, "reason": ARGS.reason_model},
-                        "gateway": config.PRISM_BASE_URL, "out": ARGS.out})
+                        "gateway": config.LLM_BASE_URL, "out": ARGS.out})
         elif self.path.startswith("/api/output"):
             company = self.path.split("=", 1)[1]
             p = out_path(company)
@@ -135,7 +135,7 @@ def main():
     (ROOT / ARGS.out).mkdir(parents=True, exist_ok=True)
     srv = ThreadingHTTPServer(("127.0.0.1", ARGS.port), Handler)
     print(f"Underwriter UI on http://127.0.0.1:{ARGS.port}  "
-          f"(gateway {config.PRISM_BASE_URL}, out {ARGS.out})")
+          f"(gateway {config.LLM_BASE_URL}, out {ARGS.out})")
     srv.serve_forever()
 
 

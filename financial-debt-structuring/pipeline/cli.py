@@ -40,8 +40,8 @@ def cmd_run(args):
         docs = docmod.load_fixture(key)
         llm = None
     else:
-        from .llm import PrismLLM
-        llm = PrismLLM(use_cache=not args.no_cache)
+        from .llm import GatewayLLM
+        llm = GatewayLLM(use_cache=not args.no_cache)
         print(f"[2/4] Extracting {len(docmod.find_documents(company_dir))} documents "
               f"via {args.extract_model}...")
         docs = docmod.extract_all(llm, company_dir, model=args.extract_model)
@@ -89,14 +89,14 @@ def cmd_run(args):
 
 
 def cmd_chat(args):
-    from .llm import PrismLLM
+    from .llm import GatewayLLM
     from .chat import chat_loop
     target = Path(args.target)
     if target.is_dir():
         target = Path(args.out) / f"{company_key(target)}_debt_structure.json"
     if not target.exists():
         raise SystemExit(f"No pipeline output at {target} — run `run` first.")
-    llm = PrismLLM(use_cache=False)  # conversation turns should never be cached
+    llm = GatewayLLM(use_cache=False)  # conversation turns should never be cached
     chat_loop(llm, target, model=args.reason_model)
 
 
@@ -124,7 +124,7 @@ def cmd_prompt(args):
 
 def cmd_models(args):
     from openai import OpenAI
-    client = OpenAI(base_url=config.PRISM_BASE_URL, api_key=config.PRISM_API_KEY)
+    client = OpenAI(base_url=config.LLM_BASE_URL, api_key=config.LLM_API_KEY)
     for m in client.models.list():
         print(m.id)
 

@@ -8,6 +8,17 @@ composition that no wrist wearable can measure.
 **100% on-device.** No backend, no accounts, no cloud. Every algorithm runs locally and
 nothing leaves the phone.
 
+## Screens
+
+The five tabs — Today, Recovery, Strain, Body, Coach:
+
+| Today | Recovery | Strain | Body | Coach |
+|---|---|---|---|---|
+| ![Today](screenshots/01-today.png) | ![Recovery](screenshots/02-recovery.png) | ![Strain](screenshots/03-strain.png) | ![Body](screenshots/04-body.png) | ![Coach](screenshots/05-coach.png) |
+
+> Rendered from the app's design prototype (`docs/VITALIS_SPEC.md` describes the same
+> screens the SwiftUI build implements). Numbers shown are sample data.
+
 ## Stack
 
 - **iOS 17+ · SwiftUI · HealthKit · Swift 5.9+**
