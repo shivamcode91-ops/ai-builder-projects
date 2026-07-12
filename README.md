@@ -17,22 +17,27 @@ project with its own README and run instructions.
 ## Notes
 
 - **No private data is committed.** The debt pipeline ships with small *synthetic*
-  fixtures (fictional companies) so its demo mode and tests run offline; real assignment
-  datasets are never included. The health app reads only your own device's Apple Health
-  data at runtime and stores nothing off-device.
+  fixtures (fictional companies) covering the LLM stages; the real assignment datasets
+  (the Excel datarooms) are never included, so the full end-to-end run needs those
+  private datasets supplied as a path. The health app reads only your own device's Apple
+  Health data at runtime and stores nothing off-device.
 - **No secrets are committed.** API keys are read from environment variables — see each
   project's `.env.example`.
 
 ## Quick start
 
 ```bash
-# Debt pipeline (Python) — runs fully offline, no API key needed:
+# Debt pipeline (Python) — no API key needed to run the offline tests:
 cd recur-debt-pipeline
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
-.venv/bin/python -m pytest tests/ -q        # offline tests pass with the bundled fixtures
+.venv/bin/python -m pytest tests/ -q   # 7 pass offline; 16 golden tests need the private datasets (auto-skipped)
 
 # Health app (iOS) — open in Xcode 15+ and run on an iOS 17+ device:
 open vitalis-health-app/Vitalis.xcodeproj
 ```
+
+> The debt pipeline's full run/chat and its golden tests need the private Recur datasets
+> supplied as a path (`... run <datasets>/company_1`) — see its README. Everything else
+> (code, architecture, UI design, offline tests) works without them.
 
 See each project's README for the full walkthrough.
