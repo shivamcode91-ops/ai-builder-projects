@@ -5,6 +5,18 @@ Reads a company's Dataroom + AICA report and produces a **credit snapshot** and 
 multi-turn follow-up chat on the same company. Built as an AI Product
 Builder project.
 
+## Screenshots
+
+**Lender Dashboard** (queue of companies to review):
+
+![Dashboard Queue](design_architecture_ui/screenshot_dashboard_queue.png)
+
+**Credit Memo + Grounded AI Copilot** (structure details + multi-turn chat):
+
+![Memo with Copilot](design_architecture_ui/screenshot_memo_with_copilot.png)
+
+> Live interactive UI: run `python ui/server.py --datasets <dir>` and open http://127.0.0.1:8787
+
 ## Run it — step by step
 
 `<datasets>` below = the folder containing `company_1/ company_2/ company_3/`
