@@ -1,0 +1,15 @@
+# Belt-and-braces on top of .gitignore.
+#
+# This one line is load-bearing: if .env.local ever reached Vercel, Next.js
+# would read it at build and runtime and the public deployment would run the
+# intent check live on the owner's own API key — the exact opposite of demo
+# mode, and it would burn their credits on every visitor.
+.env
+.env.*
+
+node_modules
+.next
+docs
+tests
+.playwright-mcp
+AGENTGUARD_SPEC.md
