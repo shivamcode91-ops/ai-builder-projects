@@ -1,5 +1,10 @@
 # AgentGuard
 
+### ▶︎ **[Open the live demo →](https://shivamcode91-ops.github.io/ai-builder-projects/agentguard/)**
+
+Six screens, about ninety seconds. No login, no API key, nothing to set up — press the button at the
+bottom. Tap *Use your own key* to run the AI check live on your own account instead.
+
 > Before your AI assistant moves any money, this checks it.
 
 A safety layer between an AI assistant and a merchant's Razorpay account. Every refund or
@@ -240,6 +245,30 @@ npm run build          # clean
 ---
 
 ## Deploy
+
+### Static export (the published demo)
+
+The public demo is on GitHub Pages, which has no server. `npm run build:static` produces that build
+into `../docs/agentguard/`:
+
+```bash
+npm run build:static     # → ../docs/agentguard/
+npm run preview:static   # same build at the site root, then: npx serve out
+```
+
+`output: "export"` refuses to build an app with route handlers, so the script moves `app/api` aside
+for the duration of the export and restores it in a `finally` block. The routes are not deleted and
+the pipeline they wrap still runs — `lib/localApi.js` re-hosts both of them in the visitor's tab,
+calling the same `runPipeline()`. Two consequences, both improvements:
+
+- **A visitor's key never reaches any server at all** — it goes from their tab straight to their
+  provider. There is no relay to abuse.
+- **Demo mode is unchanged.** With no key, `activeProviders()` finds no `process.env` values in the
+  browser bundle, so the recorded response is served exactly as it is on an unkeyed server deploy.
+
+Verified after every build: the exported bundle contains no key material, and `app/api` is back.
+
+### Server deploy (Vercel)
 
 ```bash
 npm i -g vercel

@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vitalis — Biological Age, live in your browser</title>
+<meta name="description" content="The Vitalis iOS app's five screens, running its real scoring model in the browser. Demo readings by default; put your own numbers in and every score recomputes.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🫀</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08090B; --panel:#101114; --card:#16181C; --card2:#1C1F24;
+  --line:#26292F; --line2:#33373E;
+  --text:#F2F3F5; --muted:#8B9099; --faint:#5E636C;
+  --coral:#E2603F; --green:#3DDC84; --yellow:#F0B429; --red:#F0503C;
+  --blue:#5AA9E6; --purple:#9B8CFF;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --serif:'Instrument Serif',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,select{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer;background:none;border:none}
+:focus-visible{outline:2px solid var(--coral);outline-offset:2px;border-radius:6px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+a{color:var(--coral)}
+
+/* ---------------- page shell ---------------- */
+.page{max-width:1220px;margin:0 auto;padding:34px 22px 70px;
+  display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:44px;align-items:start}
+.intro h1{font-family:var(--serif);font-size:40px;line-height:1.08;letter-spacing:-.01em;margin-bottom:14px}
+.intro h1 em{font-style:italic;color:var(--coral)}
+.intro p{color:var(--muted);font-size:14.5px;max-width:52ch;margin-bottom:12px}
+.intro p b{color:var(--text);font-weight:600}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 26px}
+.badge{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);
+  border:1px solid var(--line);border-radius:20px;padding:5px 12px}
+.badge.on{color:var(--green);border-color:#1E5C3C;background:#0E1F17}
+
+/* ---------------- phone ---------------- */
+.stage{display:flex;justify-content:center}
+.phone{width:392px;max-width:100%;background:#000;border-radius:52px;padding:12px;
+  box-shadow:0 0 0 2px #2A2D33, 0 34px 70px rgba(0,0,0,.7);position:sticky;top:28px}
+.screen{background:var(--bg);border-radius:41px;overflow:hidden;height:800px;display:flex;flex-direction:column;position:relative}
+.notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:126px;height:30px;
+  background:#000;border-radius:0 0 18px 18px;z-index:5}
+.statusbar{display:flex;justify-content:space-between;align-items:center;padding:14px 26px 4px;
+  font-size:13px;font-weight:600;flex-shrink:0}
+.statusbar .sig{display:flex;gap:5px;align-items:center;font-size:11px;color:var(--text)}
+.view{flex:1;overflow-y:auto;overflow-x:hidden;padding:2px 18px 20px;scrollbar-width:thin}
+.view::-webkit-scrollbar{width:0}
+.tabbar{display:flex;border-top:1px solid var(--line);background:#0B0C0E;padding:9px 4px 16px;flex-shrink:0}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;color:var(--faint);padding:2px 0}
+.tab svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tab.on{color:var(--coral)}
+.homebar{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:132px;height:4px;
+  background:#3A3D44;border-radius:3px}
+
+/* ---------------- in-app ---------------- */
+.vhead{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 0 14px}
+.vhead h2{font-family:var(--serif);font-size:33px;line-height:1}
+.vhead .sub{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-top:6px}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--card2);border:1px solid var(--line2);
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--muted)}
+
+.sect{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);
+  display:flex;justify-content:space-between;align-items:center;margin:20px 0 9px}
+.sect .more{color:var(--coral)}
+
+.hero{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:17px 18px}
+.hero .cap{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--coral);margin-bottom:4px}
+.bigrow{display:flex;align-items:flex-end;gap:9px;flex-wrap:wrap}
+.big{font-family:var(--serif);font-size:62px;line-height:.92;letter-spacing:-.02em}
+.bigunit{font-family:var(--serif);font-size:23px;color:var(--faint);padding-bottom:6px}
+.pill{margin-left:auto;font-size:11.5px;font-weight:600;border-radius:20px;padding:5px 12px;margin-bottom:6px;white-space:nowrap}
+.pill.good{background:#0F2A1C;color:var(--green)}
+.pill.warn{background:#2E220A;color:var(--yellow)}
+.pill.bad{background:#2E1512;color:var(--red)}
+.pill.info{background:#101D2B;color:var(--blue)}
+
+.spark{height:52px;margin:14px 0 4px}
+.minirow{display:flex;border-top:1px solid var(--line);padding-top:11px;margin-top:11px;gap:4px}
+.mini{flex:1;min-width:0}
+.mini .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.mini .v{font-family:var(--mono);font-size:17px;font-weight:700;margin-top:2px}
+.mini .d{font-family:var(--mono);font-size:9.5px;margin-top:1px;color:var(--faint)}
+.up{color:var(--green)} .down{color:var(--red)} .flat{color:var(--faint)}
+
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 11px}
+.tile .t{font-size:12px;font-weight:600;display:flex;justify-content:space-between;align-items:baseline;gap:4px}
+.tile .t em{font-family:var(--mono);font-size:9.5px;font-style:normal}
+.tile .n{font-family:var(--serif);font-size:29px;line-height:1.05;margin:5px 0 8px}
+.tile .n small{font-size:14px;color:var(--faint)}
+.tile .f{font-family:var(--mono);font-size:9.5px;color:var(--faint);margin-top:7px}
+.meter{height:3px;background:var(--line);border-radius:3px;overflow:hidden}
+.meter i{display:block;height:100%;border-radius:3px}
+
+.coach{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--coral);
+  border-radius:12px;padding:14px 15px;font-size:13px;line-height:1.6}
+.coach .cap{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--coral);margin-bottom:7px}
+.coach b{font-weight:700}
+
+.segbar{display:flex;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:3px;gap:2px;margin-bottom:14px}
+.seg{flex:1;font-family:var(--mono);font-size:10.5px;padding:6px 0;border-radius:8px;color:var(--faint);text-align:center}
+.seg.on{background:var(--card2);color:var(--text);font-weight:700}
+
+.inputrow{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px 15px;margin-bottom:8px;
+  display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.inputrow .n{font-size:13.5px;font-weight:600}
+.inputrow .w{font-size:11px;color:var(--faint);margin-top:2px}
+.inputrow .r{text-align:right;white-space:nowrap}
+.inputrow .r .v{font-family:var(--mono);font-size:19px;font-weight:700}
+.inputrow .r .v small{font-size:11px;color:var(--faint);margin-left:3px}
+.inputrow .r .d{font-family:var(--mono);font-size:10px;margin-top:2px}
+
+.zones{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 15px}
+.zrow{display:flex;align-items:center;gap:10px;margin-bottom:9px;font-family:var(--mono);font-size:10.5px}
+.zrow:last-child{margin-bottom:0}
+.zrow .zl{width:20px;color:var(--faint)}
+.ztrack{flex:1;height:7px;background:var(--card2);border-radius:5px;overflow:hidden}
+.ztrack i{display:block;height:100%;border-radius:5px}
+.zrow .zt{width:36px;text-align:right;color:var(--muted)}
+
+.sess{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:12px 14px;margin-bottom:8px;
+  display:flex;align-items:center;gap:12px}
+.sicon{width:34px;height:34px;border-radius:10px;background:var(--card2);display:flex;align-items:center;
+  justify-content:center;font-size:15px;flex-shrink:0}
+.sess .sb{flex:1;min-width:0}
+.sess .sn{font-size:13px;font-weight:600}
+.sess .sm{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:1px}
+.sess .sv{font-family:var(--mono);font-size:19px;font-weight:700;text-align:right}
+.sess .sv small{display:block;font-size:9.5px;color:var(--faint);font-weight:400}
+
+.gauge{margin-bottom:9px}
+.gauge .gt{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px}
+.gauge .gt b{font-family:var(--mono);font-weight:700}
+.gtrack{height:7px;border-radius:5px;position:relative;
+  background:linear-gradient(90deg,#3B6EA5 0%,#2E8B63 34%,#4EA85E 55%,#C99A2E 78%,#C4553F 100%)}
+.gtrack i{position:absolute;top:-3px;width:3px;height:13px;background:var(--text);border-radius:2px;
+  box-shadow:0 0 0 2px var(--card)}
+.gscale{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;color:var(--faint);margin-top:4px}
+
+.body-map{display:grid;grid-template-columns:1fr 74px 1fr;gap:9px;align-items:center}
+.limb{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
+.limb .ll{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.limb .lv{font-family:var(--serif);font-size:23px;margin:2px 0}
+.limb .ls{font-size:10px;color:var(--green)}
+.limb .ls.lo{color:var(--yellow)}
+.torso{display:flex;flex-direction:column;align-items:center;gap:4px}
+.torso .h{width:26px;height:26px;border-radius:50%;background:var(--card2)}
+.torso .t{width:38px;height:52px;border-radius:9px;background:var(--coral);opacity:.85}
+.torso .lg{display:flex;gap:5px}
+.torso .lg i{width:16px;height:44px;border-radius:7px;background:var(--card2);display:block}
+
+.bubble{border-radius:16px;padding:11px 14px;font-size:13px;line-height:1.6;max-width:86%;margin-bottom:9px}
+.bubble.me{background:#1E2A38;color:#D6E6F5;margin-left:auto;border-bottom-right-radius:5px}
+.bubble.ai{background:var(--card);border:1px solid var(--line);border-bottom-left-radius:5px}
+.bubble.ai b{color:var(--coral)}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.chip{border:1px solid var(--line2);border-radius:16px;padding:7px 13px;font-size:11.5px;color:var(--muted);text-align:left}
+.chip:hover{border-color:var(--coral);color:var(--coral)}
+
+.note{font-size:11px;color:var(--faint);line-height:1.55;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+
+/* ---------------- control panel ---------------- */
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;position:sticky;top:28px}
+.panel h3{font-size:15px;font-weight:600;margin-bottom:5px}
+.panel .psub{font-size:12.5px;color:var(--muted);margin-bottom:16px}
+.pgroup{border-top:1px solid var(--line);padding-top:14px;margin-top:14px}
+.pgroup h4{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:11px}
+.ctl{margin-bottom:13px}
+.ctl label{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;margin-bottom:5px;gap:8px}
+.ctl label b{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text)}
+.ctl label span{color:var(--muted)}
+.ctl input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:3px;border-radius:3px;
+  background:var(--line2);outline:none}
+.ctl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;
+  background:var(--coral);cursor:pointer;border:2px solid var(--bg)}
+.ctl input[type=range]::-moz-range-thumb{width:15px;height:15px;border-radius:50%;background:var(--coral);
+  cursor:pointer;border:2px solid var(--bg)}
+.ctl .hint{font-size:10.5px;color:var(--faint);margin-top:3px}
+.segsel{display:flex;gap:5px}
+.segsel button{flex:1;border:1px solid var(--line2);border-radius:8px;padding:6px 0;font-size:12px;color:var(--muted)}
+.segsel button.on{background:var(--coral);border-color:var(--coral);color:#fff;font-weight:600}
+.prow{display:flex;gap:8px;margin-top:16px}
+.pbtn{flex:1;border:1px solid var(--line2);border-radius:9px;padding:9px 0;font-size:12.5px;color:var(--muted);text-align:center}
+.pbtn:hover{border-color:var(--coral);color:var(--coral)}
+.pbtn.solid{background:var(--coral);border-color:var(--coral);color:#fff;font-weight:600}
+.pbtn.solid:hover{background:#C9522F}
+.privacy{font-size:11px;color:var(--faint);line-height:1.6;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+
+footer{max-width:1220px;margin:0 auto;padding:24px 22px 46px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--faint)}
+footer a{color:var(--muted)}
+
+@media (max-width:1040px){
+  /* minmax(0,…) rather than 1fr: a bare 1fr track refuses to shrink below the
+     phone frame's min-content width and pushes the page sideways. */
+  .page{grid-template-columns:minmax(0,1fr);gap:30px}
+  .phone{position:static;width:100%;max-width:392px;margin:0 auto}
+  .panel{position:static}
+  .intro h1{font-size:31px}
+}
+@media (max-width:440px){
+  .page{padding:26px 14px 60px}
+  .phone{border-radius:42px;padding:9px}
+  .screen{border-radius:34px;height:min(760px,78vh)}
+  .view{padding:2px 14px 18px}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="intro">
+    <h1>Every wearable gives you numbers.<br>Vitalis gives you <em>one</em>.</h1>
+    <p>
+      A native iOS app that reads Apple Health and your InBody scans and turns them into a single
+      north-star metric: <b>Biological Age</b>. Recovery, Strain and Sleep in the Whoop tradition,
+      plus the body composition no wrist wearable can measure.
+    </p>
+    <p>
+      <b>100% on-device.</b> No backend, no accounts, no cloud. Which is also why this page can exist:
+      the scoring model has no server to call, so it was portable to the browser — every number below
+      is computed from the readings in the panel, right here.
+    </p>
+    <div class="badges">
+      <span class="badge">Swift · SwiftUI · HealthKit</span>
+      <span class="badge">iOS 17+</span>
+      <span class="badge">No third-party dependencies</span>
+      <span class="badge on">Live scoring model</span>
+    </div>
+
+    <div class="stage">
+      <div class="phone">
+        <div class="screen">
+          <div class="notch"></div>
+          <div class="statusbar">
+            <span class="num">9:41</span>
+            <span class="sig">5G ▮▮▮ <span class="num">84%</span></span>
+          </div>
+          <div class="view" id="view"></div>
+          <nav class="tabbar" id="tabbar"></nav>
+          <div class="homebar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="panel">
+    <h3>Your numbers</h3>
+    <p class="psub">
+      These are the readings the app pulls from Apple Health and your InBody printout. Change any of
+      them and every score on the phone recomputes — the formulas, weights and clamps are the ones in
+      §4 of the build spec, with published population medians standing in for the norm tables the iOS
+      build bundles. Expect the same behaviour, not identical decimals.
+    </p>
+
+    <div class="pgroup">
+      <h4>You</h4>
+      <div class="ctl">
+        <label for="age">Age <b><span id="ageV"></span> yrs</b></label>
+        <input type="range" id="age" min="18" max="75" step="1">
+      </div>
+      <div class="ctl">
+        <label>Sex <span>affects every norm table</span></label>
+        <div class="segsel" id="sexSel">
+          <button data-sex="M">Male</button>
+          <button data-sex="F">Female</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="pgroup">
+      <h4>Apple Health · last night &amp; baseline</h4>
+      <div class="ctl">
+        <label for="hrv">HRV (SDNN) <b><span id="hrvV"></span> ms</b></label>
+        <input type="range" id="hrv" min="15" max="120" step="1">
+        <p class="hint">Weighted 40% of Recovery, 25% of Biological Age.</p>
+      </div>
+      <div class="ctl">
+        <label for="rhr">Resting heart rate <b><span id="rhrV"></span> bpm</b></label>
+        <input type="range" id="rhr" min="35" max="90" step="1">
+      </div>
+      <div class="ctl">
+        <label for="vo2">VO₂max <b><span id="vo2V"></span></b></label>
+        <input type="range" id="vo2" min="20" max="70" step="1">
+        <p class="hint">Heaviest single input into Biological Age (30%).</p>
+      </div>
+      <div class="ctl">
+        <label for="sleep">Sleep last night <b><span id="sleepV"></span></b></label>
+        <input type="range" id="sleep" min="180" max="600" step="5">
+      </div>
+      <div class="ctl">
+        <label for="resp">Respiratory rate <b><span id="respV"></span> rpm</b></label>
+        <input type="range" id="resp" min="10" max="22" step="0.1">
+      </div>
+      <div class="ctl">
+        <label for="strain">Strain accumulated today <b><span id="strainV"></span></b></label>
+        <input type="range" id="strain" min="0" max="21" step="0.1">
+      </div>
+      <div class="ctl">
+        <label for="steps">Steps <b><span id="stepsV"></span></b></label>
+        <input type="range" id="steps" min="1000" max="25000" step="500">
+      </div>
+    </div>
+
+    <div class="pgroup">
+      <h4>InBody scan</h4>
+      <div class="ctl">
+        <label for="weight">Weight <b><span id="weightV"></span> kg</b></label>
+        <input type="range" id="weight" min="40" max="130" step="0.1">
+      </div>
+      <div class="ctl">
+        <label for="height">Height <b><span id="heightV"></span> cm</b></label>
+        <input type="range" id="height" min="140" max="205" step="1">
+      </div>
+      <div class="ctl">
+        <label for="pbf">Percent body fat <b><span id="pbfV"></span>%</b></label>
+        <input type="range" id="pbf" min="4" max="45" step="0.1">
+      </div>
+      <div class="ctl">
+        <label for="smm">Skeletal muscle mass <b><span id="smmV"></span> kg</b></label>
+        <input type="range" id="smm" min="15" max="55" step="0.1">
+      </div>
+    </div>
+
+    <div class="prow">
+      <button class="pbtn solid" id="reset">Reset to demo</button>
+      <button class="pbtn" id="randomise">Another person</button>
+    </div>
+
+    <p class="privacy">
+      Nothing you type here leaves the page — there is no request to send it to. That mirrors the app,
+      which reads your own device's Health data and stores nothing off-device.
+      <br><br>
+      Biological Age is an estimate from consumer-wearable inputs, not a clinical measurement. The
+      formula, its weights and its norm tables are in
+      <a href="https://github.com/shivamcode91-ops/ai-builder-projects/blob/main/vitalis-health-app/docs/VITALIS_SPEC.md">the spec</a>, §4.
+    </p>
+  </aside>
+
+</div>
+
+<footer>
+  <p>
+    Vitalis — native iOS build in
+    <a href="https://github.com/shivamcode91-ops/ai-builder-projects/tree/main/vitalis-health-app">vitalis-health-app</a> ·
+    <a href="../">all demos</a>
+  </p>
+</footer>
+
+<script>
+/* ============================================================
+   The scoring model, ported from VITALIS_SPEC.md §4.
+   Same inputs, same weights, same clamps as the Swift build's
+   Core/Scoring layer — so the numbers on this page are the
+   numbers the app would show for these readings.
+   ============================================================ */
+
+/* --- norm tables -------------------------------------------------------
+   VO2max: ACSM percentile midpoints by age band.
+   HRV (SDNN): population medians by age band — SDNN falls with age.
+   RHR: adult norms, lower is fitter.
+   Body fat: ACE/AHA healthy midpoints.
+   Cited here rather than hidden in code so the weights can be argued with. */
+const NORMS = {
+  vo2: { // [age, male median, female median]
+    M: [[25,44],[35,42],[45,39],[55,35],[65,31],[75,27]],
+    F: [[25,37],[35,35],[45,32],[55,29],[65,26],[75,23]],
+  },
+  hrv: [[25,60],[35,52],[45,45],[55,39],[65,34],[75,30]],  // SDNN ms, sex-neutral
+  rhr: { M: 66, F: 70 },
+  pbf: { M: 18, F: 26 },
+};
+
+const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+
+/** Linear interpolation across an [age, value] table. */
+function byAge(table, age) {
+  if (age <= table[0][0]) return table[0][1];
+  if (age >= table[table.length - 1][0]) return table[table.length - 1][1];
+  for (let i = 0; i < table.length - 1; i++) {
+    const [a1, v1] = table[i], [a2, v2] = table[i + 1];
+    if (age >= a1 && age <= a2) return v1 + ((age - a1) / (a2 - a1)) * (v2 - v1);
+  }
+  return table[table.length - 1][1];
+}
+
+/** Map a reading to 0–100 against its norm. `spread` is the reading value
+ *  that would score 100 relative to the norm; `invert` for lower-is-better. */
+function subscore(value, norm, spread, invert = false) {
+  const ratio = invert ? norm / value : value / norm;
+  return clamp(50 + ((ratio - 1) / spread) * 50, 0, 100);
+}
+
+function bioAge(d) {
+  const vo2Norm = byAge(NORMS.vo2[d.sex], d.age);
+  const hrvNorm = byAge(NORMS.hrv, d.age);
+
+  const sub = {
+    vo2:      subscore(d.vo2, vo2Norm, 0.55),
+    hrv:      subscore(d.hrv, hrvNorm, 0.55),
+    // Wide spread deliberately: a resting HR of 48 against a norm of 66 is
+    // excellent but not superhuman, and a tighter spread saturates it at 100
+    // — which would let one good marker carry the whole composite.
+    rhr:      subscore(d.rhr, NORMS.rhr[d.sex], 0.55, true),
+    sleep:    clamp(sleepPerformance(d), 0, 100),
+    bodyfat:  subscore(d.pbf, NORMS.pbf[d.sex], 0.45, true),
+    // 10k steps is the middle of the scale, not the top of it.
+    activity: clamp(((d.steps - 4000) / 12000) * 100, 0, 100),
+  };
+  const W = { vo2: .30, hrv: .25, rhr: .20, sleep: .10, bodyfat: .10, activity: .05 };
+  const composite = Object.keys(W).reduce((s, k) => s + sub[k] * W[k], 0);
+
+  // bio_age = chronological - k * (composite - 50) / 50, k ≈ 12, clamped ±15
+  const raw = d.age - 12 * (composite - 50) / 50;
+  return { years: clamp(raw, d.age - 15, d.age + 15), composite, sub, weights: W };
+}
+
+/** §4d — duration against need, adjusted for efficiency and strain debt. */
+function sleepPerformance(d) {
+  const need = 480 + Math.max(0, d.strain - 10) * 9;   // 8h + strain-driven debt
+  return clamp((d.sleepMin / need) * 100, 0, 100);
+}
+
+/** §4b — today against personal baseline. */
+function recovery(d) {
+  const hrvPart  = clamp(50 + ((d.hrv - d.hrvBase) / d.hrvBase) * 190, 0, 100);
+  const rhrPart  = clamp(50 + ((d.rhrBase - d.rhr) / d.rhrBase) * 300, 0, 100);
+  const respPart = clamp(100 - Math.abs(d.resp - d.respBase) * 26, 0, 100);
+  const sleepPart = sleepPerformance(d);
+  const tempPart = 82;   // no thermometer in the browser; the app reads wrist temp
+
+  const parts = [
+    { key: "HRV",               weight: .40, score: hrvPart },
+    { key: "Resting heart rate",weight: .25, score: rhrPart },
+    { key: "Respiratory rate",  weight: .15, score: respPart },
+    { key: "Sleep performance", weight: .15, score: sleepPart },
+    { key: "Skin temp / SpO₂",  weight: .05, score: tempPart },
+  ];
+  const score = parts.reduce((s, p) => s + p.score * p.weight, 0);
+  const band = score >= 67 ? "green" : score >= 34 ? "yellow" : "red";
+  return { score, band, parts, sleepPart };
+}
+
+/** §4c — target band scales with today's recovery. */
+function strainTarget(rec) {
+  const lo = 6 + (rec.score / 100) * 9;
+  return [lo, lo + 2];
+}
+
+/** §4e — battery model. */
+function energy(d, rec) {
+  return clamp(rec.score * 0.75 + (100 - d.strain * 4.2) * 0.25, 0, 100);
+}
+
+function inbody(d) {
+  const bmi = d.weight / Math.pow(d.height / 100, 2);
+  const fatMass = d.weight * (d.pbf / 100);
+  const lean = d.weight - fatMass;
+  // Katch–McArdle, which uses lean mass — the reason InBody's BMR beats HealthKit's.
+  const bmr = Math.round(370 + 21.6 * lean);
+  const pbfNorm = NORMS.pbf[d.sex];
+  const smmNorm = (d.sex === "M" ? 0.45 : 0.38) * d.weight;
+  const score = Math.round(
+    clamp(72 + (pbfNorm - d.pbf) * 1.4 + (d.smm - smmNorm) * 2.2, 20, 100)
+  );
+  return { bmi, fatMass, lean, bmr, score, smmNorm };
+}
+
+/* ---------------------------------------------------------------- state */
+
+const DEMO = {
+  age: 24, sex: "M",
+  hrv: 58, hrvBase: 52,
+  rhr: 48, rhrBase: 50,
+  resp: 14.2, respBase: 14.0,
+  vo2: 47,
+  sleepMin: 486,
+  strain: 12.4,
+  steps: 11400,
+  weight: 51.7, height: 162, pbf: 17.3, smm: 23.5,
+};
+
+let d = { ...DEMO };
+let tab = "today";
+
+/* -------------------------------------------------------------- helpers */
+
+const el = (id) => document.getElementById(id);
+const n1 = (x) => Number(x).toFixed(1);
+const hhmm = (min) => `${Math.floor(min / 60)}h ${String(Math.round(min % 60)).padStart(2, "0")}m`;
+const bandColor = (b) => (b === "green" ? "var(--green)" : b === "yellow" ? "var(--yellow)" : "var(--red)");
+const delta = (v, base, invert = false) => {
+  const diff = v - base;
+  const better = invert ? diff < 0 : diff > 0;
+  if (Math.abs(diff) < 0.05) return `<span class="flat">–</span>`;
+  const pct = Math.round((diff / base) * 100);
+  return `<span class="${better ? "up" : "down"}">${better ? "▲" : "▼"} ${Math.abs(pct)}%</span>`;
+};
+
+/** A small sparkline, deterministic from a seed so it does not jitter on
+ *  every keystroke. */
+function spark(points, color) {
+  const w = 320, h = 52, max = Math.max(...points), min = Math.min(...points);
+  const range = max - min || 1;
+  const path = points
+    .map((p, i) => `${(i / (points.length - 1)) * w},${h - ((p - min) / range) * (h - 10) - 5}`)
+    .join(" L ");
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+    <path d="M ${path}" fill="none" stroke="${color}" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`;
+}
+
+/** A deterministic wobble around a value, for the trend lines. */
+function series(value, n, amp, seed) {
+  const out = [];
+  let s = seed;
+  for (let i = 0; i < n; i++) {
+    s = (s * 9301 + 49297) % 233280;
+    const drift = ((n - 1 - i) / (n - 1)) * amp * 1.4;
+    out.push(value + drift + ((s / 233280) - 0.5) * amp);
+  }
+  return out;
+}
+
+/* ---------------------------------------------------------------- views */
+
+function viewToday() {
+  const ba = bioAge(d);
+  const rec = recovery(d);
+  const ib = inbody(d);
+  const diff = d.age - ba.years;
+  const [tlo, thi] = strainTarget(rec);
+  const sleepPct = sleepPerformance(d);
+
+  return `
+    <div class="vhead">
+      <div><h2>Today</h2><div class="sub">Sat · Jun 6 · synced 2m ago</div></div>
+      <div class="avatar">A</div>
+    </div>
+
+    <div class="hero">
+      <div class="cap">Biological age</div>
+      <div class="bigrow">
+        <span class="big num">${n1(ba.years)}</span><span class="bigunit">yrs</span>
+        <span class="pill ${diff >= 0 ? "good" : "bad"}">
+          ${Math.abs(diff).toFixed(1)} yrs ${diff >= 0 ? "younger" : "older"}
+        </span>
+      </div>
+      ${spark(series(ba.years, 14, 0.9, 4321), "var(--coral)")}
+      <div class="minirow">
+        <div class="mini"><div class="l">HRV</div><div class="v">${Math.round(d.hrv)}</div>
+          <div class="d">${delta(d.hrv, d.hrvBase)}</div></div>
+        <div class="mini"><div class="l">Rest HR</div><div class="v">${Math.round(d.rhr)}</div>
+          <div class="d">${delta(d.rhr, d.rhrBase, true)}</div></div>
+        <div class="mini"><div class="l">VO₂max</div><div class="v">${Math.round(d.vo2)}</div>
+          <div class="d">${Math.round(ba.sub.vo2)}th pct</div></div>
+        <div class="mini"><div class="l">PBF</div><div class="v">${n1(d.pbf)}</div>
+          <div class="d">InBody</div></div>
+      </div>
+    </div>
+
+    <div class="sect">Daily readouts <span class="more">Detail →</span></div>
+    <div class="trio">
+      <div class="tile">
+        <div class="t">Recovery</div>
+        <div class="n num">${Math.round(rec.score)}<small>%</small></div>
+        <div class="meter"><i style="width:${rec.score}%;background:${bandColor(rec.band)}"></i></div>
+        <div class="f">${rec.band === "green" ? "Primed" : rec.band === "yellow" ? "Moderate" : "Rest"}</div>
+      </div>
+      <div class="tile">
+        <div class="t">Strain</div>
+        <div class="n num">${n1(d.strain)}</div>
+        <div class="meter"><i style="width:${(d.strain / 21) * 100}%;background:var(--blue)"></i></div>
+        <div class="f">Target ${n1(tlo)}–${n1(thi)}</div>
+      </div>
+      <div class="tile">
+        <div class="t">Sleep</div>
+        <div class="n num">${Math.round(sleepPct)}<small>%</small></div>
+        <div class="meter"><i style="width:${sleepPct}%;background:var(--purple)"></i></div>
+        <div class="f">${hhmm(d.sleepMin)}</div>
+      </div>
+    </div>
+
+    <div class="sect">Coach</div>
+    <div class="coach">
+      <div class="cap">◆ Coach</div>
+      ${coachLine(d, ba, rec, ib)}
+    </div>
+
+    <p class="note">
+      Every figure above is computed on this device from the readings in the panel — the app has no
+      server to ask. Change a slider and watch which numbers move and which do not; the weights are
+      in §4 of the spec.
+    </p>`;
+}
+
+function viewRecovery() {
+  const rec = recovery(d);
+  return `
+    <div class="vhead">
+      <div><h2>Recovery</h2><div class="sub">Morning readiness</div></div>
+      <div class="avatar">A</div>
+    </div>
+
+    <div class="segbar">
+      ${["1D", "1W", "1M", "3M", "6M"].map((s, i) => `<div class="seg ${i === 1 ? "on" : ""}">${s}</div>`).join("")}
+    </div>
+
+    <div class="hero" style="text-align:center">
+      <div class="cap">7-day average</div>
+      <div class="bigrow" style="justify-content:center">
+        <span class="big num">${Math.round(rec.score * 0.94)}</span><span class="bigunit">%</span>
+      </div>
+      <div style="margin:10px 0 2px">
+        <span class="pill ${rec.band === "green" ? "good" : rec.band === "yellow" ? "warn" : "bad"}"
+              style="margin:0">Today ${Math.round(rec.score)}% · ${rec.band}</span>
+      </div>
+      ${spark(series(rec.score, 7, 6, 991), bandColor(rec.band))}
+      <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:9.5px;color:var(--faint)">
+        <span>Mon</span><span>Wed</span><span>Fri</span><span>Today</span>
+      </div>
+    </div>
+
+    <div class="sect">Today's inputs <span class="more">Method →</span></div>
+    ${rec.parts
+      .map((p) => {
+        let val = "", meta = "", d2 = "";
+        if (p.key === "HRV") { val = `${Math.round(d.hrv)}<small>ms</small>`; meta = `Baseline ${d.hrvBase} ms · weighted 40%`; d2 = delta(d.hrv, d.hrvBase); }
+        else if (p.key === "Resting heart rate") { val = `${Math.round(d.rhr)}<small>bpm</small>`; meta = `Baseline ${d.rhrBase} · weighted 25%`; d2 = delta(d.rhr, d.rhrBase, true); }
+        else if (p.key === "Respiratory rate") { val = `${n1(d.resp)}<small>rpm</small>`; meta = `Normal ${n1(d.respBase)} · weighted 15%`; d2 = delta(d.resp, d.respBase, true); }
+        else if (p.key === "Sleep performance") { val = `${Math.round(p.score)}<small>%</small>`; meta = `${hhmm(d.sleepMin)} · weighted 15%`; d2 = ""; }
+        else { val = `${Math.round(p.score)}<small>%</small>`; meta = `Wrist sensors · weighted 5%`; d2 = `<span class="flat">stable</span>`; }
+        return `
+        <div class="inputrow">
+          <div><div class="n">${p.key}</div><div class="w">${meta}</div></div>
+          <div class="r"><div class="v num">${val}</div><div class="d num">${d2}</div></div>
+        </div>`;
+      })
+      .join("")}
+
+    <p class="note">
+      Recovery is computed once per day, anchored to the end of the main sleep period — it does not
+      drift through the afternoon. Strain is the one that accumulates.
+    </p>`;
+}
+
+function viewStrain() {
+  const rec = recovery(d);
+  const [tlo, thi] = strainTarget(rec);
+  // Zone minutes scale with the day's accumulated strain.
+  const k = d.strain / 12.4;
+  const zones = [
+    { z: "Z5", min: Math.round(4 * k), c: "var(--red)" },
+    { z: "Z4", min: Math.round(14 * k), c: "var(--yellow)" },
+    { z: "Z3", min: Math.round(31 * k), c: "var(--green)" },
+    { z: "Z2", min: Math.round(52 * k), c: "var(--blue)" },
+    { z: "Z1", min: Math.round(23 * k), c: "var(--purple)" },
+  ];
+  const maxMin = Math.max(...zones.map((x) => x.min), 1);
+  const runStrain = d.strain * 0.73;
+  const liftStrain = d.strain * 0.39;
+
+  return `
+    <div class="vhead">
+      <div><h2>Strain</h2><div class="sub">Cardio load · 0–21</div></div>
+      <div class="avatar">A</div>
+    </div>
+
+    <div class="segbar">
+      ${["1D", "1W", "1M", "3M", "6M"].map((s, i) => `<div class="seg ${i === 0 ? "on" : ""}">${s}</div>`).join("")}
+    </div>
+
+    <div class="hero" style="text-align:center">
+      <div class="cap">Accumulated today</div>
+      <div class="bigrow" style="justify-content:center">
+        <span class="big num">${n1(d.strain)}</span>
+      </div>
+      <div style="margin-top:10px">
+        <span class="pill info" style="margin:0">Target ${n1(tlo)} – ${n1(thi)}</span>
+      </div>
+      <p style="font-size:11.5px;color:var(--faint);margin-top:9px">
+        ${d.strain < tlo ? "Under target — there is room for more today."
+          : d.strain > thi ? "Over target for today's recovery. Tomorrow will cost you."
+          : "In the band your recovery supports."}
+      </p>
+    </div>
+
+    <div class="sect">Heart-rate zones <span>Today</span></div>
+    <div class="zones">
+      ${zones
+        .map((x) => `
+        <div class="zrow">
+          <span class="zl">${x.z}</span>
+          <span class="ztrack"><i style="width:${(x.min / maxMin) * 100}%;background:${x.c}"></i></span>
+          <span class="zt">${x.min}m</span>
+        </div>`)
+        .join("")}
+    </div>
+
+    <div class="sect">Sessions <span class="more">+ Add</span></div>
+    <div class="sess">
+      <div class="sicon">⚡</div>
+      <div class="sb"><div class="sn">Morning Run</div><div class="sm">6.2 km · 42 min · avg 158 bpm</div></div>
+      <div class="sv num">${n1(runStrain)}<small>strain</small></div>
+    </div>
+    <div class="sess">
+      <div class="sicon">⊞</div>
+      <div class="sb"><div class="sn">Strength — Push</div><div class="sm">Auto · 18 sets · 38 min</div></div>
+      <div class="sv num">${n1(liftStrain)}<small>strain</small></div>
+    </div>
+
+    <p class="note">
+      The target band is not fixed — it is derived from this morning's Recovery, so a green day asks
+      for more and a red day asks for less.
+    </p>`;
+}
+
+function viewBody() {
+  const ib = inbody(d);
+  const bmiPos = clamp(((ib.bmi - 15) / (35 - 15)) * 100, 2, 98);
+  const pbfPos = clamp(((d.pbf - 5) / (40 - 5)) * 100, 2, 98);
+  const armEach = d.smm * 0.092;
+  const legEach = d.smm * 0.265;
+  const normal = (v, ref) => (v >= ref * 0.92 ? "Normal" : "Below");
+
+  return `
+    <div class="vhead">
+      <div><h2>Body</h2><div class="sub">InBody 260 · Jun 3 22:05</div></div>
+      <div class="avatar">A</div>
+    </div>
+
+    <div class="hero">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <div class="cap">InBody score</div>
+          <div class="bigrow">
+            <span class="big num">${ib.score}</span><span class="bigunit">/ 100</span>
+          </div>
+        </div>
+        <div style="text-align:right">
+          <div class="num" style="font-size:11px;color:var(--faint)">
+            ${Math.round(d.height)} cm · ${d.age} · ${d.sex}
+          </div>
+          <div style="font-family:var(--serif);font-size:31px;margin-top:6px">
+            ${n1(d.weight)}<span style="font-size:14px;color:var(--faint)">kg</span>
+          </div>
+        </div>
+      </div>
+      <div class="minirow">
+        <div class="mini"><div class="l">SMM</div><div class="v">${n1(d.smm)}</div><div class="d">kg</div></div>
+        <div class="mini"><div class="l">Fat mass</div><div class="v">${n1(ib.fatMass)}</div><div class="d">kg</div></div>
+        <div class="mini"><div class="l">PBF</div><div class="v">${n1(d.pbf)}</div><div class="d">%</div></div>
+        <div class="mini"><div class="l">BMR</div><div class="v">${ib.bmr}</div><div class="d">kcal</div></div>
+      </div>
+    </div>
+
+    <div class="sect">Obesity analysis</div>
+    <div class="hero">
+      <div class="gauge">
+        <div class="gt"><span>BMI</span><b class="num">${n1(ib.bmi)} kg/m²</b></div>
+        <div class="gtrack"><i style="left:${bmiPos}%"></i></div>
+        <div class="gscale"><span>Under</span><span>Normal</span><span>Over</span></div>
+      </div>
+      <div class="gauge" style="margin-bottom:0">
+        <div class="gt"><span>Percent body fat</span><b class="num">${n1(d.pbf)} %</b></div>
+        <div class="gtrack"><i style="left:${pbfPos}%"></i></div>
+        <div class="gscale"><span>5</span><span>Normal</span><span>40+</span></div>
+      </div>
+    </div>
+
+    <div class="sect">Segmental lean mass
+      <span>${d.smm >= ib.smmNorm * 0.92 ? "All normal" : "Below target"}</span>
+    </div>
+    <div class="body-map">
+      <div class="limb">
+        <div class="ll">L arm</div><div class="lv num">${n1(armEach)}</div>
+        <div class="ls ${normal(armEach, ib.smmNorm * 0.092) === "Normal" ? "" : "lo"}">${normal(armEach, ib.smmNorm * 0.092)}</div>
+      </div>
+      <div class="torso">
+        <span class="h"></span><span class="t"></span>
+        <span class="lg"><i></i><i></i></span>
+      </div>
+      <div class="limb">
+        <div class="ll">R arm</div><div class="lv num">${n1(armEach * 1.014)}</div>
+        <div class="ls ${normal(armEach, ib.smmNorm * 0.092) === "Normal" ? "" : "lo"}">${normal(armEach, ib.smmNorm * 0.092)}</div>
+      </div>
+      <div class="limb">
+        <div class="ll">L leg</div><div class="lv num">${n1(legEach)}</div>
+        <div class="ls ${normal(legEach, ib.smmNorm * 0.265) === "Normal" ? "" : "lo"}">${normal(legEach, ib.smmNorm * 0.265)}</div>
+      </div>
+      <div></div>
+      <div class="limb">
+        <div class="ll">R leg</div><div class="lv num">${n1(legEach * 1.008)}</div>
+        <div class="ls ${normal(legEach, ib.smmNorm * 0.265) === "Normal" ? "" : "lo"}">${normal(legEach, ib.smmNorm * 0.265)}</div>
+      </div>
+    </div>
+
+    <p class="note">
+      Segmental lean mass, visceral fat, protein and body-water breakdown are not in HealthKit at all
+      — no wrist wearable measures them. They come from the InBody import, which is why the app has a
+      manual-entry path in the first place.
+    </p>`;
+}
+
+function coachLine(d, ba, rec, ib) {
+  const hrvPct = Math.round(((d.hrv - d.hrvBase) / d.hrvBase) * 100);
+  const [tlo, thi] = strainTarget(rec);
+  const muscleGap = Math.max(0, ib.smmNorm - d.smm);
+  const protein = Math.round(ib.lean * 2.1);
+
+  const opener =
+    rec.band === "green"
+      ? `HRV is <b>${hrvPct >= 0 ? hrvPct + "% above" : Math.abs(hrvPct) + "% below"} baseline</b> and recovery is green. Good day for a hard session`
+      : rec.band === "yellow"
+        ? `HRV sits <b>${hrvPct >= 0 ? hrvPct + "% above" : Math.abs(hrvPct) + "% below"} baseline</b> and recovery is amber. Keep today aerobic — target ${n1(tlo)}–${n1(thi)} strain`
+        : `Recovery is red at <b>${Math.round(rec.score)}%</b>. Your HRV is ${Math.abs(hrvPct)}% ${hrvPct < 0 ? "below" : "above"} baseline and you slept ${hhmm(d.sleepMin)}. Today is a rest day`;
+
+  const body =
+    muscleGap > 0.5
+      ? ` — and your InBody plan wants <b>+${n1(muscleGap)}kg muscle</b>, so make it strength. Protein is your gap: target <b>~${protein}g</b>.`
+      : ` — lean mass is already at target for your weight, so train for the cardio side. VO₂max at ${Math.round(d.vo2)} is the biggest single lever on your ${n1(ba.years)}-year biological age.`;
+
+  return `<p>${opener}${body}</p>`;
+}
+
+function viewCoach() {
+  const ba = bioAge(d);
+  const rec = recovery(d);
+  const ib = inbody(d);
+  const en = energy(d, rec);
+
+  return `
+    <div class="vhead">
+      <div><h2>Coach</h2><div class="sub">Grounded in your numbers</div></div>
+      <div class="avatar">A</div>
+    </div>
+
+    <div class="bubble ai">
+      Morning. Your biological age is <b>${n1(ba.years)}</b> against a chronological
+      ${d.age} — that gap is driven mostly by VO₂max (${Math.round(d.vo2)}, weighted 30%) and
+      HRV (${Math.round(d.hrv)} ms, weighted 25%).
+    </div>
+    <div class="bubble me">what should I actually do today?</div>
+    <div class="bubble ai">${coachLine(d, ba, rec, ib)}</div>
+    <div class="bubble me">why is my biological age what it is?</div>
+    <div class="bubble ai">
+      Six inputs, each scored against age-and-sex norms, then weighted:
+      <br>· VO₂max <b>${Math.round(ba.sub.vo2)}</b>/100 × 30%
+      <br>· HRV <b>${Math.round(ba.sub.hrv)}</b>/100 × 25%
+      <br>· Resting HR <b>${Math.round(ba.sub.rhr)}</b>/100 × 20%
+      <br>· Sleep <b>${Math.round(ba.sub.sleep)}</b>/100 × 10%
+      <br>· Body fat <b>${Math.round(ba.sub.bodyfat)}</b>/100 × 10%
+      <br>· Activity <b>${Math.round(ba.sub.activity)}</b>/100 × 5%
+      <br><br>Composite <b>${Math.round(ba.composite)}</b>/100. Above 50 pulls your age down, below
+      pushes it up, capped at ±15 years so one bad night can never rewrite the number.
+    </div>
+
+    <div class="sect">Energy</div>
+    <div class="hero">
+      <div class="cap">HybridCharge</div>
+      <div class="bigrow">
+        <span class="big num">${Math.round(en)}</span><span class="bigunit">%</span>
+      </div>
+      <div class="meter" style="margin-top:12px;height:5px">
+        <i style="width:${en}%;background:linear-gradient(90deg,var(--coral),var(--yellow),var(--green))"></i>
+      </div>
+      <p style="font-size:11.5px;color:var(--faint);margin-top:8px">
+        Starts high after good sleep, depletes with strain, partially recovers on rest.
+      </p>
+    </div>
+
+    <div class="chips">
+      <button class="chip">Why is my HRV down?</button>
+      <button class="chip">Can I train hard tomorrow?</button>
+      <button class="chip">How do I lose fat without losing muscle?</button>
+    </div>
+
+    <p class="note">
+      In the shipped app the coach reads only your own local numbers — the ones in the panel beside
+      this phone. Nothing about you is sent anywhere to answer a question.
+    </p>`;
+}
+
+/* ------------------------------------------------------------- chrome */
+
+const TABS = [
+  { id: "today", label: "Today", icon: '<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/>' },
+  { id: "recovery", label: "Recovery", icon: '<path d="M2 12h4l2-7 4 14 3-9 2 2h5"/>' },
+  { id: "strain", label: "Strain", icon: '<path d="M5 20V10M10 20V4M15 20V13M20 20V7"/>' },
+  { id: "body", label: "Body", icon: '<circle cx="12" cy="4.5" r="2.5"/><path d="M12 7v7M12 14l-4 7M12 14l4 7M5 9l7 1 7-1"/>' },
+  { id: "coach", label: "Coach", icon: '<path d="M21 12a8 8 0 0 1-8 8H4l2-3a8 8 0 1 1 15-5Z"/>' },
+];
+
+const VIEWS = { today: viewToday, recovery: viewRecovery, strain: viewStrain, body: viewBody, coach: viewCoach };
+
+function render() {
+  el("view").innerHTML = VIEWS[tab]();
+  el("tabbar").innerHTML = TABS.map(
+    (t) => `<button class="tab ${t.id === tab ? "on" : ""}" data-tab="${t.id}">
+      <svg viewBox="0 0 24 24">${t.icon}</svg>${t.label}</button>`
+  ).join("");
+  el("tabbar").querySelectorAll("[data-tab]").forEach((b) =>
+    b.addEventListener("click", () => { tab = b.dataset.tab; render(); el("view").scrollTop = 0; })
+  );
+  syncPanel();
+}
+
+/* --------------------------------------------------------- the controls */
+
+const SLIDERS = [
+  ["age", "ageV", (v) => v],
+  ["hrv", "hrvV", (v) => v],
+  ["rhr", "rhrV", (v) => v],
+  ["vo2", "vo2V", (v) => v],
+  ["sleep", "sleepV", (v) => hhmm(v)],
+  ["resp", "respV", (v) => n1(v)],
+  ["strain", "strainV", (v) => n1(v)],
+  ["steps", "stepsV", (v) => Number(v).toLocaleString()],
+  ["weight", "weightV", (v) => n1(v)],
+  ["height", "heightV", (v) => Math.round(v)],
+  ["pbf", "pbfV", (v) => n1(v)],
+  ["smm", "smmV", (v) => n1(v)],
+];
+
+const FIELD = { sleep: "sleepMin" };
+const fieldOf = (id) => FIELD[id] ?? id;
+
+function syncPanel() {
+  for (const [id, out, fmt] of SLIDERS) {
+    const value = d[fieldOf(id)];
+    el(id).value = value;
+    el(out).textContent = fmt(value);
+  }
+  document.querySelectorAll("#sexSel button").forEach((b) =>
+    b.classList.toggle("on", b.dataset.sex === d.sex)
+  );
+}
+
+function wire() {
+  for (const [id] of SLIDERS) {
+    el(id).addEventListener("input", (e) => {
+      // Baselines are deliberately NOT moved here. Recovery is today-against-
+      // your-own-30-day-mean, so holding the baseline still is what lets you
+      // see the reading move against it.
+      d[fieldOf(id)] = Number(e.target.value);
+      render();
+    });
+  }
+  document.querySelectorAll("#sexSel button").forEach((b) =>
+    b.addEventListener("click", () => { d.sex = b.dataset.sex; render(); })
+  );
+  el("reset").addEventListener("click", () => { d = { ...DEMO }; render(); });
+  el("randomise").addEventListener("click", () => {
+    const age = 22 + Math.floor(Math.random() * 40);
+    const sex = Math.random() < 0.5 ? "M" : "F";
+    const fit = Math.random();                       // one latent "fitness" factor
+    const weight = Math.round((sex === "M" ? 62 : 50) + Math.random() * 34);
+    const pbf = Math.round(((sex === "M" ? 12 : 20) + (1 - fit) * 20) * 10) / 10;
+    d = {
+      age, sex,
+      hrv: Math.round(28 + fit * 55 - (age - 25) * 0.4),
+      hrvBase: Math.round(30 + fit * 45 - (age - 25) * 0.4),
+      rhr: Math.round(72 - fit * 26 + (age - 25) * 0.1),
+      rhrBase: Math.round(72 - fit * 24 + (age - 25) * 0.1),
+      resp: Math.round((13 + Math.random() * 3) * 10) / 10,
+      respBase: 14.0,
+      vo2: Math.round(24 + fit * 32 - (age - 25) * 0.22),
+      sleepMin: Math.round(300 + Math.random() * 190),
+      strain: Math.round((3 + fit * 14) * 10) / 10,
+      steps: Math.round(3500 + fit * 15000),
+      weight,
+      height: Math.round((sex === "M" ? 168 : 156) + Math.random() * 20),
+      pbf,
+      smm: Math.round((weight * (sex === "M" ? 0.40 : 0.34) + fit * weight * 0.07) * 10) / 10,
+    };
+    d.hrvBase = Math.max(15, d.hrvBase);
+    render();
+  });
+}
+
+wire();
+render();
+</script>
+</body>
+</html>

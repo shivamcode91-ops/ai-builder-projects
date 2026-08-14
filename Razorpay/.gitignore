@@ -16,3 +16,6 @@ npm-debug.log*
 # Local browser-automation artefacts
 .playwright-mcp/
 
+
+# Static-export scratch (routes are parked here mid-build)
+.api-parked/

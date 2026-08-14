@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shivam Purbe — AI builds you can open and try right now</title>
+<meta name="description" content="Three AI products, all live in the browser: a safety layer for AI payment agents, an AI credit-structuring workbench, and an on-device health app. Each runs a demo environment by default; bring your own key and data to run it for real.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A0B0D; --card:#131519; --card2:#191C21; --line:#252932; --line2:#333842;
+  --text:#F2F3F5; --muted:#9096A0; --faint:#636974;
+  --a1:#E2603F; --a2:#2FA37E; --a3:#6C8CE8;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --serif:'Instrument Serif',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px;scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--a1);outline-offset:3px;border-radius:8px}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+header{padding:76px 0 46px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:20px}
+h1{font-family:var(--serif);font-size:clamp(34px,5.4vw,56px);line-height:1.06;letter-spacing:-.015em;max-width:19ch}
+h1 em{font-style:italic;color:var(--a1)}
+header p{color:var(--muted);font-size:16px;max-width:60ch;margin-top:20px}
+header p b{color:var(--text);font-weight:500}
+.meta{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
+.chip{font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--line);
+  border-radius:20px;padding:6px 13px}
+
+.grid{display:grid;gap:20px;padding:44px 0 20px}
+@media (min-width:900px){ .grid{grid-template-columns:repeat(3,1fr)} }
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:0;
+  display:flex;flex-direction:column;overflow:hidden;transition:border-color .16s,transform .16s}
+.card:hover{border-color:var(--line2);transform:translateY(-2px)}
+.card .top{height:4px}
+.card .body{padding:24px 22px 22px;display:flex;flex-direction:column;flex:1}
+.kicker{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+.card h2{font-family:var(--serif);font-size:26px;line-height:1.15;margin-bottom:9px}
+.card .oneline{font-size:14px;color:var(--muted);margin-bottom:16px;flex:1}
+.card .oneline b{color:var(--text);font-weight:500}
+
+.spec{border-top:1px solid var(--line);padding-top:14px;margin-bottom:18px}
+.spec div{display:flex;justify-content:space-between;gap:12px;font-size:12px;padding:4px 0}
+.spec dt{color:var(--faint)}
+.spec dd{color:var(--muted);text-align:right;font-family:var(--mono);font-size:11px}
+
+.cta{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  border-radius:10px;padding:12px 16px;font-size:13.5px;font-weight:600;color:#0A0B0D}
+.cta span.arrow{font-size:17px;line-height:1}
+.sub-cta{text-align:center;font-size:11.5px;color:var(--faint);margin-top:10px}
+.sub-cta a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+
+.how{padding:46px 0 20px;border-top:1px solid var(--line);margin-top:34px}
+.how h3{font-family:var(--serif);font-size:26px;margin-bottom:8px}
+.how > p{color:var(--muted);font-size:14.5px;max-width:64ch;margin-bottom:26px}
+.hgrid{display:grid;gap:18px}
+@media (min-width:760px){ .hgrid{grid-template-columns:repeat(3,1fr)} }
+.hcard{border:1px solid var(--line);border-radius:14px;padding:18px}
+.hcard h4{font-size:13.5px;font-weight:600;margin-bottom:7px}
+.hcard p{font-size:12.5px;color:var(--muted);line-height:1.6}
+.hcard code{font-family:var(--mono);font-size:11.5px;background:var(--card2);padding:1px 5px;border-radius:4px;color:var(--text)}
+
+footer{padding:40px 0 60px;border-top:1px solid var(--line);margin-top:44px;
+  font-size:12.5px;color:var(--faint);display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between}
+footer a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Shivam Purbe · AI product builds</div>
+    <h1>Three products. All of them <em>open in a tab</em>.</h1>
+    <p>
+      Not screenshots, not a deck — the actual thing, running. Each one starts in a
+      <b>demo environment</b> so there is nothing to set up: no login, no key, no upload.
+      When you want to test a real case, each one takes <b>your own API key and your own data</b>,
+      and neither ever touches a server of mine.
+    </p>
+    <div class="meta">
+      <span class="chip">Next.js · React</span>
+      <span class="chip">Python · Claude</span>
+      <span class="chip">Swift · SwiftUI · HealthKit</span>
+      <span class="chip">No backend, no accounts</span>
+    </div>
+  </header>
+
+  <main class="grid">
+
+    <article class="card">
+      <div class="top" style="background:var(--a3)"></div>
+      <div class="body">
+        <div class="kicker" style="color:var(--a3)">Payments · AI safety</div>
+        <h2>AgentGuard</h2>
+        <p class="oneline">
+          Before an AI assistant moves any money, this checks it. Every refund and payment link the
+          assistant proposes is tested against the merchant's limits <b>and</b> against the job the
+          owner actually described — then <b>approved, held, or blocked</b>, with the reason in plain
+          words. One button fires ten known scam attempts through the same pipeline and scores what
+          was stopped.
+        </p>
+        <dl class="spec">
+          <div><dt>Try</dt><dd>90 seconds, 6 screens</dd></div>
+          <div><dt>Demo mode</dt><dd>rules live + recorded LLM</dd></div>
+          <div><dt>Your key</dt><dd>OpenRouter · Groq · Claude</dd></div>
+          <div><dt>Score</dt><dd>9 / 10, gap explained</dd></div>
+        </dl>
+        <a class="cta" style="background:var(--a3)" href="agentguard/">
+          Open AgentGuard <span class="arrow">→</span>
+        </a>
+        <p class="sub-cta">
+          <a href="https://github.com/shivamcode91-ops/ai-builder-projects/tree/main/Razorpay">Read the code</a>
+        </p>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="top" style="background:var(--a2)"></div>
+      <div class="body">
+        <div class="kicker" style="color:var(--a2)">Lending · Credit</div>
+        <h2>Credit Workbench</h2>
+        <p class="oneline">
+          Reads a company's dataroom and produces a credit snapshot and a recommended debt structure —
+          product, amount, tenor, covenants — then answers an underwriter's follow-ups grounded in it.
+          Built on one rule: <b>the model never computes a number that code can compute.</b>
+        </p>
+        <dl class="spec">
+          <div><dt>Try</dt><dd>3 recorded runs</dd></div>
+          <div><dt>Demo mode</dt><dd>real pipeline output</dd></div>
+          <div><dt>Your key</dt><dd>Anthropic + your dataroom</dd></div>
+          <div><dt>Verdicts</dt><dd>2 conditional · 1 decline</dd></div>
+        </dl>
+        <a class="cta" style="background:var(--a2)" href="debt/">
+          Open Credit Workbench <span class="arrow">→</span>
+        </a>
+        <p class="sub-cta">
+          <a href="https://github.com/shivamcode91-ops/ai-builder-projects/tree/main/financial-debt-structuring">Read the code</a>
+        </p>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="top" style="background:var(--a1)"></div>
+      <div class="body">
+        <div class="kicker" style="color:var(--a1)">Health · iOS</div>
+        <h2>Vitalis</h2>
+        <p class="oneline">
+          A native iOS app that turns Apple Health and InBody scans into one number:
+          <b>Biological Age</b>. Recovery, Strain and Sleep in the Whoop tradition, plus the body
+          composition no wrist wearable can measure. The scoring model runs here exactly as it runs on
+          the phone — change any reading and watch every score move.
+        </p>
+        <dl class="spec">
+          <div><dt>Try</dt><dd>5 screens, live scoring</dd></div>
+          <div><dt>Demo mode</dt><dd>sample readings</dd></div>
+          <div><dt>Your data</dt><dd>type your own numbers</dd></div>
+          <div><dt>Privacy</dt><dd>100% on-device</dd></div>
+        </dl>
+        <a class="cta" style="background:var(--a1)" href="vitalis/">
+          Open Vitalis <span class="arrow">→</span>
+        </a>
+        <p class="sub-cta">
+          <a href="https://github.com/shivamcode91-ops/ai-builder-projects/tree/main/vitalis-health-app">Read the code</a>
+        </p>
+      </div>
+    </article>
+
+  </main>
+
+  <section class="how">
+    <h3>How the demos are built</h3>
+    <p>
+      Every one of these is a static page on GitHub Pages. There is no server in the path — which is
+      the point, not a limitation: it is what lets a stranger paste an API key into a page a stranger
+      wrote.
+    </p>
+    <div class="hgrid">
+      <div class="hcard">
+        <h4>Demo first, always</h4>
+        <p>
+          Nothing asks you for anything to see the product work. AgentGuard's rule engine runs live
+          and its model layer serves a labelled recording; the workbench serves real pipeline output;
+          Vitalis ships sample readings. Recorded content says so on screen, every time.
+        </p>
+      </div>
+      <div class="hcard">
+        <h4>Your key never reaches me</h4>
+        <p>
+          When you supply a key it goes from your tab straight to the provider. It lives in
+          <code>sessionStorage</code> and dies with the tab — never <code>localStorage</code>, never a
+          cookie, never a URL, and never a server of mine, because there isn't one.
+        </p>
+      </div>
+      <div class="hcard">
+        <h4>The failures are on the page too</h4>
+        <p>
+          AgentGuard scores 9/10 and explains the tenth rather than hiding it. The workbench declines
+          one of its three companies. A demo that only shows the happy path is a slideshow.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Built by Shivam Purbe · <a href="https://github.com/shivamcode91-ops/ai-builder-projects">source on GitHub</a></span>
+    <span>Companies and health readings in the demos are fictional.</span>
+  </footer>
+
+</div>
+
+</body>
+</html>

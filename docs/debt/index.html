@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Credit Workbench — AI debt structuring, live</title>
+<meta name="description" content="Reads a company's dataroom and produces a credit snapshot and a recommended debt structure, then answers questions grounded in it. Demo environment by default; add your own key and dataroom to run it live.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16283A; --muted:#5D6B7A; --faint:#8A97A5;
+  --paper:#F5F7F9; --card:#FFFFFF; --line:#E2E8F0; --line-strong:#CBD5E1;
+  --green:#0B6B4F; --red:#B3261E; --amber:#9A5B00; --blue:#1B4E89; --blue-bg:#EAF1F9;
+  --accent:#134E4A; --accent-dark:#0B3B38;
+  --sans:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --serif:'IBM Plex Serif',Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px;scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+button,input,select{font-family:inherit;font-size:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:4px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+code{font-family:var(--mono);font-size:.92em;background:var(--paper);padding:1px 4px;border-radius:3px}
+a{color:var(--blue)}
+
+/* ---- top bar ---- */
+.topbar{position:sticky;top:0;z-index:40;background:var(--card);border-bottom:1px solid var(--line);
+  border-top:3px solid var(--accent);display:flex;align-items:center;gap:14px;padding:0 20px;height:58px}
+.mark{display:flex;align-items:center;gap:9px;flex-shrink:0;border:none;background:none;padding:0}
+.marklogo{width:28px;height:28px;border-radius:7px;background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:600;font-size:15px}
+.mark .bw{line-height:1.2;text-align:left}
+.mark .bw b{display:block;font-size:13.5px;font-weight:600}
+.mark .bw span{font-size:10px;color:var(--faint);letter-spacing:.07em;text-transform:uppercase}
+.crumb{font-size:12.5px;color:var(--muted);border-left:1px solid var(--line);padding-left:14px}
+.topbar .right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.modebadge{font-size:10.5px;color:var(--muted);border:1px solid var(--line);padding:4px 10px;border-radius:12px;white-space:nowrap}
+.modebadge.live{color:var(--green);border-color:var(--green);background:#F0F7F4;font-weight:500}
+.btn{border:1px solid var(--line-strong);background:var(--card);border-radius:6px;padding:7px 14px;font-size:12.5px;color:var(--ink);font-weight:500}
+.btn:hover{background:var(--paper)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{background:var(--accent-dark)}
+.btn.primary:disabled{background:#94A3B8;border-color:#94A3B8;cursor:not-allowed}
+.btn.quiet{border-color:transparent;color:var(--muted)}
+.btn.quiet:hover{color:var(--ink);background:var(--paper)}
+
+/* ---- shell ---- */
+.wrap{max-width:1240px;margin:0 auto;padding:22px 20px 60px}
+body[data-view="queue"] #memowrap{display:none}
+body[data-view="memo"] #queuewrap{display:none}
+
+.lede{max-width:760px;margin-bottom:20px}
+.lede h1{font-family:var(--serif);font-size:26px;line-height:1.25;font-weight:600;margin-bottom:8px}
+.lede p{color:var(--muted);font-size:13.5px}
+.lede p + p{margin-top:8px}
+
+/* ---- queue ---- */
+.qsummary{display:flex;gap:10px;margin:16px 0;flex-wrap:wrap}
+.qchip{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);
+  border-radius:16px;padding:6px 14px;font-size:12px;color:var(--muted)}
+.qchip b{color:var(--ink);font-family:var(--mono)}
+.qtable{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.qhead,.qrow{display:grid;grid-template-columns:110px minmax(190px,1.2fr) 110px 62px minmax(180px,1.2fr) 96px 96px 22px;
+  gap:14px;align-items:center;padding:12px 18px}
+.qhead{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);font-weight:600;
+  border-bottom:1px solid var(--line-strong)}
+.qrow{border:none;border-bottom:1px solid var(--line);cursor:pointer;background:var(--card);width:100%;
+  text-align:left;font-family:var(--sans);font-size:12.5px;color:var(--ink)}
+.qrow:last-child{border-bottom:none}
+.qrow:hover{background:#FAFBFC}
+.qname b{display:block;font-weight:600}
+.qname span{font-size:11px;color:var(--faint)}
+.qlead{color:var(--muted)}
+.qsrc{font-size:10.5px;color:var(--faint)}
+.qchev{color:var(--line-strong);font-size:16px}
+.qnote{margin-top:14px;font-size:12px;color:var(--muted);max-width:720px}
+.qstamp{font-size:9.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid;border-radius:4px;padding:3px 7px;justify-self:start;background:var(--card);white-space:nowrap}
+.qstamp.approve{color:var(--green);border-color:var(--green)}
+.qstamp.conditional{color:var(--amber);border-color:var(--amber)}
+.qstamp.decline{color:var(--red);border-color:var(--red)}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:middle}
+.dot.g{background:var(--green)} .dot.a{background:#C98A00} .dot.r{background:var(--red)} .dot.n{background:var(--line-strong)}
+
+/* ---- memo ---- */
+.memogrid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:20px;align-items:start}
+.memohead{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:14px;flex-wrap:wrap}
+.memohead h2{font-family:var(--serif);font-size:23px;font-weight:600;margin-top:8px}
+.memohead .sub{font-size:11.5px;color:var(--faint);font-family:var(--mono)}
+.memoright{text-align:right;display:flex;flex-direction:column;gap:7px;align-items:flex-end}
+.riskband{font-size:12px;color:var(--muted)}
+.srcbadge{font-size:10.5px;color:var(--faint);border:1px solid var(--line);border-radius:11px;padding:3px 9px}
+.srcbadge.live{color:var(--green);border-color:var(--green);background:#F0F7F4}
+.verdict{font-size:14.5px;line-height:1.6;margin-bottom:18px;padding-left:14px;border-left:3px solid var(--accent);color:var(--ink)}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin-bottom:16px}
+.card h3{font-size:13px;font-weight:600;letter-spacing:.02em;margin-bottom:14px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.card h5{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:600;margin-bottom:8px}
+.tag{font-size:10.5px;font-weight:400;color:var(--faint);letter-spacing:0;text-transform:none}
+
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:18px}
+.metric{background:var(--card);padding:11px 13px;display:flex;flex-direction:column;gap:2px}
+.ml{font-size:10.5px;color:var(--faint);letter-spacing:.04em;text-transform:uppercase}
+.mv{font-size:18px;font-weight:500;line-height:1.2}
+.mn{font-size:10.5px;color:var(--faint)}
+
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.bars{display:flex;gap:14px;align-items:flex-end;height:130px;padding-top:8px}
+.bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;position:relative}
+.bfill{width:100%;max-width:56px;background:linear-gradient(180deg,#2C7A73,var(--accent));border-radius:3px 3px 0 0;display:block}
+.blabel{font-size:10px;color:var(--faint);margin-top:5px}
+.bval{font-size:10.5px;color:var(--muted);margin-top:1px}
+table.kv{width:100%;border-collapse:collapse;font-size:12.5px}
+table.kv td{padding:5px 0;border-bottom:1px solid var(--line)}
+table.kv td:first-child{color:var(--muted)}
+table.kv td:last-child{text-align:right;font-weight:500}
+table.kv tr:last-child td{border-bottom:none}
+
+.dq{border-color:#F0D9A8;background:#FFFCF5}
+.dq ul{list-style:none;font-size:12.5px}
+.dq li{padding:7px 0 7px 20px;position:relative;border-bottom:1px solid #F3E7CC}
+.dq li:last-child{border-bottom:none}
+.dq li::before{content:"⚑";position:absolute;left:0;color:var(--amber)}
+.dq i{color:var(--muted);font-style:normal;display:block;font-size:11.5px}
+
+.signals{list-style:none;font-size:12.5px}
+.signals li{padding:7px 0 7px 20px;position:relative;border-bottom:1px solid var(--line)}
+.signals li:last-child{border-bottom:none}
+.signals li::before{content:"●";position:absolute;left:0;font-size:9px;top:11px;color:var(--faint)}
+.signals li.sev-high::before,.signals li.sev-critical::before{color:var(--red)}
+.signals li.sev-medium::before,.signals li.sev-warn::before{color:var(--amber)}
+.signals li.sev-info::before{color:var(--green)}
+.signals span{display:block;color:var(--muted);font-size:11.5px}
+
+.product{border:1px solid var(--line);border-radius:9px;padding:16px;margin-bottom:14px;background:#FCFDFD}
+.product:last-of-type{margin-bottom:0}
+.product header{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin-bottom:6px}
+.product h4{font-size:15px;font-weight:600}
+.pamt{font-size:17px;font-weight:600;color:var(--accent)}
+.ppurpose{font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.pmeta{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:11.5px;color:var(--muted);margin-bottom:12px}
+.pmeta b{color:var(--ink);font-weight:500}
+details.basis{margin-bottom:9px;border:1px solid var(--line);border-radius:6px;background:var(--card)}
+details.basis summary{cursor:pointer;padding:8px 12px;font-size:11.5px;font-weight:500;color:var(--blue);list-style:none}
+details.basis summary::-webkit-details-marker{display:none}
+details.basis summary::before{content:"▸ ";color:var(--faint)}
+details.basis[open] summary::before{content:"▾ "}
+details.basis pre{padding:0 12px 12px;font-family:var(--mono);font-size:11px;line-height:1.65;white-space:pre-wrap;color:var(--ink)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:12px}
+.plist ul{list-style:none;font-size:11.5px;color:var(--muted)}
+.plist li{padding:3px 0 3px 12px;position:relative}
+.plist li::before{content:"–";position:absolute;left:0;color:var(--line-strong)}
+.declined{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line-strong)}
+.declined ul{list-style:none;font-size:12px;color:var(--muted)}
+.declined li{padding:4px 0}
+ul.plain,ol.plain{font-size:12.5px;color:var(--ink);padding-left:18px}
+ul.plain{list-style:disc}
+ul.plain li,ol.plain li{padding:4px 0}
+.none{color:var(--faint);font-size:12.5px}
+.runmeta{font-size:10.5px;color:var(--faint);font-family:var(--mono);margin-top:4px}
+
+/* ---- copilot ---- */
+.copilot{position:sticky;top:78px;background:var(--card);border:1px solid var(--line);border-radius:10px;
+  display:flex;flex-direction:column;max-height:calc(100vh - 100px)}
+.cohead{padding:14px 16px;border-bottom:1px solid var(--line)}
+.cohead h3{font-size:13px;font-weight:600}
+.cohead p{font-size:11.5px;color:var(--faint);margin-top:2px}
+#chatlog{flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:12px;min-height:220px}
+.msg{font-size:12.5px;line-height:1.6}
+.msg.me{align-self:flex-end;max-width:88%;background:var(--blue-bg);color:var(--blue);
+  padding:8px 12px;border-radius:12px 12px 3px 12px;font-weight:500}
+.msg.bot{max-width:100%}
+.msg.sys{font-size:11.5px;color:var(--faint);border-left:2px solid var(--line-strong);padding-left:10px}
+.msg.bot p{margin-bottom:7px}
+.msg.bot h4{font-size:12.5px;font-weight:600;margin:9px 0 5px}
+.msg.bot ul{padding-left:16px;margin-bottom:7px;list-style:disc}
+.msg.bot li{margin-bottom:3px}
+.msg.bot hr{border:none;border-top:1px solid var(--line);margin:10px 0}
+.msg .pending{color:var(--faint);font-style:italic}
+.msg .err{color:var(--red)}
+.recorded{font-size:10px;color:var(--faint);border-top:1px dashed var(--line);padding-top:5px;margin-top:8px}
+.recorded.live{color:var(--green);border-color:#C7E5DA}
+#suggest{padding:0 16px 10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.slabel{font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);width:100%}
+.schip{border:1px solid var(--line);background:var(--paper);border-radius:14px;padding:5px 11px;
+  font-size:11.5px;color:var(--muted);text-align:left}
+.schip:hover{border-color:var(--accent);color:var(--accent)}
+#chatform{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--line)}
+#chatinput{flex:1;border:1px solid var(--line-strong);border-radius:6px;padding:8px 11px;font-size:12.5px;min-width:0}
+
+/* ---- sheet ---- */
+#sheetback{position:fixed;inset:0;background:rgba(22,40,58,.42);z-index:50}
+#sheet{position:fixed;top:0;right:0;bottom:0;width:min(520px,100%);background:var(--card);z-index:51;
+  overflow-y:auto;padding:24px;box-shadow:-8px 0 32px rgba(22,40,58,.14)}
+#sheet h2{font-family:var(--serif);font-size:20px;font-weight:600;margin-bottom:6px}
+#sheet .sheetsub{font-size:12.5px;color:var(--muted);margin-bottom:18px}
+#sheetclose{position:absolute;top:18px;right:18px;border:none;background:none;font-size:22px;color:var(--faint);line-height:1}
+.step{border:1px solid var(--line);border-radius:9px;padding:16px;margin-bottom:14px}
+.step h3{font-size:12.5px;font-weight:600;margin-bottom:4px}
+.step h3 span{color:var(--faint);font-weight:400}
+.step p{font-size:12px;color:var(--muted);margin-bottom:11px}
+.field{display:block;margin-bottom:10px}
+.field span{display:block;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+.field input,.field select{width:100%;border:1px solid var(--line-strong);border-radius:6px;padding:9px 11px;font-size:12.5px}
+.field input{font-family:var(--mono)}
+.row{display:flex;gap:8px;align-items:center}
+.status{font-size:11.5px;color:var(--muted);margin-top:9px;min-height:16px}
+.status.err{color:var(--red)} .status.ok{color:var(--green)}
+#drop{border:1.5px dashed var(--line-strong);border-radius:8px;padding:22px 14px;text-align:center;
+  cursor:pointer;background:var(--paper);font-size:12.5px;color:var(--muted)}
+#drop:hover,#drop.over{border-color:var(--accent);background:#F2F8F7;color:var(--accent)}
+#drop b{display:block;color:var(--ink);margin-bottom:3px}
+#picked{font-size:11.5px;color:var(--muted);margin-top:10px}
+#picked ul{list-style:none;font-family:var(--mono);font-size:10.5px;margin-top:4px}
+.privacy{font-size:11px;color:var(--muted);line-height:1.6}
+.privacy li{padding:4px 0 4px 16px;position:relative;list-style:none}
+.privacy li::before{content:"✓";position:absolute;left:0;color:var(--green)}
+
+footer{max-width:1240px;margin:0 auto;padding:26px 20px 40px;font-size:11.5px;color:var(--faint);
+  border-top:1px solid var(--line)}
+footer a{color:var(--muted)}
+
+@media (max-width:1080px){
+  .memogrid{grid-template-columns:1fr}
+  .copilot{position:static;max-height:none}
+  #chatlog{max-height:420px}
+}
+@media (max-width:720px){
+  /* The bar's three controls do not fit one phone-width row — let them take
+     their own line rather than pushing the document wider than the viewport. */
+  .topbar{height:auto;flex-wrap:wrap;padding:9px 14px;gap:8px}
+  .crumb{display:none}
+  .topbar .right{width:100%;margin-left:0;justify-content:space-between;gap:8px}
+  .modebadge{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .btn{padding:7px 11px;white-space:nowrap}
+  .copilot{position:static}
+  #sheet{padding:20px 18px}
+}
+@media (max-width:860px){
+  .qhead{display:none}
+  .qrow{grid-template-columns:1fr auto;gap:6px 12px;padding:14px 16px}
+  .qrow .qlead,.qrow .qsrc,.qrow .qchev{display:none}
+  .twocol{grid-template-columns:1fr}
+  .lede h1{font-size:21px}
+}
+</style>
+</head>
+<body data-view="queue">
+
+<header class="topbar">
+  <button class="mark" id="homebtn" aria-label="Back to queue">
+    <span class="marklogo">C</span>
+    <span class="bw"><b>Credit Workbench</b><span>Debt structuring</span></span>
+  </button>
+  <span class="crumb" id="crumb"></span>
+  <div class="right">
+    <span class="modebadge" id="modebadge">Demo environment · recorded runs</span>
+    <button class="btn quiet" id="backbtn">← Queue</button>
+    <button class="btn primary" id="keybtn">Use your own key + data</button>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div id="queuewrap">
+    <div class="lede">
+      <h1>Reads a company's dataroom. Produces a credit snapshot and a debt structure. Then answers for it.</h1>
+      <p>
+        The pipeline behind this is built around one rule: <b>the model never computes a number that code
+        can compute.</b> Spreadsheets are parsed deterministically; only the documents that genuinely need
+        language or vision go to a model; one reasoning call chooses the structure; then code re-checks the
+        serviceability arithmetic and prints warnings when the answer does not hold up.
+      </p>
+      <p>
+        You are in the <b>demo environment</b> — three recorded runs on fictional companies, with the chat
+        transcripts they produced. Nothing to set up. To run it on a real case, add your own Anthropic key
+        and upload a dataroom; both stay in this tab.
+      </p>
+    </div>
+    <div id="queue"></div>
+  </div>
+
+  <div id="memowrap">
+    <div class="memogrid">
+      <div id="memo"></div>
+      <aside class="copilot">
+        <div class="cohead">
+          <h3>Grounded copilot</h3>
+          <p>Sees this run's snapshot and structure. Nothing else.</p>
+        </div>
+        <div id="chatlog"></div>
+        <div id="suggest"></div>
+        <form id="chatform">
+          <input id="chatinput" placeholder="Ask about this structure…" autocomplete="off">
+          <button class="btn primary" type="submit">Ask</button>
+        </form>
+      </aside>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>
+    Companies in the demo environment are fictional and the datarooms behind them are not in the repo.
+    Source and full write-up:
+    <a href="https://github.com/shivamcode91-ops/ai-builder-projects/tree/main/financial-debt-structuring">financial-debt-structuring</a> ·
+    <a href="../">all demos</a>
+  </p>
+</footer>
+
+<div id="sheetback" hidden></div>
+<aside id="sheet" hidden aria-label="Run with your own key and data">
+  <button id="sheetclose" aria-label="Close">×</button>
+  <h2>Run it on a real case</h2>
+  <p class="sheetsub">
+    The demo environment serves recorded runs. Add a key and this becomes live: your dataroom,
+    your Anthropic account, your numbers.
+  </p>
+
+  <div class="step">
+    <h3>1 · Your Anthropic key</h3>
+    <p>Tested against one real request before it is accepted.</p>
+    <form id="keyform">
+      <label class="field">
+        <span>API key</span>
+        <input id="apikey" type="password" placeholder="sk-ant-…" autocomplete="off" spellcheck="false">
+      </label>
+      <label class="field">
+        <span>Reasoning model (the structuring call)</span>
+        <select id="model">
+          <option value="claude-sonnet-5">claude-sonnet-5 — the pipeline's documented choice</option>
+          <option value="claude-opus-5">claude-opus-5 — deeper, slower, dearer</option>
+          <option value="claude-haiku-4-5">claude-haiku-4-5 — cheapest, weakest on the tradeoffs</option>
+        </select>
+      </label>
+      <div class="row">
+        <button class="btn primary" type="submit">Test &amp; use this key</button>
+        <button class="btn quiet" type="button" id="clearkey">Clear</button>
+      </div>
+      <p class="status" id="keystatus"></p>
+    </form>
+  </div>
+
+  <div class="step" id="uploadstep" hidden>
+    <h3>2 · Your dataroom <span>— optional</span></h3>
+    <p>
+      Financial statements, bank statement, MIS, ageing, sanction letter. Spreadsheets are parsed
+      here in the browser and reduced to aggregates; PDFs and scans go to the model as documents.
+    </p>
+    <div id="drop">
+      <b>Drop files here, or click to choose</b>
+      .xlsx · .pdf · .csv · .png/.jpg · .txt
+    </div>
+    <input id="files" type="file" multiple hidden
+           accept=".xlsx,.xlsm,.csv,.pdf,.png,.jpg,.jpeg,.webp,.txt,.md,.json">
+    <div id="picked"></div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn primary" id="runbtn" disabled>Run the pipeline</button>
+    </div>
+    <p class="status" id="runstatus"></p>
+  </div>
+
+  <div class="step">
+    <h3>How your key and files are handled</h3>
+    <ul class="privacy">
+      <li>This page is static. There is no server of ours in the path — the key goes from this tab straight to <code>api.anthropic.com</code>.</li>
+      <li>Stored in <code>sessionStorage</code> only. It dies with the tab. Never <code>localStorage</code>, never a cookie.</li>
+      <li>Sent in a request header, never in a URL, so it cannot land in a log or your browser history.</li>
+      <li>Files are read in the browser. They are sent to Anthropic as part of your request and nowhere else.</li>
+      <li>Provider errors are run through a redactor before they are shown, so a bad key never appears on screen.</li>
+    </ul>
+  </div>
+</aside>
+
+<script src="demo-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

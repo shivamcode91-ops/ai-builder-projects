@@ -1,5 +1,11 @@
 # Financial Debt-Structuring Pipeline
 
+### ▶︎ **[Open the live workbench →](https://shivamcode91-ops.github.io/ai-builder-projects/debt/)**
+
+Three recorded runs — two conditional, one decline — with the memos and the grounded chat they
+produced. Nothing to set up. To run a real case, add your own Anthropic key and upload a dataroom;
+both stay in your browser.
+
 Reads a company's Dataroom + AICA report and produces a **credit snapshot** and a
 **recommended debt structure** (product + terms + rationale) as JSON, then supports a
 multi-turn follow-up chat on the same company. Built as an AI Product

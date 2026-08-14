@@ -17,3 +17,11 @@ xcuserdata/
 
 # --- macOS ---
 .DS_Store
+
+# --- Working folders that are not part of the published repo ---
+# 9 GB of raw video, screen recordings and datasets for a project that is not
+# published here. Kept locally, never committed.
+AI Projects/
+
+# Static-site build inputs that are regenerated, not authored
+Razorpay/out/

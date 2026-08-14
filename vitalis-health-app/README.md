@@ -1,5 +1,12 @@
 # Vitalis — iOS Health App
 
+### ▶︎ **[Open the live demo →](https://shivamcode91-ops.github.io/ai-builder-projects/vitalis/)**
+
+The five screens, running the real scoring model from [`docs/VITALIS_SPEC.md`](docs/VITALIS_SPEC.md)
+§4 — not screenshots. Change any reading (HRV, VO₂max, sleep, body fat…) and Biological Age,
+Recovery, Strain and the coach's advice all recompute. No install, no key; the app has no backend to
+call, which is exactly why the model was portable to a browser.
+
 A native iOS app that turns **Apple Health** data (from a Helio/Whoop-style strap) plus
 manual **InBody** body-composition scans into a single north-star metric: **Biological
 Age**. It models Recovery, Strain and Sleep (a Whoop-style scoring approach) and adds body

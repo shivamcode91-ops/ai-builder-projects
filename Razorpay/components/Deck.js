@@ -4,6 +4,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { AUTOPLAY, PERMISSIONS, USER_GOAL, AGENT_TASK } from "../lib/scenarios.js";
 import { formatPaise, toolLabel } from "../lib/format.js";
+// `fetch` on the server build; the same pipeline run in this tab on the static
+// one. The call sites below cannot tell the difference. See lib/localApi.js.
+import { apiFetch } from "../lib/localApi.js";
 import {
   ArrowLeft,
   ArrowRight,
@@ -511,7 +514,7 @@ function KeySheet({ cred, onSave, onClear, onClose }) {
   async function test() {
     setState({ busy: true, error: null, ok: null });
     try {
-      const res = await fetch("/api/verdict", {
+      const res = await apiFetch("/api/verdict", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -712,7 +715,7 @@ export default function Deck() {
     fetched.current = true;
 
     AUTOPLAY.forEach((item, idx) => {
-      fetch("/api/verdict", {
+      apiFetch("/api/verdict", {
         method: "POST",
         headers: { "content-type": "application/json", ...authHeaders() },
         body: JSON.stringify({ action: item.action }),
@@ -760,7 +763,7 @@ export default function Deck() {
     setTest(null);
     setRevealed(0);
     try {
-      const res = await fetch("/api/redteam", { method: "POST", headers: authHeaders() });
+      const res = await apiFetch("/api/redteam", { method: "POST", headers: authHeaders() });
       const data = await res.json();
       setRunning(false);
       setTest(data);

@@ -25,8 +25,20 @@ const MAX_MODEL_LEN = 80;
  * `error` is a message safe to show, and never contains key material.
  */
 export function credentialFromRequest(request) {
-  const provider = (request.headers.get(HEADER_PROVIDER) || "").trim().toLowerCase();
-  const apiKey = (request.headers.get(HEADER_KEY) || "").trim();
+  return credentialFromHeaders((name) => request.headers.get(name));
+}
+
+/**
+ * The same rules, against any header source. The static build has no Request
+ * object — the pipeline runs in the visitor's own tab — so it passes a plain
+ * lookup instead. One implementation, so the shape checks and the length caps
+ * cannot drift apart between the two.
+ *
+ * @param {(name: string) => string | null} get
+ */
+export function credentialFromHeaders(get) {
+  const provider = (get(HEADER_PROVIDER) || "").trim().toLowerCase();
+  const apiKey = (get(HEADER_KEY) || "").trim();
 
   // No key supplied — demo mode, which is the normal path.
   if (!provider && !apiKey) return { credential: null, error: null };
@@ -38,7 +50,7 @@ export function credentialFromRequest(request) {
   const problem = validateCredential({ provider, apiKey });
   if (problem) return { credential: null, error: problem };
 
-  let model = (request.headers.get(HEADER_MODEL) || "").trim();
+  let model = (get(HEADER_MODEL) || "").trim();
   if (model.length > MAX_MODEL_LEN || /[^\w./:-]/.test(model)) model = "";
 
   return {
