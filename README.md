@@ -52,9 +52,11 @@ demo gets there differently:
 - **AgentGuard** is the real Next.js app, statically exported. Its two API routes run in the browser
   instead of on a server (`Razorpay/lib/localApi.js`) — both paths call the same `runPipeline()`, so
   the red-team suite is not a separate scripted path. Rebuild with `cd Razorpay && npm run build:static`.
-- **Credit Workbench** is a static workbench over the pipeline's actual deliverable output. Regenerate
-  the bundled runs with `python3 financial-debt-structuring/ui/build_demo_data.py`. Live mode reads
-  your files in the browser and makes the same two model calls the pipeline makes.
+- **Credit Workbench** is `financial-debt-structuring/ui/index.html` — the same workbench that runs
+  against the local pipeline — with only its data layer swapped: `/api/companies` and `/api/output`
+  become the bundled runs in `docs/debt/demo-data.js`, and `/api/run` becomes a browser-side run on
+  your key. The memo, the exception queue and the copilot are the original markup. Regenerate the
+  bundled runs with `python3 financial-debt-structuring/ui/build_demo_data.py`.
 - **Vitalis** is the scoring model from [`docs/VITALIS_SPEC.md`](vitalis-health-app/docs/VITALIS_SPEC.md)
   §4 ported to JS, driving a replica of the five screens. Same formulas, weights and clamps; published
   population medians stand in for the norm tables the iOS build bundles.
