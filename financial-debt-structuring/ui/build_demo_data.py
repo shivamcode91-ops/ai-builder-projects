@@ -21,6 +21,32 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT.parent / "docs" / "debt" / "demo-data.js"
 
+# The published bundle carries no client or product name from the original
+# engagement. final_outputs/ keeps the deliverable exactly as it was produced;
+# only the copy that goes on the public web is scrubbed.
+REDACTIONS = [
+    (re.compile(r"\bAICA[ _]?Report\b", re.I), "Credit_Report"),
+    (re.compile(r"\bAICA\b"), "the assessment"),
+]
+
+
+# Field names carry the client's product name too, and anyone can read the
+# bundle. Renamed on the way out; the workbench reads the new name.
+KEY_RENAMES = {"aica": "assessment"}
+
+
+def scrub(value):
+    """Walk any JSON value and redact client references in keys and strings."""
+    if isinstance(value, str):
+        for pattern, replacement in REDACTIONS:
+            value = pattern.sub(replacement, value)
+        return value
+    if isinstance(value, list):
+        return [scrub(v) for v in value]
+    if isinstance(value, dict):
+        return {KEY_RENAMES.get(k, k): scrub(v) for k, v in value.items()}
+    return value
+
 
 def split_transcript(md: str) -> list[dict]:
     """Turn a saved transcript into [{q, a}] pairs.
@@ -51,7 +77,7 @@ def main() -> None:
         )
         transcript_path = ROOT / "final_outputs" / f"company_{n}_chat_transcript.md"
         turns = split_transcript(transcript_path.read_text()) if transcript_path.exists() else []
-        companies.append({"id": f"company_{n}", "run": run, "turns": turns})
+        companies.append({"id": f"company_{n}", "run": scrub(run), "turns": scrub(turns)})
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(

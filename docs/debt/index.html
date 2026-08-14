@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AICA · Credit workbench — AI debt structuring, live</title>
+<title>Credit Workbench — AI debt structuring, live</title>
 <meta name="description" content="Reads a company's dataroom and produces a credit snapshot and a recommended debt structure, then answers an underwriter's follow-ups grounded in it. Demo environment by default; bring your own key and dataroom to run it live.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -346,6 +346,41 @@ table.data tr:last-child td{border-bottom:none}
 }
 @media(prefers-reduced-motion:reduce){.toast,.cardp,.copilot{transition:none}}
 
+/* ---- opening page ---- */
+.intro{max-width:860px;margin:0 auto;padding:44px 0 30px}
+.intro .kick{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--axis);
+  font-weight:600;margin-bottom:18px}
+.intro h1{font-family:var(--serif);font-weight:600;font-size:clamp(30px,4.6vw,52px);
+  line-height:1.1;letter-spacing:-.01em;margin-bottom:18px}
+.intro h1 em{font-style:italic;color:var(--axis)}
+.intro .lede{font-size:17px;line-height:1.6;color:var(--muted);max-width:60ch}
+.intro .lede b{color:var(--ink);font-weight:600}
+.introrule{height:2px;background:var(--ink);margin:30px 0 26px}
+.problem{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--axis);
+  border-radius:10px;padding:20px 22px;margin-bottom:26px}
+.problem .plabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);
+  font-weight:600;margin-bottom:9px}
+.problem p{font-size:15px;line-height:1.6;max-width:64ch}
+.problem p+p{margin-top:10px;color:var(--muted);font-size:14px}
+.beats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px}
+.beat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 18px 16px}
+.beat .bn{font-family:var(--mono);font-size:11px;color:var(--axis);font-weight:500;margin-bottom:9px}
+.beat h3{font-size:14.5px;font-weight:600;margin-bottom:6px;line-height:1.3}
+.beat p{font-size:12.5px;color:var(--muted);line-height:1.6}
+.whofor{display:flex;gap:26px;flex-wrap:wrap;margin-bottom:28px}
+.whofor > div{flex:1;min-width:210px}
+.whofor .wl{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);
+  font-weight:600;margin-bottom:7px}
+.whofor p{font-size:13.5px;line-height:1.6;color:var(--ink)}
+.whofor p b{font-weight:600}
+.introcta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  border-top:1px solid var(--line);padding-top:22px}
+.bigbtn{background:var(--axis);color:#fff;border:none;border-radius:8px;padding:13px 26px;
+  font-size:14.5px;font-weight:600;font-family:var(--sans)}
+.bigbtn:hover{background:var(--axis-dark)}
+.introcta .note{font-size:12px;color:var(--muted);max-width:44ch}
+@media(max-width:820px){.beats{grid-template-columns:1fr}.intro{padding:26px 0 20px}}
+
 /* ---- static-demo additions: environment badge + bring-your-own key/data ---- */
 .envbadge{font-size:10.5px;color:var(--muted);border:1px solid var(--line);padding:4px 11px;
   border-radius:12px;white-space:nowrap}
@@ -401,9 +436,10 @@ table.data tr:last-child td{border-bottom:none}
 <body>
 
 <header class="topbar">
-  <div class="bankmark"><span class="banklogo" title="Placeholder — swap with the bank logo asset">A</span>
-    <span class="bw"><b>Commercial Bank</b><span>Commercial credit</span></span></div>
-  <span class="sourcetag">Leads via <b>AICA</b></span>
+  <button class="bankmark" onclick="renderIntro()" title="Back to the start" style="border:none;background:none;padding:0;cursor:pointer">
+    <span class="banklogo" title="Placeholder — swap with the bank logo asset">A</span>
+    <span class="bw"><b>Commercial Bank</b><span>Commercial credit</span></span></button>
+  <span class="sourcetag">Leads via <b>Credit Workbench</b></span>
   <button class="crumb" id="crumb" onclick="renderQueue()" style="display:none">← Queue</button>
   <nav class="tabs" id="tabs" aria-label="Leads in your queue"></nav>
   <div class="right">
@@ -422,8 +458,8 @@ table.data tr:last-child td{border-bottom:none}
 <div class="layout">
   <main class="main" id="app" aria-live="polite"></main>
 
-  <aside class="copilot" id="copilot" aria-label="AICA copilot">
-    <div class="dhead"><b>AICA copilot</b><span class="scope" id="dcomp"></span>
+  <aside class="copilot" id="copilot" aria-label="Credit copilot">
+    <div class="dhead"><b>Credit copilot</b><span class="scope" id="dcomp"></span>
       <button class="modebtn" onclick="saveTranscript()" title="Download this chat as markdown">⤓ Save</button>
       <button class="modebtn" id="modeBtn" onclick="toggleFloat()" title="Switch between docked and floating">⇱ Float</button>
       <button class="close" onclick="toggleCopilot()" aria-label="Close copilot">✕</button></div>
@@ -516,7 +552,7 @@ function boot(){
   META={companies:runs.map(c=>({name:c.id,has_output:true,
           n_files:Object.keys(c.run.credit_snapshot?.documents||{}).length+5}))};
   restoreCred();
-  renderQueue();
+  renderIntro();
 }
 
 /* ---- the visitor's own key. sessionStorage only; dies with the tab. ---- */
@@ -532,6 +568,102 @@ function syncEnv(){
   b.classList.toggle("live",!!cred);
 }
 const redact=s=>String(s??"").replace(/sk-ant-[\w-]+/g,"[key redacted]").slice(0,300);
+
+/* ============ opening page — what this is, before any of the numbers ====== */
+function renderIntro(){
+  current=null;
+  document.getElementById("crumb").style.display="none";
+  document.getElementById("tabs").innerHTML="";
+  document.getElementById("tele").innerHTML="";
+  document.getElementById("dcomp").textContent="";
+  document.getElementById("app").innerHTML=`
+  <section class="intro">
+    <div class="kick">Commercial credit · AI assessment</div>
+    <h1>A borrower sends you forty files.<br>You have to decide <em>how much, and on what terms.</em></h1>
+    <p class="lede">
+      This reads the whole dataroom and writes the credit memo — the snapshot, the exceptions worth
+      arguing about, and a facility structure with <b>the arithmetic behind every number</b>. Then it
+      sits there and answers for it.
+    </p>
+
+    <div class="introcta" style="border-top:none;padding-top:22px">
+      <button class="bigbtn" onclick="renderQueue()">Open the credit queue →</button>
+      <span class="note">
+        Three assessed companies are waiting — two conditional, one declined. No login, no key,
+        nothing to set up.
+      </span>
+    </div>
+
+    <div class="introrule"></div>
+
+    <div class="problem">
+      <div class="plabel">The problem</div>
+      <p>
+        A credit analyst spends two or three days per file. Most of it is not judgment — it is opening
+        spreadsheets, re-typing figures, and finding out that the cash-flow model and the bank statement
+        disagree by six crore.
+      </p>
+      <p>
+        Then the memo goes to committee, someone asks "why this amount?", and the working is in a
+        spreadsheet nobody can find.
+      </p>
+    </div>
+
+    <div class="beats">
+      <div class="beat">
+        <div class="bn">01</div>
+        <h3>The numbers are computed, not guessed</h3>
+        <p>
+          Every spreadsheet is parsed in code — bank statements, ageing, the model. A ~2,700-row bank
+          statement costs zero tokens. The model is never asked to do arithmetic it can get wrong.
+        </p>
+      </div>
+      <div class="beat">
+        <div class="bn">02</div>
+        <h3>Disagreements are surfaced, not averaged</h3>
+        <p>
+          When two documents state a different figure, it takes the weaker one, raises it as an
+          exception you have to clear, and attaches a condition precedent. It never quietly splits
+          the difference.
+        </p>
+      </div>
+      <div class="beat">
+        <div class="bn">03</div>
+        <h3>The structure is re-checked in code</h3>
+        <p>
+          One reasoning call proposes the facility. Then code re-derives post-facility DSCR and the
+          advance-rate caps, and prints a warning when the recommendation does not actually hold up.
+        </p>
+      </div>
+    </div>
+
+    <div class="whofor">
+      <div>
+        <div class="wl">Who it's for</div>
+        <p>
+          The <b>credit officer who has to sign</b> — and the committee that will ask them why. Not a
+          chatbot bolted onto a lending product: the screen the decision is actually made on.
+        </p>
+      </div>
+      <div>
+        <div class="wl">What you get</div>
+        <p>
+          A memo you can <b>argue with</b>. Every figure traceable to a file, every exception on the
+          page rather than in a footnote, and a decline that says plainly why.
+        </p>
+      </div>
+    </div>
+
+    <div class="introcta">
+      <button class="bigbtn" onclick="renderQueue()">Open the credit queue →</button>
+      <span class="note">
+        Or <b>Run your own ↗</b> — your Anthropic key and your own dataroom, both of which stay in
+        this browser. There is no server here to send them to.
+      </span>
+    </div>
+  </section>`;
+  renderChat(true);
+}
 
 /* ============ queue landing — the lender's inbox ============ */
 function timeAgo(iso){
@@ -568,7 +700,7 @@ function renderQueue(){
     return `<button class="qrow ${e==="decline"?"qdecline":""}" onclick="pick('${f}')" aria-label="Open ${esc(tabNameOf(f))}">
       <span class="qstamp ${stamp.cls}">${stamp.text}</span>
       <span class="qco"><b>${esc(tabNameOf(f))}</b><span>${esc(o.company?.sector||"")}</span></span>
-      <span class="qnum">${s.aica?.risk_score??"—"} / 10</span>
+      <span class="qnum">${s.assessment?.risk_score??"—"} / 10</span>
       <span class="qnum">${s.ratios_computed?.dscr??"—"}</span>
       <span class="qprop">${prop}</span>
       <span class="qex ${nEx?"has":""}">${nEx} open</span>
@@ -578,8 +710,8 @@ function renderQueue(){
   <section class="memo" style="border-bottom-width:2px">
     <div>
       <div class="eyebrow">Commercial Bank credit queue</div>
-      <h1>Leads from AICA</h1>
-      <div class="makerline">Assessments produced by the <b>AICA</b> pipeline · reviewer: <b>Credit Reviewer, Commercial Bank</b>
+      <h1>Your credit queue</h1>
+      <div class="makerline">Assessments produced by the <b>structuring pipeline</b> · reviewer: <b>Credit Reviewer, Commercial Bank</b>
         <br>${cred
           ? `<b style="color:var(--green)">Live · your key.</b> Companies below are recorded runs; <b>Run your own ↗</b> adds yours to the queue.`
           : `<b>Demo environment.</b> Three recorded runs on fictional companies — the pipeline's own deliverable output, with the chat transcripts it produced. <b>Run your own ↗</b> to use your key and dataroom.`}</div>
@@ -740,15 +872,15 @@ function render(){
         <span>CIN <b>${esc(o.company?.cin||"—")}</b></span><span>GSTIN <b>${esc(o.company?.gstin||"—")}</b></span>
         <span>${esc(o.company?.sector||"")}</span>
       </div>
-      <div class="makerline">Prepared by <b>AICA pipeline</b> (${esc(m.models?.extract||"")} + ${esc(m.models?.reason||"")}) · Review: <b>Credit Reviewer</b> (you)</div>
+      <div class="makerline">Prepared by <b>the structuring pipeline</b> (${esc(m.models?.extract||"")} + ${esc(m.models?.reason||"")}) · Review: <b>Credit Reviewer</b> (you)</div>
     </div>
     <div class="right-col">
       <span class="stamp ${stamp.cls}">${stamp.text}</span>
       <div class="proposed">${proposed}</div>
       <div class="riskline">
-        <span class="risklabel">AICA risk score <b>${s.aica?.risk_score??"—"} / 10 · ${esc(s.aica?.risk_band||"")}</b></span>
-        <div class="riskcells" role="img" aria-label="Risk ${s.aica?.risk_score} of 10">
-          ${Array.from({length:10},(_,i)=>`<i class="${i<Math.round(s.aica?.risk_score||0)?"on":""}"></i>`).join("")}
+        <span class="risklabel">Risk score <b>${s.assessment?.risk_score??"—"} / 10 · ${esc(s.assessment?.risk_band||"")}</b></span>
+        <div class="riskcells" role="img" aria-label="Risk ${s.assessment?.risk_score} of 10">
+          ${Array.from({length:10},(_,i)=>`<i class="${i<Math.round(s.assessment?.risk_score||0)?"on":""}"></i>`).join("")}
         </div>
       </div>
     </div>
@@ -833,7 +965,7 @@ function render(){
       </table>
       <div style="margin-top:8px">${kvs([["EBITDA margin",pct(rc.ebitda_margin_pct),rc.ebitda_margin_pct>=12?"good":"warn"],
         ["Net worth",crS(nw),nw>0?"good":"bad"],["Revenue growth",pct(rc.revenue_growth_pct),rc.revenue_growth_pct>=10?"good":""]])}</div>
-      <div class="cardfoot">source · Financial_Statements.pdf · AICA_Report.pdf</div>
+      <div class="cardfoot">source · Financial_Statements.pdf · Credit_Report.pdf</div>
     </div>
     <div class="cardp" id="conduct">
       <h2>Governance &amp; shareholding <span class="statust"><span class="dot g"></span>promoters ${pct(gov.promoter_pct)}</span>
@@ -874,7 +1006,7 @@ function render(){
     <div class="micro">${decision.micro}</div>
   </div>
 
-  <div class="footer">Assembled by AICA pipeline · ${Math.round(((m.prompt_tokens||0)+(m.completion_tokens||0))/1000)}k tokens · $${m.est_cost_usd??"?"} · ${m.wall_clock_seconds??"?"} s · every figure recomputed from the dataroom in code
+  <div class="footer">Assembled by the structuring pipeline · ${Math.round(((m.prompt_tokens||0)+(m.completion_tokens||0))/1000)}k tokens · $${m.est_cost_usd??"?"} · ${m.wall_clock_seconds??"?"} s · every figure recomputed from the dataroom in code
     · <a href="#" onclick="downloadJSON();return false" style="color:var(--blue)">view raw output JSON ↗</a></div>
   `;
 }
@@ -905,7 +1037,7 @@ function renderRunPanel(){
   document.getElementById("app").innerHTML=`
   <div class="runpanel">
     <h2>${esc(current)} has not been assessed yet</h2>
-    <p>Running the pipeline reads the Dataroom + AICA report, parses the Excel deterministically,
+    <p>Running the pipeline reads the dataroom and the credit report, parses the Excel deterministically,
        extracts the documents, builds the credit snapshot and calls the structurer —
        then this memo renders from the output. Typically 10–60 s.</p>
     <button class="btn primary" onclick="openRerun()">Run the pipeline</button>
@@ -1026,7 +1158,7 @@ async function runPipelineModal(){
   const NCELLS=28;
   modal.classList.remove("wide");
   modal.innerHTML=`<h3>Analysing ${esc(folder)}</h3>
-    <div class="msub">AICA pipeline — deterministic parsing first, models last.
+    <div class="msub">Structuring pipeline — deterministic parsing first, models last.
       Running live on your key; nothing is cached.</div>
     <div class="scan"><div class="docs">${docChips}</div><div class="beam"></div></div>
     <div class="cellsanim" id="pcells">${Array.from({length:NCELLS},()=>"<i></i>").join("")}</div>
@@ -1179,7 +1311,7 @@ const SNAPSHOT_SCHEMA={type:"object",additionalProperties:false,
     interest_coverage:{type:["number","null"]},annual_debt_service_inr:{type:["number","null"]},
     net_worth_inr:{type:["number","null"]},cash_months_cover:{type:["number","null"]}}},
   ratios_reported:{type:"object",additionalProperties:{type:["number","string","null"]}},
-  aica:{type:"object",additionalProperties:false,properties:{
+  assessment:{type:"object",additionalProperties:false,properties:{
     risk_score:{type:["number","null"]},risk_band:{type:["string","null"]},
     positive_signals:{type:"array",items:{type:"string"}}}},
   governance:{type:"object",additionalProperties:false,properties:{
@@ -1231,7 +1363,7 @@ Hard rules:
 - When two documents disagree on the same figure, take the more conservative one AND record a data_quality_flag naming both values. Do not average them.
 - dscr = EBITDA / (interest + 12 x monthly EMI). debt_to_ebitda = total outstanding / EBITDA. Use the latest year.
 - risk_signals: threshold breaches you can evidence (DSCR under 1.25, leverage over 3x, bounces, receivable concentration, ageing). Each needs its evidence.
-- aica.risk_score is 0-10 where 10 is worst; set risk_band to Low, Elevated or High to match.`;
+- assessment.risk_score is 0-10 where 10 is worst; set risk_band to Low, Elevated or High to match.`;
 
 const STRUCTURE_SYSTEM=`You are a credit structurer at an Indian NBFC/bank. You are given a credit snapshot computed from a company's dataroom, and you recommend a debt structure.
 

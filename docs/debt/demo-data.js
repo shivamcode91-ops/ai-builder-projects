@@ -134,7 +134,7 @@ window.DEMO_RUNS = [
      "net_worth_inr": 109767562.0,
      "cash_months_cover": 0.91
     },
-    "aica": {
+    "assessment": {
      "risk_score": 3.4,
      "risk_band": "Low",
      "risk_observations": [],
@@ -171,7 +171,7 @@ window.DEMO_RUNS = [
      "pledging_disclosed": null
     },
     "documents": {
-     "aica_report": "AICA_Report.pdf",
+     "aica_report": "Credit_Report.pdf",
      "financial_statements": "Financial_Statements_FY26.pdf",
      "gst_returns": "GST_Returns_Summary.pdf",
      "shareholding": "Shareholding_Pattern.pdf",
@@ -520,7 +520,7 @@ window.DEMO_RUNS = [
      "net_worth_inr": 56220877.0,
      "cash_months_cover": 0.09
     },
-    "aica": {
+    "assessment": {
      "risk_score": 6.1,
      "risk_band": "Elevated",
      "risk_observations": [
@@ -553,7 +553,7 @@ window.DEMO_RUNS = [
      "pledging_disclosed": null
     },
     "documents": {
-     "aica_report": "AICA_Report.pdf",
+     "aica_report": "Credit_Report.pdf",
      "financial_statements": "Financial_Statements_FY26.pdf",
      "gst_returns": "GST_Returns_Summary.pdf",
      "shareholding": "Shareholding_Pattern.pdf",
@@ -1050,7 +1050,7 @@ window.DEMO_RUNS = [
      "net_worth_inr": -11638137.0,
      "cash_months_cover": 0.09
     },
-    "aica": {
+    "assessment": {
      "risk_score": 7.8,
      "risk_band": "High",
      "risk_observations": [
@@ -1087,7 +1087,7 @@ window.DEMO_RUNS = [
      "pledging_disclosed": null
     },
     "documents": {
-     "aica_report": "AICA_Report.pdf",
+     "aica_report": "Credit_Report.pdf",
      "financial_statements": "Financial_Statements_FY26.pdf",
      "gst_returns": "GST_Returns_Summary.pdf",
      "shareholding": "Shareholding_Pattern.pdf",
